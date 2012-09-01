@@ -98,9 +98,18 @@ namespace MusicMeTube
             if (e.Uri.Host.Equals("localhost"))
             {
                 e.Cancel = true;
-                String code = e.Uri.Query;
-                auth.AuthCode = code.Replace("?code=", "");
-                auth.GetAccessTokenFromGoogle();
+                string code = e.Uri.Query;
+                string[] split_response_query = e.Uri.Query.Split('=');
+                if (split_response_query[0] == "?code")
+                {
+                    auth.AuthCode = split_response_query[1];
+                    auth.GetAccessTokenFromGoogle();
+                }
+                else
+                {
+                    MessageBox.Show("Authentication Access Denied");
+                    webBrowser1.Navigate(new Uri(auth.getAuthURI(), UriKind.Absolute));
+                }
             }
         }
 
