@@ -12,6 +12,7 @@ namespace MusicMeTube
         int start_index = 1;
         int max_result = 50;
         string query;
+        public bool completed = false;
         private ObservableCollection<Entry> _results = new ObservableCollection<Entry>();
         public ObservableCollection<Entry> Results 
         {
@@ -22,10 +23,12 @@ namespace MusicMeTube
         public SearchResults(string query_terms)
         {
             query = HttpUtility.UrlEncode(query_terms);
+            completed = false;
         }
 
         public void Next()
         {
+            completed = false;
             string url = "http://gdata.youtube.com/feeds/api/videos?"+
                          "alt=json" +
                          "&q="+query+
@@ -38,6 +41,7 @@ namespace MusicMeTube
 
         public void Previous()
         {
+            completed = false;
             start_index -= max_result;
             string url = "http://gdata.youtube.com/feeds/api/videos?" +
                          "alt=json"+
@@ -64,6 +68,7 @@ namespace MusicMeTube
                 ErrorLogging.Log(this.GetType().ToString(), ex.Message, "SearchResults", string.Empty);
             }
             PopulateCollection(apijson);
+            completed = true;
         }
 
         private void PopulateCollection(JObject json)

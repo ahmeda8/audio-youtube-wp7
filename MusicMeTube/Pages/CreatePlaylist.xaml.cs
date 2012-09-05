@@ -20,6 +20,8 @@ namespace MusicMeTube.Pages
 
         private void save_click(object sender, EventArgs e)
         {
+            progressbar.IsIndeterminate = true;
+            progressbar.IsEnabled = true;
             string name = txtName.Text;
             string desc = txtDesc.Text;
             string url = "http://gdata.youtube.com/feeds/api/users/default/playlists";
@@ -51,6 +53,8 @@ namespace MusicMeTube.Pages
                         string str = sr.ReadToEnd();
                         System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
                         {
+                            progressbar.IsIndeterminate = false;
+                            progressbar.IsEnabled = false;
                             MessageBox.Show("Playlist added, Please refresh playlist page to see newly added playlist");
                             if (NavigationService.CanGoBack)
                                 NavigationService.GoBack();
@@ -60,7 +64,9 @@ namespace MusicMeTube.Pages
                 catch (Exception ext)
                 {
                     System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
-                        { 
+                        {
+                            progressbar.IsIndeterminate = false;
+                            progressbar.IsEnabled = false;
                             MessageBox.Show("Error occured while adding playlist");
                         });
                 }

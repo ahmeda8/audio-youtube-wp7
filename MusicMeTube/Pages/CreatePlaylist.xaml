@@ -6,6 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -28,9 +29,11 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="200"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
@@ -40,7 +43,9 @@
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Desc" Style="{StaticResource PhoneTextLargeStyle}" VerticalAlignment="Center"/>
             <TextBox Grid.Row="0" Grid.Column="1" Name="txtName" VerticalAlignment="Center"/>
             <TextBox Grid.Row="1" Grid.Column="1" Name="txtDesc" TextWrapping="Wrap" />
+            <toolkit:PerformanceProgressBar Name="progressbar" Grid.ColumnSpan="2" Grid.Row="3" VerticalAlignment="Center"/>
         </Grid>
+        
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->

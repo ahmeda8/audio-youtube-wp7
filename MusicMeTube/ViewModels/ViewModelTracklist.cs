@@ -16,12 +16,15 @@ namespace MusicMeTube
         public ObservableCollection<Entry> tracklistentry { set; get; }
         Entry plentry;
         private JObject apijson;
+        public bool completed = false;
         
         public ViewModelTracklist(Entry plentry)
         {
            this.plentry = plentry;
            tracklistentry = new ObservableCollection<Entry>();
+           completed = false;
            GetApiResponse();
+
         }
 
         public void GetApiResponse()
@@ -90,6 +93,7 @@ namespace MusicMeTube
                     ErrorLogging.Log(this.GetType().ToString(), ex.Message, "ViewModelTracklist", "probablyJSONResponse");
                 }
             });
+            completed = true;
         }
 
 

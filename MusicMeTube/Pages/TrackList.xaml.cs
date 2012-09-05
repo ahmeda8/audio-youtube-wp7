@@ -24,10 +24,10 @@ namespace MusicMeTube
         ProgressIndicator proindicator;
         BackgroundWorker back_worker;
         BackgroundWorker search;
+        BackgroundWorker addvideo_worker;
         ProgressReporter progrss_report;
         SearchResults sr;
         int index;
-        int start_index = 0;
        
         public TrackList()
         {
@@ -37,11 +37,31 @@ namespace MusicMeTube
 
             back_worker = new BackgroundWorker();
             search = new BackgroundWorker();
+            addvideo_worker = new BackgroundWorker();
             back_worker.DoWork += new DoWorkEventHandler(back_worker_DoWork);
             back_worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(back_worker_RunWorkerCompleted);
             search.DoWork += new DoWorkEventHandler(search_DoWork);
             search.RunWorkerCompleted += new RunWorkerCompletedEventHandler(search_RunWorkerCompleted);
+            addvideo_worker.DoWork += new DoWorkEventHandler(addvideo_worker_DoWork);
+            addvideo_worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(addvideo_worker_RunWorkerCompleted);
             progrss_report = new ProgressReporter();
+        }
+
+        void addvideo_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            ToggleProgressBar();
+            ISOHelper.DeleteFile("cache\\" + plentry.Id + ".json");
+            back_worker.RunWorkerAsync(index);
+        }
+
+        void addvideo_worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            ToggleProgressBar();
+            AddVideo.Add(plentry.Id, (string)e.Argument);
+            while (!AddVideo.Completed)
+            {
+                System.Threading.Thread.Sleep(3000);
+            }
         }
 
         void search_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -54,6 +74,10 @@ namespace MusicMeTube
         {
             ToggleProgressBar();
             sr.Next();
+            while (!sr.completed)
+            {
+                System.Threading.Thread.Sleep(3000);
+            }
         }
 
         void back_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -67,6 +91,10 @@ namespace MusicMeTube
             ToggleProgressBar();
             plentry = ViewModelPlaylist.playlistentry.ElementAt((int)e.Argument);
             viewmodel = new ViewModelTracklist(plentry);
+            while (!viewmodel.completed)
+            {
+                System.Threading.Thread.Sleep(3000);
+            }
             
         }
 
@@ -386,7 +414,8 @@ namespace MusicMeTube
             add_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
             add_appbar.IsEnabled = false;
             Entry en = searchResultslist.SelectedItem as Entry;
-            AddVideo.Add(plentry.Id, en.Id);
+            addvideo_worker.RunWorkerAsync(en.Id);
+            
         }
 
         private void searchlistbox_selected(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

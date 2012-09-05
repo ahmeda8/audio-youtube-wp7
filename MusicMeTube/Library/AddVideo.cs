@@ -8,8 +8,11 @@ namespace MusicMeTube
 {
     public class AddVideo
     {
+        public static bool Completed = false;
+
         public static void Add(string playlist_id, string video_id)
         {
+            Completed = false;
             string url = "http://gdata.youtube.com/feeds/api/playlists/"+playlist_id;
             string message = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+
                             "<entry xmlns=\"http://www.w3.org/2005/Atom\" "+
@@ -36,11 +39,12 @@ namespace MusicMeTube
                         HttpWebResponse webres = (HttpWebResponse)wr.EndGetResponse(res);
                         StreamReader sr = new StreamReader(webres.GetResponseStream());
                         string str = sr.ReadToEnd();
+                        Completed = true;
                     }, wr);
                 }
                 catch (Exception ext)
                 {
-                    
+                    Completed = true;  
                 }
             },wr);
         }

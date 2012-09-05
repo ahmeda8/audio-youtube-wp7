@@ -81,6 +81,25 @@ namespace Resources
             }
         }
 
+        public static bool DeleteFile(String FileName)
+        {
+            using (IsolatedStorageFile iso = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                lock (iso)
+                {
+                    if (!iso.FileExists(FileName))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        iso.DeleteFile(FileName);
+                        return true;
+                    }
+                }
+            }
+        }
+
         public static bool WriteToFile(string Filename, string Data)
         {
             try
