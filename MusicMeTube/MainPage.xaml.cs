@@ -14,9 +14,6 @@ namespace MusicMeTube
 
         Authentication auth;
         bool navigate_clear = true;
-#if DEBUG
-        RTSP.RTSP_FileDownloader fd = new RTSP.RTSP_FileDownloader();
-#endif
         
         public MainPage()
         {
@@ -69,9 +66,6 @@ namespace MusicMeTube
             {
                 MessageBox.Show("No connectivity to internet and no cache available");
             }
-#if DEBUG
-            fd.GetRTPSocketPort();
-#endif
         }
 
         void auth_NewTokenReceived(object sender, APICompletedEventArgs e)

@@ -90,9 +90,6 @@ namespace MusicMeTube
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-#if DEBUG
-            IsolatedStorageExplorer.Explorer.Start("192.168.0.3");
-#endif
         }
 
 

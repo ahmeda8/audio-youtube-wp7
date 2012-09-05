@@ -14,6 +14,7 @@ namespace MusicMeTube.Library
 
     public class Authentication : WebMethod
     {
+        public static string DEVELOPER_KEY ="AI39si4JtktQR5yL6w28eA9Leha_vMVJuHaqqOnIA-1h0tsoQdndNBmzFq_I-jFyrIBEMbAoyWvOZYu2zHCOJwiXPDelSXhiOQ";
         private string ClientId = "802090968929.apps.googleusercontent.com";
         private string ClientSecret = "17KfsrNBLQhc4NKmg2c4hL50";
         private string AUTHORIZATION_SERVER = "https://accounts.google.com/o/oauth2/token";

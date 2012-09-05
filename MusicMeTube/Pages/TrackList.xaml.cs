@@ -13,6 +13,7 @@ using Microsoft.Phone.Tasks;
 using Microsoft.Phone.Shell;
 using Microsoft.Phone.Net.NetworkInformation;
 using System.ComponentModel;
+using System.Net;
 
 namespace MusicMeTube
 {
@@ -22,16 +23,37 @@ namespace MusicMeTube
         ViewModelTracklist viewmodel;
         ProgressIndicator proindicator;
         BackgroundWorker back_worker;
+        BackgroundWorker search;
         ProgressReporter progrss_report;
+        SearchResults sr;
         int index;
+        int start_index = 0;
        
         public TrackList()
         {
             InitializeComponent();
+            proindicator = new ProgressIndicator();
+            SystemTray.SetProgressIndicator(this, proindicator);
+
             back_worker = new BackgroundWorker();
+            search = new BackgroundWorker();
             back_worker.DoWork += new DoWorkEventHandler(back_worker_DoWork);
             back_worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(back_worker_RunWorkerCompleted);
+            search.DoWork += new DoWorkEventHandler(search_DoWork);
+            search.RunWorkerCompleted += new RunWorkerCompletedEventHandler(search_RunWorkerCompleted);
             progrss_report = new ProgressReporter();
+        }
+
+        void search_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            searchResultslist.DataContext = sr;
+            ToggleProgressBar();
+        }
+
+        void search_DoWork(object sender, DoWorkEventArgs e)
+        {
+            ToggleProgressBar();
+            sr.Next();
         }
 
         void back_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -59,14 +81,7 @@ namespace MusicMeTube
                 App.GlobalOfflineSync.Ready += new FileDownloadEvntHandler(GlobalOfflineSync_Ready);
                 App.GlobalOfflineSync.SyncProgressChange += new FileDownloadEvntHandler(GlobalOfflineSync_SyncProgressChange);
             }
-            System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                proindicator = new ProgressIndicator();
-                proindicator.IsIndeterminate = false;
-                proindicator.IsVisible = true;
-                SystemTray.SetProgressIndicator(this, proindicator);
-                
-            });
+           
             base.OnNavigatedTo(e);
         }
 
@@ -186,6 +201,7 @@ namespace MusicMeTube
         {
             if (App.GlobalOfflineSync.SOURCES.Count > 0)
             {
+                proindicator.IsVisible = true;
                 proindicator.Text = "Sync Failed. Already in progress";
                 return;
             }
@@ -229,6 +245,7 @@ namespace MusicMeTube
                 {
                     System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
                     {
+                        proindicator.IsVisible = true;
                         proindicator.Text = "Sync Completed.";
                     });
                 }
@@ -253,6 +270,7 @@ namespace MusicMeTube
             ProgressReporter.ProgressInfo P = progrss_report.GetProgressInfo(e.Request);
             System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
+                proindicator.IsVisible = true;
                 proindicator.Text = "Downloading... "+P.Title;
                 proindicator.Value = P.FileProgress;
             });
@@ -287,7 +305,7 @@ namespace MusicMeTube
         {
             if(BackgroundAudioPlayer.Instance.PlayerState == PlayState.Playing || BackgroundAudioPlayer.Instance.PlayerState == PlayState.Paused)
                 BackgroundAudioPlayer.Instance.Stop();
-            BackgroundAudioPlayer.Instance.Volume = 0.99D;
+            BackgroundAudioPlayer.Instance.Volume = 1.0D;
             using (IsolatedStorageFile iso = IsolatedStorageFile.GetUserStoreForApplication())
             {
                 if (plentry == null || viewmodel.tracklistentry == null || viewmodel.tracklistentry.Count < 1)
@@ -301,6 +319,7 @@ namespace MusicMeTube
                 {
                     System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
                     {
+                        proindicator.IsVisible = true;
                         proindicator.Text = "Playing...";
                     });
                     BackgroundAudioPlayer.Instance.Play();
@@ -311,6 +330,7 @@ namespace MusicMeTube
                     {
                         System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
                         {
+                            proindicator.IsVisible = true;
                             proindicator.Text = "Playing only offline available tracks.";
                         });
                         BackgroundAudioPlayer.Instance.Play();
@@ -338,13 +358,41 @@ namespace MusicMeTube
         {
             System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
                 {
-                    performanceprogressbar.IsIndeterminate = !performanceprogressbar.IsIndeterminate;
-                    performanceprogressbar.IsEnabled = !performanceprogressbar.IsEnabled;
-                    if (performanceprogressbar.Visibility == System.Windows.Visibility.Collapsed)
-                        performanceprogressbar.Visibility = System.Windows.Visibility.Visible;
-                    else
-                        performanceprogressbar.Visibility = System.Windows.Visibility.Collapsed;
+                    proindicator.IsIndeterminate = !proindicator.IsIndeterminate;
+                    proindicator.IsVisible = !proindicator.IsVisible;
+                    //performanceprogressbar.IsIndeterminate = !performanceprogressbar.IsIndeterminate;
+                    //performanceprogressbar.IsEnabled = !performanceprogressbar.IsEnabled;
+                    //if (performanceprogressbar.Visibility == System.Windows.Visibility.Collapsed)
+                    //    performanceprogressbar.Visibility = System.Windows.Visibility.Visible;
+                    //else
+                    //    performanceprogressbar.Visibility = System.Windows.Visibility.Collapsed;
                 });
+        }
+
+        private void search_click(object sender, RoutedEventArgs e)
+        {
+            string query = txtsearch.Text;
+            sr = new SearchResults(query);
+            search.RunWorkerAsync();
+        }
+
+        private void searchbox_focus(object sender, RoutedEventArgs e)
+        {
+            txtsearch.Text = "";
+        }
+
+        private void add_click(object sender, EventArgs e)
+        {
+            add_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
+            add_appbar.IsEnabled = false;
+            Entry en = searchResultslist.SelectedItem as Entry;
+            AddVideo.Add(plentry.Id, en.Id);
+        }
+
+        private void searchlistbox_selected(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            add_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
+            add_appbar.IsEnabled = true;
         }
         
     }

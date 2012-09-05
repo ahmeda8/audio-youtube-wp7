@@ -49,14 +49,23 @@ namespace MusicMeTube
                     foreach (JObject entry in response["feed"]["entry"])
                     {
                         Entry newent = new Entry();
-                        newent.Id = (string)entry["yt$playlistId"]["$t"];
-                        newent.Title = (string)entry["title"]["$t"];
-                        newent.Source = (string)entry["content"]["src"];
-                        newent.Title = StringExtension.TitleCase(newent.Title);
-                        newent.ImageSource = (string)entry["media$group"]["media$thumbnail"][0]["url"];
-                        newent.Count = (int)entry["yt$countHint"]["$t"];
-                        newent.Updated = (DateTime)entry["updated"]["$t"];
-                        playlistentry.Add(newent);
+                        try
+                        {   
+                            newent.Id = (string)entry["yt$playlistId"]["$t"];
+                            newent.Title = (string)entry["title"]["$t"];
+                            newent.Source = (string)entry["content"]["src"];
+                            newent.Title = StringExtension.TitleCase(newent.Title);
+                            newent.ImageSource = (string)entry["media$group"]["media$thumbnail"][0]["url"];
+                            newent.Count = (int)entry["yt$countHint"]["$t"];
+                            newent.Updated = (DateTime)entry["updated"]["$t"];
+                            playlistentry.Add(newent);
+                        }
+                        catch (Exception e)
+                        {
+                            Resources.ErrorLogging.Log(this.GetType().ToString(), e.Message, "PlaylistViewmodel", string.Empty);
+                            if(newent.Id != null && newent.Title != null && newent.Source != null)
+                                playlistentry.Add(newent);
+                        }
 
                     }
                 }

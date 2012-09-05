@@ -94,5 +94,10 @@ namespace MusicMeTube.Pages
             this.DataContext = vmp;
         }
 
+        private void Add_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Pages/CreatePlaylist.xaml", UriKind.Relative));
+        }
+
     }
 }

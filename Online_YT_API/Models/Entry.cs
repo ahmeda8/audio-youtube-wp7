@@ -75,5 +75,11 @@ namespace Resources
             set { _duration = value; NotifyPropertyChanged("Duration", this); }
         }
 
+        private string _credit;
+        public string Credit
+        {
+            get { return _credit; }
+            set { _credit = value; NotifyPropertyChanged("Credit", this); }
+        }
     }
 }

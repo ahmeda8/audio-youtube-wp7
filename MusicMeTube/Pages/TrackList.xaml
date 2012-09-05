@@ -6,6 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:ads="clr-namespace:Microsoft.Advertising.Mobile.UI;assembly=Microsoft.Advertising.Mobile.UI"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -18,69 +19,110 @@
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="{StaticResource AppName}" Style="{StaticResource PhoneTextNormalStyle}">
-            	<TextBlock.Foreground>
-            		<ImageBrush Stretch="Fill" ImageSource="/MusicMeTube;component/Images/9938c2.jpg"/>
-            	</TextBlock.Foreground>
-            </TextBlock>
-            <TextBlock x:Name="PageTitle" Text="Tracks" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}">
-            	<TextBlock.Foreground>
-            		<ImageBrush ImageSource="/MusicMeTube;component/Images/2012-07-27_1531.png" Stretch="UniformToFill"/>
-            	</TextBlock.Foreground>
-            </TextBlock>
-        </StackPanel>
-
-        <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="160"/>
-            </Grid.RowDefinitions>
-            <toolkit:PerformanceProgressBar Name="performanceprogressbar" IsEnabled="True" IsIndeterminate="True" Visibility="Visible" Background="Black"></toolkit:PerformanceProgressBar>
-            <ListBox Name="listBox1"  
+        <controls:Pivot Title="{StaticResource AppName}">
+            <controls:PivotItem Header="tracks">
+                <Grid x:Name="ContentPanel" Grid.Row="1" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="160"/>
+                    </Grid.RowDefinitions>
+                    <toolkit:PerformanceProgressBar Name="performanceprogressbar" IsEnabled="False" IsIndeterminate="False" Background="Black"></toolkit:PerformanceProgressBar>
+                    <ListBox Name="listBox1"  
                      ItemsSource="{Binding tracklistentry}" 
                      Grid.Row="0" 
                      Margin="12,0,0,0" 
                      Foreground="{StaticResource PhoneContrastForegroundBrush}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid ShowGridLines="False" 
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ShowGridLines="False" 
                               Background="{StaticResource PhoneContrastBackgroundBrush}"
                               Margin="0,0,0,10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="35"/>
-                                <RowDefinition Height="30"/>
-                                <RowDefinition Height="30"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="380"/>
-                            </Grid.ColumnDefinitions>
-                            <Image Source="{Binding ImageSource}" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"/>
-                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="25" FontWeight="SemiBold" Padding="5,0,0,0"></TextBlock>
-                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Duration}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,0,0,0"></TextBlock>
-                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Offline}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,0,0,0" Foreground="{Binding AvailablityColor}"></TextBlock>
-                            
-                        </Grid>
-                        
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-                
-            </ListBox>
-            <ads:AdControl AdUnitId="93753" ApplicationId="aaf9db87-1c01-483b-b98c-d788ea205eb2" Grid.Row="1" Width="480" Height="80" ErrorOccurred="AdControl_ErrorOccurred" VerticalAlignment="Top"/>
-        </Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="35"/>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="30"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="380"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding ImageSource}" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="25" FontWeight="SemiBold" Padding="5,0,0,0"></TextBlock>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Duration}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,0,0,0"></TextBlock>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Offline}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,0,0,0" Foreground="{Binding AvailablityColor}"></TextBlock>
+                                </Grid>
+
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+
+                    </ListBox>
+                    <ads:AdControl AdUnitId="93753" ApplicationId="aaf9db87-1c01-483b-b98c-d788ea205eb2" Grid.Row="1" Width="480" Height="80" ErrorOccurred="AdControl_ErrorOccurred" VerticalAlignment="Top"/>
+                </Grid>
+
+            </controls:PivotItem>
+            <controls:PivotItem Header="search">
+                <Grid Name="searchgrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="400"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Name="txtsearch" Text="Search Video" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" GotFocus="searchbox_focus" />
+                    <Button Name="btnsearch" Content="Search" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Click="search_click"/>
+                    <ListBox Name="searchResultslist" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                        ItemsSource="{Binding Results}" 
+                        Margin="12,0,0,0"
+                        Foreground="{StaticResource PhoneContrastForegroundBrush}" SelectionChanged="searchlistbox_selected">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ShowGridLines="False" 
+                              Background="{StaticResource PhoneContrastBackgroundBrush}"
+                              Margin="0,0,0,10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="35"/>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="30"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="380"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding ImageSource}" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="25" FontWeight="SemiBold" Padding="5,0,0,0"></TextBlock>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Duration}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,0,0,0"></TextBlock>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Credit}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,0,0,0"></TextBlock>
+                                </Grid>
+
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+
+                    </ListBox>
+                    
+                </Grid>
+
+            </controls:PivotItem>
+        </controls:Pivot>
+        <!--<Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>-->
+
+        <!--TitlePanel contains the name of the application and page title-->
+        
+
+        <!--ContentPanel - place additional content here-->
+        
+        
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="0.70">
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.add.rest.png" Text="add" Click="add_click" IsEnabled="False" x:Name="add_appbar"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.transport.play.rest.png" Text="Play" Click="nosyncplay_click"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.stop.rest.png" Text="Stop" Click="stop_click"/>
             <shell:ApplicationBar.MenuItems>
