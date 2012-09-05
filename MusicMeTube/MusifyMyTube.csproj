@@ -74,6 +74,7 @@
     <Compile Include="Library\AddVideo.cs" />
     <Compile Include="Library\Authentication.cs" />
     <Compile Include="Library\CreatePlaylist.cs" />
+    <Compile Include="Library\DeleteVideo.cs" />
     <Compile Include="Library\Network.cs" />
     <Compile Include="Library\StringExtension.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -148,6 +149,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\appbar.add.rest.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\appbar.delete.rest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\appbar.logout.rest.png">

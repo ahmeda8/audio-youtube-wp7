@@ -25,6 +25,9 @@ namespace MusicMeTube
         BackgroundWorker back_worker;
         BackgroundWorker search;
         BackgroundWorker addvideo_worker;
+        BackgroundWorker delvideo_worker;
+        BackgroundWorker delplay_worker;
+
         ProgressReporter progrss_report;
         SearchResults sr;
         int index;
@@ -38,13 +41,61 @@ namespace MusicMeTube
             back_worker = new BackgroundWorker();
             search = new BackgroundWorker();
             addvideo_worker = new BackgroundWorker();
+            delvideo_worker = new BackgroundWorker();
+            delplay_worker = new BackgroundWorker();
+
             back_worker.DoWork += new DoWorkEventHandler(back_worker_DoWork);
             back_worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(back_worker_RunWorkerCompleted);
             search.DoWork += new DoWorkEventHandler(search_DoWork);
             search.RunWorkerCompleted += new RunWorkerCompletedEventHandler(search_RunWorkerCompleted);
             addvideo_worker.DoWork += new DoWorkEventHandler(addvideo_worker_DoWork);
             addvideo_worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(addvideo_worker_RunWorkerCompleted);
+            delvideo_worker.DoWork += new DoWorkEventHandler(delvideo_worker_DoWork);
+            delvideo_worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delvideo_worker_RunWorkerCompleted);
+            delplay_worker.DoWork += new DoWorkEventHandler(delplay_worker_DoWork);
+            delplay_worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delplay_worker_RunWorkerCompleted);
             progrss_report = new ProgressReporter();
+        }
+
+        void delplay_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            ToggleProgressBar();
+            ISOHelper.DeleteFile("cache\\" + plentry.Id + ".json");
+            if (BackgroundAudioPlayer.Instance.PlayerState == PlayState.Playing || BackgroundAudioPlayer.Instance.PlayerState == PlayState.Paused)
+                BackgroundAudioPlayer.Instance.Stop();
+            if (!ISOHelper.DeleteDirectory(plentry.Id))
+                MessageBox.Show("Some files were locked by audio player, or do not exist");
+            System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    NavigationService.GoBack();
+                });
+        }
+
+        void delplay_worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Delete.Playlist((string)e.Argument);
+            while (!Delete.Completed)
+            {
+                System.Threading.Thread.Sleep(3000);
+            }
+        }
+
+        void delvideo_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            ToggleProgressBar();
+            ISOHelper.DeleteFile("cache\\" + plentry.Id + ".json");
+
+            back_worker.RunWorkerAsync(index);
+        }
+
+        void delvideo_worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            ToggleProgressBar();
+            Delete.Video(plentry.Id, (string)e.Argument);
+            while (!Delete.Completed)
+            {
+                System.Threading.Thread.Sleep(3000);
+            }
         }
 
         void addvideo_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -206,7 +257,7 @@ namespace MusicMeTube
             }
             else
             {
-                MessageBox.Show("Your settings prohibit use of celluar network for sync.");
+                MessageBox.Show("Your settings prohibit use of celluar network for download.");
             }
         }
 
@@ -230,7 +281,7 @@ namespace MusicMeTube
             if (App.GlobalOfflineSync.SOURCES.Count > 0)
             {
                 proindicator.IsVisible = true;
-                proindicator.Text = "Sync Failed. Already in progress";
+                proindicator.Text = "Download Failed. Already in progress";
                 return;
             }
             //OfflineSyncExt.DestinationInfo dinfo = new FileDownloader.DestinationInfo();
@@ -323,7 +374,7 @@ namespace MusicMeTube
         private void nosyncplay_click(object sender, EventArgs e)
         {
             if (PreparePlaylistXML(true) <= 0)
-                MessageBox.Show("No tracks available offline, please select 'sync' from menu.");
+                MessageBox.Show("No tracks available offline, please select 'download all' from menu.");
             else
                 Play(true);
         }
@@ -420,8 +471,41 @@ namespace MusicMeTube
 
         private void searchlistbox_selected(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            add_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
-            add_appbar.IsEnabled = true;
+            if (searchResultslist.SelectedIndex > -1)
+            {
+                add_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
+                add_appbar.IsEnabled = true;
+            }
+        }
+
+        private void delete_click(object sender, EventArgs e)
+        {
+             MessageBoxResult mr = MessageBox.Show("Are you sure to delete selected track?", "delete track", MessageBoxButton.OKCancel);
+            if (mr == MessageBoxResult.OK)
+            {
+                Entry en = listBox1.SelectedItem as Entry;
+                delvideo_worker.RunWorkerAsync(en.EntryID);
+                delete_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
+                delete_appbar.IsEnabled = false;
+            }
+        }
+
+        private void listbox1_selected(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (listBox1.SelectedIndex > -1)
+            {
+                delete_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
+                delete_appbar.IsEnabled = true;
+            }
+        }
+
+        private void delplaylist_click(object sender, EventArgs e)
+        {
+            MessageBoxResult mr = MessageBox.Show("Are you sure to delete this playlist?", "delete playlist", MessageBoxButton.OKCancel);
+            if (mr == MessageBoxResult.OK)
+            {
+                delplay_worker.RunWorkerAsync(plentry.Id);
+            }
         }
         
     }

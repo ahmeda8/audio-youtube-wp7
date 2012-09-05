@@ -35,6 +35,7 @@ namespace MusicMeTube.Pages
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             listBox1.SelectedIndex = -1;
+            NavigationService.RemoveBackEntry();
             base.OnNavigatedTo(e);
         }
 

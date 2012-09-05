@@ -31,7 +31,8 @@ xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.
                      ItemsSource="{Binding tracklistentry}" 
                      Grid.Row="0" 
                      Margin="12,0,0,0" 
-                     Foreground="{StaticResource PhoneContrastForegroundBrush}">
+                     Foreground="{StaticResource PhoneContrastForegroundBrush}"
+                             SelectionChanged="listbox1_selected">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid ShowGridLines="False" 
@@ -123,15 +124,17 @@ xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="0.70">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.add.rest.png" Text="add" Click="add_click" IsEnabled="False" x:Name="add_appbar"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.delete.rest.png" Text="delete" Click="delete_click" IsEnabled="False" x:Name="delete_appbar"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.transport.play.rest.png" Text="Play" Click="nosyncplay_click"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.stop.rest.png" Text="Stop" Click="stop_click"/>
             <shell:ApplicationBar.MenuItems>
                 <!--<shell:ApplicationBarMenuItem Text="Offline Use Sync" Click="OfflineSync_Click"/>-->
                 <!--<shell:ApplicationBarMenuItem Text="ClearCache ReSync" Click="Clear_and_Sync_Click"/>-->
-                <shell:ApplicationBarMenuItem Text="sync" Click="Syncplay_click"/>
-                <shell:ApplicationBarMenuItem Text="sync status" Click="datastat_click"/>
-                <shell:ApplicationBarMenuItem Text="Manage Playlist" Click="createmodify_click"/>
-                <shell:ApplicationBarMenuItem Text="Clear Sync Data" Click="clearsync_click"/>
+                <shell:ApplicationBarMenuItem Text="download all" Click="Syncplay_click"/>
+                <shell:ApplicationBarMenuItem Text="download status" Click="datastat_click"/>
+                <!--<shell:ApplicationBarMenuItem Text="Manage Playlist" Click="createmodify_click"/>-->
+                <shell:ApplicationBarMenuItem Text="delete playlist" Click="delplaylist_click"/>
+                <shell:ApplicationBarMenuItem Text="delete offline Data" Click="clearsync_click"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
        

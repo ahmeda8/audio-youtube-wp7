@@ -81,5 +81,12 @@ namespace Resources
             get { return _credit; }
             set { _credit = value; NotifyPropertyChanged("Credit", this); }
         }
+
+        private string _entryid;
+        public string EntryID
+        {
+            get { return _entryid; }
+            set { _entryid = value; NotifyPropertyChanged("EntryID", this); }
+        }
     }
 }
