@@ -71,10 +71,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Library\AddVideo.cs" />
+    <Compile Include="Library\Add.cs" />
     <Compile Include="Library\Authentication.cs" />
     <Compile Include="Library\CreatePlaylist.cs" />
-    <Compile Include="Library\DeleteVideo.cs" />
+    <Compile Include="Library\Delete.cs" />
     <Compile Include="Library\Network.cs" />
     <Compile Include="Library\StringExtension.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -184,11 +184,6 @@
       <Project>{E79916FA-F69E-41D1-8376-1173ED8CB101}</Project>
       <Name>RTSP</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\2012-07-27_1531.png" />
-    <Resource Include="Images\907200_red_texture.jpg" />
-    <Resource Include="Images\9938c2.jpg" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

@@ -19,8 +19,14 @@ xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        <controls:Pivot Title="{StaticResource AppName}">
-            <controls:PivotItem Header="tracks">
+        <controls:Pivot >
+        	<controls:Pivot.Title>
+        		<TextBlock Text="{StaticResource AppName}" Foreground="{StaticResource AppNameColor}" />     	
+			</controls:Pivot.Title>
+            <controls:PivotItem >
+            	<controls:PivotItem.Header>
+            		<TextBlock Text="tracks" Foreground="{StaticResource PhoneAccentBrush}" />        	
+				</controls:PivotItem.Header>
                 <Grid x:Name="ContentPanel" Grid.Row="1" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -61,7 +67,10 @@ xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.
                 </Grid>
 
             </controls:PivotItem>
-            <controls:PivotItem Header="search">
+            <controls:PivotItem>
+            	<controls:PivotItem.Header>
+            		<TextBlock Text="search" Foreground="{StaticResource PhoneAccentBrush}" />        	
+				</controls:PivotItem.Header>
                 <Grid Name="searchgrid">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="100"/>

@@ -23,11 +23,12 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="{StaticResource AppName}" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="create playlist" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="ApplicationTitle" Text="{StaticResource AppName}" Style="{StaticResource PhoneTextNormalStyle}" Foreground="{StaticResource AppNameColor}"/>
+            <TextBlock x:Name="PageTitle" Text="create playlist" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Foreground="{StaticResource PhoneAccentBrush}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
+        <toolkit:PerformanceProgressBar Name="progressbar" Grid.Row="1" VerticalAlignment="Center"/>
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             
             <Grid.RowDefinitions>
@@ -35,6 +36,7 @@
                 <RowDefinition Height="200"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition/>
@@ -43,7 +45,7 @@
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Desc" Style="{StaticResource PhoneTextLargeStyle}" VerticalAlignment="Center"/>
             <TextBox Grid.Row="0" Grid.Column="1" Name="txtName" VerticalAlignment="Center"/>
             <TextBox Grid.Row="1" Grid.Column="1" Name="txtDesc" TextWrapping="Wrap" />
-            <toolkit:PerformanceProgressBar Name="progressbar" Grid.ColumnSpan="2" Grid.Row="3" VerticalAlignment="Center"/>
+            
         </Grid>
         
     </Grid>

@@ -4,11 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-    xmlns:clr="clr-namespace:System;assembly=mscorlib">
+    xmlns:clr="clr-namespace:System;assembly=mscorlib"
+	xmlns:media="clr-namespace:System.Windows.Media;assembly=System.Windows">
 
     <!--Application Resources-->
     <Application.Resources>
         <clr:String x:Key="AppName">musify myTube</clr:String>
+        <media:SolidColorBrush x:Key="AppNameColor">Orange</media:SolidColorBrush>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

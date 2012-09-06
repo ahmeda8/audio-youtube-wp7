@@ -73,6 +73,7 @@ namespace MusicMeTube
 
         void delplay_worker_DoWork(object sender, DoWorkEventArgs e)
         {
+            ToggleProgressBar();
             Delete.Playlist((string)e.Argument);
             while (!Delete.Completed)
             {
@@ -108,8 +109,8 @@ namespace MusicMeTube
         void addvideo_worker_DoWork(object sender, DoWorkEventArgs e)
         {
             ToggleProgressBar();
-            AddVideo.Add(plentry.Id, (string)e.Argument);
-            while (!AddVideo.Completed)
+            Add.Video(plentry.Id, (string)e.Argument);
+            while (!Add.Completed)
             {
                 System.Threading.Thread.Sleep(3000);
             }
@@ -168,6 +169,7 @@ namespace MusicMeTube
         {
             System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
+                proindicator.IsVisible = true;
                 proindicator.Text = e.Message;
             });
         }

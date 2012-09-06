@@ -16,10 +16,12 @@ namespace MusicMeTube
     {
         public static ObservableCollection<Entry> playlistentry { set; get; }
         private JObject apijson;
+        public bool Completed = false;
         
         public ViewModelPlaylist()
         {
             playlistentry = new ObservableCollection<Entry>();
+            Completed = false;
             GetApiResponse();
         }
 
@@ -74,6 +76,7 @@ namespace MusicMeTube
                     Resources.ErrorLogging.Log(this.GetType().ToString(),ex.Message, "PlaylistViewmodel",string.Empty);//ErrorLogging.Log(ex.Message + " response: " + e.API.Response);
                 }
             });
+            Completed = true;
         }
 
         public override void GET_Method_CallBack(IAsyncResult res)

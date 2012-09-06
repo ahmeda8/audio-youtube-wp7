@@ -25,16 +25,8 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="{StaticResource AppName}" Style="{StaticResource PhoneTextNormalStyle}">
-            	<TextBlock.Foreground>
-            		<ImageBrush Stretch="Fill" ImageSource="/MusicMeTube;component/Images/9938c2.jpg"/>
-            	</TextBlock.Foreground>
-            </TextBlock>
-            <TextBlock x:Name="PageTitle" Text="my Playlists" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}">
-            	<TextBlock.Foreground>
-            		<ImageBrush Stretch="Fill" ImageSource="/MusicMeTube;component/Images/907200_red_texture.jpg"/>
-            	</TextBlock.Foreground>
-            </TextBlock>
+            <TextBlock x:Name="ApplicationTitle" Text="{StaticResource AppName}" Style="{StaticResource PhoneTextNormalStyle}" Foreground="{StaticResource AppNameColor}"/>
+            <TextBlock x:Name="PageTitle" Text="my Playlists" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Foreground="{StaticResource PhoneAccentBrush}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -47,7 +39,6 @@
             <ListBox Name="listBox1" 
                      ItemsSource="{Binding playlistentry}" 
                      SelectionChanged="listBox1_SelectionChanged" 
-                     SizeChanged="listBox1_SizeChanged" 
                      Margin="12,0,0,0" 
                      Grid.Row="0"
                      Foreground="{StaticResource PhoneContrastForegroundBrush}">

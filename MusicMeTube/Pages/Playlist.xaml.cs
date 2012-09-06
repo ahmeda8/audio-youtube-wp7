@@ -8,18 +8,52 @@ using System.Windows.Controls;
 using MusicMeTube;
 using Microsoft.Phone.Tasks;
 using Resources;
+using System.ComponentModel;
 using System.IO.IsolatedStorage;
 
 namespace MusicMeTube.Pages
 {
     public partial class Playlist : PhoneApplicationPage
     {
-        
+
+        BackgroundWorker loader_worker;
+        ViewModelPlaylist vmp;
         public Playlist()
         {
             InitializeComponent();
-            ViewModelPlaylist vmp = new ViewModelPlaylist();
+            loader_worker = new BackgroundWorker();
+            loader_worker.DoWork += new DoWorkEventHandler(loader_worker_DoWork);
+            loader_worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(loader_worker_RunWorkerCompleted);
+            Loaded += new RoutedEventHandler(Playlist_Loaded);
+        }
+
+        void Playlist_Loaded(object sender, RoutedEventArgs e)
+        {
+            loader_worker.RunWorkerAsync();
+        }
+
+        void loader_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
             DataContext = vmp;
+            ToggleProgressBar();
+        }
+
+        void loader_worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            ToggleProgressBar();
+            vmp = new ViewModelPlaylist();
+            while (!vmp.Completed)
+            {
+                System.Threading.Thread.Sleep(3000);
+            }
+        }
+
+        private void ToggleProgressBar()
+        {
+            System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => {
+                performanceprogressbar.IsEnabled = !performanceprogressbar.IsEnabled;
+                performanceprogressbar.IsIndeterminate = !performanceprogressbar.IsIndeterminate;
+            });
         }
 
         private void listBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -72,12 +106,6 @@ namespace MusicMeTube.Pages
             NavigationService.Navigate(new Uri("/Pages/Settings.xaml", UriKind.Relative));
         }
 
-        private void listBox1_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            performanceprogressbar.IsEnabled = false;
-            performanceprogressbar.Visibility = System.Windows.Visibility.Collapsed;
-        }
-
         private void instr_click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/Pages/Instructions.xaml", UriKind.Relative));
@@ -91,8 +119,8 @@ namespace MusicMeTube.Pages
         private void RefreshButton_Click(object sender, EventArgs e)
         {
             ISOHelper.DeleteDirectory("cache");
-            ViewModelPlaylist vmp = new ViewModelPlaylist();
-            this.DataContext = vmp;
+            if(!loader_worker.IsBusy)
+                loader_worker.RunWorkerAsync();
         }
 
         private void Add_Click(object sender, EventArgs e)
