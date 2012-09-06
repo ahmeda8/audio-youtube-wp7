@@ -85,8 +85,8 @@ namespace MusicMeTube
         {
             ToggleProgressBar();
             ISOHelper.DeleteFile("cache\\" + plentry.Id + ".json");
-
-            back_worker.RunWorkerAsync(index);
+            if(!back_worker.IsBusy)
+                back_worker.RunWorkerAsync(index);
         }
 
         void delvideo_worker_DoWork(object sender, DoWorkEventArgs e)
@@ -103,7 +103,14 @@ namespace MusicMeTube
         {
             ToggleProgressBar();
             ISOHelper.DeleteFile("cache\\" + plentry.Id + ".json");
-            back_worker.RunWorkerAsync(index);
+            if(!back_worker.IsBusy)
+                back_worker.RunWorkerAsync(index);
+            if (Add.ErrorOccured)
+            {
+                System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => {
+                    MessageBox.Show("Error occured while adding video to playlist");
+                });
+            }
         }
 
         void addvideo_worker_DoWork(object sender, DoWorkEventArgs e)
@@ -155,7 +162,8 @@ namespace MusicMeTube
             string indexstr;
             NavigationContext.QueryString.TryGetValue("index", out indexstr);
             index = int.Parse(indexstr);
-            back_worker.RunWorkerAsync(index);
+            if(!back_worker.IsBusy)
+                back_worker.RunWorkerAsync(index);
             if (App.GlobalOfflineSync != null)
             {
                 App.GlobalOfflineSync.Ready += new FileDownloadEvntHandler(GlobalOfflineSync_Ready);
@@ -454,7 +462,8 @@ namespace MusicMeTube
         {
             string query = txtsearch.Text;
             sr = new SearchResults(query);
-            search.RunWorkerAsync();
+            if(!search.IsBusy)
+                search.RunWorkerAsync();
         }
 
         private void searchbox_focus(object sender, RoutedEventArgs e)
@@ -467,7 +476,10 @@ namespace MusicMeTube
             add_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
             add_appbar.IsEnabled = false;
             Entry en = searchResultslist.SelectedItem as Entry;
-            addvideo_worker.RunWorkerAsync(en.Id);
+            if (!addvideo_worker.IsBusy)
+                addvideo_worker.RunWorkerAsync(en.Id);
+            else
+                MessageBox.Show("Please wait before adding another video.");
             
         }
 
@@ -486,7 +498,8 @@ namespace MusicMeTube
             if (mr == MessageBoxResult.OK)
             {
                 Entry en = listBox1.SelectedItem as Entry;
-                delvideo_worker.RunWorkerAsync(en.EntryID);
+                if(!delvideo_worker.IsBusy)
+                    delvideo_worker.RunWorkerAsync(en.EntryID);
                 delete_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
                 delete_appbar.IsEnabled = false;
             }
@@ -506,7 +519,8 @@ namespace MusicMeTube
             MessageBoxResult mr = MessageBox.Show("Are you sure to delete this playlist?", "delete playlist", MessageBoxButton.OKCancel);
             if (mr == MessageBoxResult.OK)
             {
-                delplay_worker.RunWorkerAsync(plentry.Id);
+                if(!delplay_worker.IsBusy)
+                    delplay_worker.RunWorkerAsync(plentry.Id);
             }
         }
         

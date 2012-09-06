@@ -73,10 +73,12 @@
     </Compile>
     <Compile Include="Library\Add.cs" />
     <Compile Include="Library\Authentication.cs" />
-    <Compile Include="Library\CreatePlaylist.cs" />
     <Compile Include="Library\Delete.cs" />
     <Compile Include="Library\Network.cs" />
+    <Compile Include="Library\ViewModelSearchResults.cs" />
     <Compile Include="Library\StringExtension.cs" />
+    <Compile Include="Library\ViewModelPlaylist.cs" />
+    <Compile Include="Library\ViewModelTracklist.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -99,9 +101,6 @@
       <DependentUpon>TrackList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\SearchResults.cs" />
-    <Compile Include="ViewModels\ViewModelTracklist.cs" />
-    <Compile Include="ViewModels\ViewModelPlaylist.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

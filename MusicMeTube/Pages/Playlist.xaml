@@ -27,6 +27,7 @@
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Text="{StaticResource AppName}" Style="{StaticResource PhoneTextNormalStyle}" Foreground="{StaticResource AppNameColor}"/>
             <TextBlock x:Name="PageTitle" Text="my Playlists" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Foreground="{StaticResource PhoneAccentBrush}"/>
+            <toolkit:PerformanceProgressBar Name="performanceprogressbar" Visibility="Visible" Background="Black"></toolkit:PerformanceProgressBar>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -35,7 +36,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="160"/>
             </Grid.RowDefinitions>
-            <toolkit:PerformanceProgressBar Name="performanceprogressbar" IsEnabled="True" IsIndeterminate="True" Visibility="Visible" Background="Black"></toolkit:PerformanceProgressBar>
+            
             <ListBox Name="listBox1" 
                      ItemsSource="{Binding playlistentry}" 
                      SelectionChanged="listBox1_SelectionChanged" 

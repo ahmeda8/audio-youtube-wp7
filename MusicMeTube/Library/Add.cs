@@ -14,6 +14,7 @@ namespace MusicMeTube
         public static void Video(string playlist_id, string video_id)
         {
             Completed = false;
+            ErrorOccured = false;
             string url = "http://gdata.youtube.com/feeds/api/playlists/"+playlist_id;
             string message = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+
                             "<entry xmlns=\"http://www.w3.org/2005/Atom\" "+
@@ -33,20 +34,26 @@ namespace MusicMeTube
                 byte[] ba = Encoding.UTF8.GetBytes(message);
                 post_stream.Write(ba, 0, ba.Length);
                 post_stream.Close();
-                try
+                wr.BeginGetResponse(res =>
                 {
-                    wr.BeginGetResponse(res =>
+                    try
                     {
                         HttpWebResponse webres = (HttpWebResponse)wr.EndGetResponse(res);
                         StreamReader sr = new StreamReader(webres.GetResponseStream());
                         string str = sr.ReadToEnd();
                         Completed = true;
-                    }, wr);
-                }
-                catch (Exception ext)
-                {
-                    Completed = true;  
-                }
+                        ErrorOccured = false;
+                    }
+                    catch (Exception ext)
+                    {
+                        Completed = true;
+                        ErrorOccured = true;
+                        Resources.ErrorLogging.Log("MusifyMyTube.Add", ext.Message, "Add video", message);
+                    }
+
+                }, wr);
+                
+                
             },wr);
         }
 
@@ -75,21 +82,23 @@ namespace MusicMeTube
                 byte[] ba = Encoding.UTF8.GetBytes(message);
                 post_stream.Write(ba, 0, ba.Length);
                 post_stream.Close();
-                try
+                wr.BeginGetResponse(res =>
                 {
-                    wr.BeginGetResponse(res =>
+                    try
                     {
                         HttpWebResponse webres = (HttpWebResponse)wr.EndGetResponse(res);
                         StreamReader sr = new StreamReader(webres.GetResponseStream());
                         //string str = sr.ReadToEnd();
                         Completed = true;
-                    }, wr);
-                }
-                catch (Exception ext)
-                {
-                    Completed = true;
-                    ErrorOccured = true;
-                }
+                    }
+                    catch (Exception ext)
+                    {
+                        Completed = true;
+                        ErrorOccured = true;
+                        Resources.ErrorLogging.Log("MusifyMyTube.Add", ext.Message, "Add playlist", message);
+                    }
+                }, wr);
+                
             }, wr);
         }
         

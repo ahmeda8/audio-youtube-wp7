@@ -6,6 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -24,6 +25,7 @@
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Text="{StaticResource AppName}" Style="{StaticResource PhoneTextNormalStyle}" Foreground="{StaticResource AppNameColor}"/>
             <TextBlock x:Name="PageTitle" Text="login" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Foreground="{StaticResource PhoneAccentBrush}"/>
+            <toolkit:PerformanceProgressBar Name="performanceprogressbar" Visibility="Visible" Background="Black"></toolkit:PerformanceProgressBar>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -35,7 +37,7 @@
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <!--<shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>-->
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.logout.rest.png" Text="login" Click="login_click" IsEnabled="False"/>
             <!--<shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>-->
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="Instructions" Click="ApplicationBarMenuItem_Click"/>
