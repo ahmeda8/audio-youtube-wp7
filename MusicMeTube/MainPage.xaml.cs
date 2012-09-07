@@ -15,6 +15,7 @@ namespace MusicMeTube
         Authentication auth;
         bool navigate_clear = true;
         ApplicationBarIconButton loginbtn;
+        ProgressIndicator progindicator;
 
         public MainPage()
         {
@@ -23,7 +24,8 @@ namespace MusicMeTube
             IsolatedStorageSettings.ApplicationSettings.Save();
             Loaded += new RoutedEventHandler(MainPage_Loaded);
             loginbtn = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
-                    
+            progindicator = new ProgressIndicator();
+            SystemTray.SetProgressIndicator(this, progindicator);
             if (Network.IsConnected())
             {   
                 auth = new Authentication();
@@ -34,7 +36,7 @@ namespace MusicMeTube
 
         void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            ToggleProgressBar();
+            ToggleProgressBar("Loading...");
             string filename;
             IsolatedStorageSettings.ApplicationSettings.TryGetValue("cache_filename", out filename);
 
@@ -69,7 +71,7 @@ namespace MusicMeTube
             else
             {
                 MessageBox.Show("No connectivity to internet and no cache available");
-                ToggleProgressBar();
+                ToggleProgressBar("No connectivity");
             }
         }
 
@@ -77,7 +79,7 @@ namespace MusicMeTube
         {
             System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                ToggleProgressBar();
+                ToggleProgressBar("Done");
                 NavigationService.Navigate(new Uri("/Pages/Playlist.xaml", UriKind.Relative));
             });
         }
@@ -86,14 +88,14 @@ namespace MusicMeTube
         {
             Uri navigateduri = e.Uri;
             var cntnt = webBrowser1.Source;
-            ToggleProgressBar();
+            ToggleProgressBar("");
             loginbtn.IsEnabled = false;
         }
 
         private void navigationfailed_event(object sender, System.Windows.Navigation.NavigationFailedEventArgs e)
         {
             Uri navigateduri = e.Uri;
-            ToggleProgressBar();
+            ToggleProgressBar("");
             
         }
 
@@ -111,7 +113,7 @@ namespace MusicMeTube
                 }
                 else
                 {
-                    MessageBox.Show("Authentication Access Denied");
+                    MessageBox.Show("Access Denied, please select login from menu to try again.");
                     loginbtn.IsEnabled = true;
                 }
             }
@@ -138,10 +140,13 @@ namespace MusicMeTube
             NavigationService.Navigate(new Uri("/Pages/Instructions.xaml", UriKind.Relative));    
         }
 
-        private void ToggleProgressBar()
+        private void ToggleProgressBar(string message)
         {
-            performanceprogressbar.IsEnabled = !performanceprogressbar.IsEnabled;
-            performanceprogressbar.IsIndeterminate = !performanceprogressbar.IsIndeterminate;
+            //performanceprogressbar.IsEnabled = !performanceprogressbar.IsEnabled;
+            //performanceprogressbar.IsIndeterminate = !performanceprogressbar.IsIndeterminate;
+            progindicator.IsVisible = !progindicator.IsVisible;
+            progindicator.IsIndeterminate = !progindicator.IsIndeterminate;
+            progindicator.Text = message;
         }
 
         private void login_click(object sender, EventArgs e)

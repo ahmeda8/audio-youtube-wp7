@@ -36,7 +36,10 @@ namespace MusicMeTube
             }
             else
             {
-                string url = "https://gdata.youtube.com/feeds/api/users/default/playlists?v=2&alt=json&access_token=" + IsolatedStorageSettings.ApplicationSettings["access_token"];
+                string url = "https://gdata.youtube.com/feeds/mobile/users/default/playlists?"+
+                            "v=2&alt=json"+
+                            "&fields=author,entry(yt:playlistId,content,title,yt:countHint,updated,media:group(media:thumbnail))"+
+                            "&access_token=" + IsolatedStorageSettings.ApplicationSettings["access_token"];
                 GET(url);
             }
         }

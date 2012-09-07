@@ -10,6 +10,7 @@ using Microsoft.Phone.Tasks;
 using Resources;
 using System.ComponentModel;
 using System.IO.IsolatedStorage;
+using Microsoft.Phone.Shell;
 
 namespace MusicMeTube.Pages
 {
@@ -18,10 +19,13 @@ namespace MusicMeTube.Pages
 
         BackgroundWorker loader_worker;
         ViewModelPlaylist vmp;
+        ProgressIndicator progindicator;
+        
         public Playlist()
         {
             InitializeComponent();
             loader_worker = new BackgroundWorker();
+            progindicator = new ProgressIndicator();
             loader_worker.DoWork += new DoWorkEventHandler(loader_worker_DoWork);
             loader_worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(loader_worker_RunWorkerCompleted);
             Loaded += new RoutedEventHandler(Playlist_Loaded);
@@ -29,18 +33,19 @@ namespace MusicMeTube.Pages
 
         void Playlist_Loaded(object sender, RoutedEventArgs e)
         {
+            SystemTray.SetProgressIndicator(this, progindicator);
             loader_worker.RunWorkerAsync();
         }
 
         void loader_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             DataContext = vmp;
-            ToggleProgressBar();
+            ToggleProgressBar("Done");
         }
 
         void loader_worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            ToggleProgressBar();
+            ToggleProgressBar("Loading...");
             vmp = new ViewModelPlaylist();
             while (!vmp.Completed)
             {
@@ -48,11 +53,14 @@ namespace MusicMeTube.Pages
             }
         }
 
-        private void ToggleProgressBar()
+        private void ToggleProgressBar(string message)
         {
             System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => {
-                performanceprogressbar.IsEnabled = !performanceprogressbar.IsEnabled;
-                performanceprogressbar.IsIndeterminate = !performanceprogressbar.IsIndeterminate;
+                //performanceprogressbar.IsEnabled = !performanceprogressbar.IsEnabled;
+                //performanceprogressbar.IsIndeterminate = !performanceprogressbar.IsIndeterminate;
+                progindicator.IsIndeterminate = !progindicator.IsIndeterminate;
+                progindicator.IsVisible = !progindicator.IsVisible;
+                progindicator.Text = message;
             });
         }
 

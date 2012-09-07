@@ -6,7 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:ads="clr-namespace:Microsoft.Advertising.Mobile.UI;assembly=Microsoft.Advertising.Mobile.UI"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -32,7 +32,7 @@ xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="160"/>
                     </Grid.RowDefinitions>
-                    <toolkit:PerformanceProgressBar Name="performanceprogressbar" IsEnabled="False" IsIndeterminate="False" Background="Black"></toolkit:PerformanceProgressBar>
+                    <!--<toolkit:PerformanceProgressBar Name="performanceprogressbar" IsEnabled="False" IsIndeterminate="False" Background="Black"></toolkit:PerformanceProgressBar>-->
                     <ListBox Name="listBox1"  
                      ItemsSource="{Binding tracklistentry}" 
                      Grid.Row="0" 

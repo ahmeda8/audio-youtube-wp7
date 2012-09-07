@@ -55,7 +55,7 @@ namespace Resources
                 lock (iso)
                 {
                     if (!iso.DirectoryExists(DirectoryName))
-                        return false;
+                        return true;
                     var files = iso.GetFileNames(DirectoryName + "\\*");
                     foreach (string file in files)
                     {

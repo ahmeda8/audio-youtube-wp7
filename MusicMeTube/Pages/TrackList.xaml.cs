@@ -59,12 +59,13 @@ namespace MusicMeTube
 
         void delplay_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            ToggleProgressBar();
+            ToggleProgressBar("Done");
             ISOHelper.DeleteFile("cache\\" + plentry.Id + ".json");
             if (BackgroundAudioPlayer.Instance.PlayerState == PlayState.Playing || BackgroundAudioPlayer.Instance.PlayerState == PlayState.Paused)
                 BackgroundAudioPlayer.Instance.Stop();
             if (!ISOHelper.DeleteDirectory(plentry.Id))
                 MessageBox.Show("Some files were locked by audio player, or do not exist");
+            ISOHelper.DeleteDirectory("cache");
             System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
                 {
                     NavigationService.GoBack();
@@ -73,7 +74,7 @@ namespace MusicMeTube
 
         void delplay_worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            ToggleProgressBar();
+            ToggleProgressBar("Deleting playlist..");
             Delete.Playlist((string)e.Argument);
             while (!Delete.Completed)
             {
@@ -83,7 +84,7 @@ namespace MusicMeTube
 
         void delvideo_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            ToggleProgressBar();
+            ToggleProgressBar("Done");
             ISOHelper.DeleteFile("cache\\" + plentry.Id + ".json");
             if(!back_worker.IsBusy)
                 back_worker.RunWorkerAsync(index);
@@ -91,7 +92,7 @@ namespace MusicMeTube
 
         void delvideo_worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            ToggleProgressBar();
+            ToggleProgressBar("Deleting Video...");
             Delete.Video(plentry.Id, (string)e.Argument);
             while (!Delete.Completed)
             {
@@ -101,7 +102,7 @@ namespace MusicMeTube
 
         void addvideo_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            ToggleProgressBar();
+            ToggleProgressBar("Done");
             ISOHelper.DeleteFile("cache\\" + plentry.Id + ".json");
             if(!back_worker.IsBusy)
                 back_worker.RunWorkerAsync(index);
@@ -115,7 +116,7 @@ namespace MusicMeTube
 
         void addvideo_worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            ToggleProgressBar();
+            ToggleProgressBar("Adding video...");
             Add.Video(plentry.Id, (string)e.Argument);
             while (!Add.Completed)
             {
@@ -126,12 +127,12 @@ namespace MusicMeTube
         void search_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             searchResultslist.DataContext = sr;
-            ToggleProgressBar();
+            ToggleProgressBar("Done");
         }
 
         void search_DoWork(object sender, DoWorkEventArgs e)
         {
-            ToggleProgressBar();
+            ToggleProgressBar("Searching...");
             sr.Next();
             while (!sr.completed)
             {
@@ -142,12 +143,12 @@ namespace MusicMeTube
         void back_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             DataContext = viewmodel;
-            ToggleProgressBar();
+            ToggleProgressBar("Done");
         }
 
         void back_worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            ToggleProgressBar();
+            ToggleProgressBar("Loading...");
             plentry = ViewModelPlaylist.playlistentry.ElementAt((int)e.Argument);
             viewmodel = new ViewModelTracklist(plentry);
             while (!viewmodel.completed)
@@ -443,18 +444,13 @@ namespace MusicMeTube
             ErrorLogging.Log(this.GetType().ToString(), e.Error.Message, string.Empty, string.Empty);
         }
 
-        private void ToggleProgressBar()
+        private void ToggleProgressBar(string message)
         {
             System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
                 {
                     proindicator.IsIndeterminate = !proindicator.IsIndeterminate;
                     proindicator.IsVisible = !proindicator.IsVisible;
-                    //performanceprogressbar.IsIndeterminate = !performanceprogressbar.IsIndeterminate;
-                    //performanceprogressbar.IsEnabled = !performanceprogressbar.IsEnabled;
-                    //if (performanceprogressbar.Visibility == System.Windows.Visibility.Collapsed)
-                    //    performanceprogressbar.Visibility = System.Windows.Visibility.Visible;
-                    //else
-                    //    performanceprogressbar.Visibility = System.Windows.Visibility.Collapsed;
+                    proindicator.Text = message;
                 });
         }
 

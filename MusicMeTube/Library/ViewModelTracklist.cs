@@ -37,7 +37,10 @@ namespace MusicMeTube
             }
             else
             {
-                string url = plentry.Source + "&alt=json&access_token=" + IsolatedStorageSettings.ApplicationSettings["access_token"];
+                string url = plentry.Source + 
+                    "&alt=json"+
+                    "&fields=entry(id,title,link,media:group(yt:videoid,media:thumbnail,yt:duration))"+
+                    "&access_token=" + IsolatedStorageSettings.ApplicationSettings["access_token"];
                 GET(url);
             }
             

@@ -2,25 +2,32 @@
 using Microsoft.Phone.Controls;
 using System.ComponentModel;
 using Resources;
+using Microsoft.Phone.Shell;
 
 namespace MusicMeTube.Pages
 {
     public partial class CreatePlaylist : PhoneApplicationPage
     {
         BackgroundWorker addplay_worker;
-
+        ProgressIndicator progindicator;
         public CreatePlaylist()
         {
             InitializeComponent();
             addplay_worker = new BackgroundWorker();
+            progindicator = new ProgressIndicator();
             addplay_worker.DoWork += new DoWorkEventHandler(addplay_worker_DoWork);
             addplay_worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(addplay_worker_RunWorkerCompleted);
+
+            SystemTray.SetProgressIndicator(this, progindicator);
         }
 
         void addplay_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            progressbar.IsEnabled = false;
-            progressbar.IsIndeterminate = false;
+            //progressbar.IsEnabled = false;
+            //progressbar.IsIndeterminate = false;
+            progindicator.IsIndeterminate = false;
+            progindicator.IsVisible = false;
+            progindicator.Text = "Done";
             if (Add.ErrorOccured)
             {
                 System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
@@ -32,7 +39,8 @@ namespace MusicMeTube.Pages
             {
                 System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
                 {
-                    System.Windows.MessageBox.Show("playlist added, please refresh playlist page to see new playlist.");
+                    //System.Windows.MessageBox.Show("playlist added, please refresh playlist page to see new playlist.");
+                    ISOHelper.DeleteDirectory("cache");
                     NavigationService.GoBack();
                 });
             }
@@ -51,8 +59,12 @@ namespace MusicMeTube.Pages
 
         private void save_click(object sender, EventArgs e)
         {
-            progressbar.IsEnabled = true;
-            progressbar.IsIndeterminate = true;
+            //progressbar.IsEnabled = true;
+            //progressbar.IsIndeterminate = true;
+            progindicator.IsIndeterminate = true;
+            progindicator.IsVisible = true;
+            progindicator.Text = "Adding playlist...";
+            
             string param = txtName.Text + "|" + txtDesc.Text;
             addplay_worker.RunWorkerAsync(param);
         }

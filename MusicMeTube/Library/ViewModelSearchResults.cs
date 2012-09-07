@@ -29,8 +29,9 @@ namespace MusicMeTube
         public void Next()
         {
             completed = false;
-            string url = "http://gdata.youtube.com/feeds/api/videos?"+
-                         "alt=json" +
+            string url = "http://gdata.youtube.com/feeds/mobile/videos?"+
+                         "fields=entry(title,media:group(yt:videoid,media:thumbnail,yt:duration,media:credit))"+
+                         "&alt=json" +
                          "&q="+query+
                          "&start-index=" + start_index.ToString()+
                          "&max-results="+max_result.ToString()+
