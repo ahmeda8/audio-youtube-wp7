@@ -179,10 +179,6 @@
       <Project>{197BA2CE-B213-4475-8D2F-FF91C726DBA3}</Project>
       <Name>Resources</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RTSP\RTSP.csproj">
-      <Project>{E79916FA-F69E-41D1-8376-1173ED8CB101}</Project>
-      <Name>RTSP</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
