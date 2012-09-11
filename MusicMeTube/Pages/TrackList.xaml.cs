@@ -74,7 +74,7 @@ namespace MusicMeTube
 
         void delplay_worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            ToggleProgressBar("Deleting playlist..");
+            ToggleProgressBar("Deleting playlist...");
             Delete.Playlist((string)e.Argument);
             while (!Delete.Completed)
             {
@@ -496,8 +496,8 @@ namespace MusicMeTube
                 Entry en = listBox1.SelectedItem as Entry;
                 if(!delvideo_worker.IsBusy)
                     delvideo_worker.RunWorkerAsync(en.EntryID);
-                delete_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
-                delete_appbar.IsEnabled = false;
+                //delete_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
+                //delete_appbar.IsEnabled = false;
             }
         }
 
@@ -505,8 +505,8 @@ namespace MusicMeTube
         {
             if (listBox1.SelectedIndex > -1)
             {
-                delete_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
-                delete_appbar.IsEnabled = true;
+                //delete_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
+                //delete_appbar.IsEnabled = true;
             }
         }
 
