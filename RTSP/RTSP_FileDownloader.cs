@@ -13,7 +13,7 @@ namespace RTSP
     {
         private Socket UDP_SOCKET;
         private Socket TCP_SOCKET;
-
+        private bool Cancelled = false;
         private SocketAsyncEventArgs Udp_Socket_EvntArgs;
         public SocketAsyncEventArgs Tcp_Socket_EvntArgs;
 
@@ -174,23 +174,25 @@ namespace RTSP
             TCP_SOCKET.ReceiveAsync(Tcp_Socket_EvntArgs);
         }
 
-        public List<Entry> SOURCES
-        {   get;
-            set;
-        }
-
+        public List<Entry> SOURCES { get; set; }
+        
         public void Next()
         {
-            CurrentCommand = COMMAND.DESCRIBE;
-            YoutubeSource = SOURCES.First();
-            SourceURI = new Uri(YoutubeSource.Source, UriKind.Absolute);
-            Tcp_Socket_EvntArgs.RemoteEndPoint = new DnsEndPoint(SourceURI.Host, RTSP_CONSTANTS.RTSP_SERVER_PORT);
-            TCP_SOCKET.ConnectAsync(Tcp_Socket_EvntArgs);
+            if (SOURCES.Count > 0 && !Cancelled)
+            {
+                CurrentCommand = COMMAND.DESCRIBE;
+                YoutubeSource = SOURCES.First();
+                SOURCES.Remove(SOURCES.First());
+                SourceURI = new Uri(YoutubeSource.Source, UriKind.Absolute);
+                Tcp_Socket_EvntArgs.RemoteEndPoint = new DnsEndPoint(SourceURI.Host, RTSP_CONSTANTS.RTSP_SERVER_PORT);
+                TCP_SOCKET.ConnectAsync(Tcp_Socket_EvntArgs);
+            }
         }
 
         public void Cancel()
         {
             SOURCES.Clear();
+            Cancelled = true;
         }
 
         public void CancellAll()
