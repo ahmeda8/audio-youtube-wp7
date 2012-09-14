@@ -9,6 +9,7 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:ads="clr-namespace:Microsoft.Advertising.Mobile.UI;assembly=Microsoft.Advertising.Mobile.UI"
+    xmlns:adduplex="clr-namespace:AdDuplex;assembly=AdDuplex.AdControl.Silverlight"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -63,7 +64,8 @@
                         </ListBox.ItemTemplate>
 
                     </ListBox>
-                    <ads:AdControl AdUnitId="93753" ApplicationId="aaf9db87-1c01-483b-b98c-d788ea205eb2" Grid.Row="1" Width="480" Height="80" ErrorOccurred="AdControl_ErrorOccurred" VerticalAlignment="Top"/>
+                    <!--<ads:AdControl AdUnitId="93753" ApplicationId="aaf9db87-1c01-483b-b98c-d788ea205eb2" Grid.Row="1" Width="480" Height="80" ErrorOccurred="AdControl_ErrorOccurred" VerticalAlignment="Top"/>-->
+                    <adduplex:AdControl AppId="20331" VerticalAlignment="Top" Grid.Row="1" x:Name="adDuplexControl"/>
                 </Grid>
 
             </controls:PivotItem>
@@ -133,7 +135,7 @@
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="0.70">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.add.rest.png" Text="add" Click="add_click" IsEnabled="False" x:Name="add_appbar"/>
-            <!--<shell:ApplicationBarIconButton IconUri="/Images/appbar.delete.rest.png" Text="delete" Click="delete_click" IsEnabled="False" x:Name="delete_appbar"/>-->
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.delete.rest.png" Text="delete" Click="delete_click" IsEnabled="False" x:Name="delete_appbar"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.transport.play.rest.png" Text="Play" Click="nosyncplay_click"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.stop.rest.png" Text="Stop" Click="stop_click"/>
             <shell:ApplicationBar.MenuItems>

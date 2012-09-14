@@ -35,6 +35,9 @@ namespace MusicMeTube
         public TrackList()
         {
             InitializeComponent();
+#if DEBUG
+            adDuplexControl.IsTest = true;
+#endif
             proindicator = new ProgressIndicator();
             SystemTray.SetProgressIndicator(this, proindicator);
 
@@ -496,8 +499,10 @@ namespace MusicMeTube
                 Entry en = listBox1.SelectedItem as Entry;
                 if(!delvideo_worker.IsBusy)
                     delvideo_worker.RunWorkerAsync(en.EntryID);
-                //delete_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
-                //delete_appbar.IsEnabled = false;
+#if DEBUG
+                delete_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
+                delete_appbar.IsEnabled = false;
+#endif
             }
         }
 
@@ -505,8 +510,10 @@ namespace MusicMeTube
         {
             if (listBox1.SelectedIndex > -1)
             {
-                //delete_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
-                //delete_appbar.IsEnabled = true;
+#if DEBUG
+                delete_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
+                delete_appbar.IsEnabled = true;
+#endif
             }
         }
 

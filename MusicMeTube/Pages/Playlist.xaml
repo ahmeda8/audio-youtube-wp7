@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:ads="clr-namespace:Microsoft.Advertising.Mobile.UI;assembly=Microsoft.Advertising.Mobile.UI"
+    xmlns:adduplex="clr-namespace:AdDuplex;assembly=AdDuplex.AdControl.Silverlight"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -67,7 +68,8 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ads:AdControl AdUnitId="93753" ApplicationId="aaf9db87-1c01-483b-b98c-d788ea205eb2" Grid.Row="1" Height="80" Width="480" ErrorOccurred="AdControl_ErrorOccurred" VerticalAlignment="Top"/>
+            <!--<ads:AdControl AdUnitId="93753" ApplicationId="aaf9db87-1c01-483b-b98c-d788ea205eb2" Grid.Row="1" Height="80" Width="480" ErrorOccurred="AdControl_ErrorOccurred" VerticalAlignment="Top"/>-->
+            <adduplex:AdControl AppId="20331" VerticalAlignment="Top" Grid.Row="1" x:Name="adDuplexControl"/>
 
         </Grid>
     </Grid>

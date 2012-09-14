@@ -24,6 +24,9 @@ namespace MusicMeTube.Pages
         public Playlist()
         {
             InitializeComponent();
+#if DEBUG
+            adDuplexControl.IsTest = true;
+#endif
             loader_worker = new BackgroundWorker();
             progindicator = new ProgressIndicator();
             loader_worker.DoWork += new DoWorkEventHandler(loader_worker_DoWork);
