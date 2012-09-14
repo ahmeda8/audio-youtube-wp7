@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioPlaybackAgent", "Audio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resources", "Online_YT_API\Resources.csproj", "{197BA2CE-B213-4475-8D2F-FF91C726DBA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTSP", "RTSP\RTSP.csproj", "{E79916FA-F69E-41D1-8376-1173ED8CB101}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		ASP|Any CPU = ASP|Any CPU
@@ -37,12 +35,6 @@ Global
 		{197BA2CE-B213-4475-8D2F-FF91C726DBA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{197BA2CE-B213-4475-8D2F-FF91C726DBA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{197BA2CE-B213-4475-8D2F-FF91C726DBA3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E79916FA-F69E-41D1-8376-1173ED8CB101}.ASP|Any CPU.ActiveCfg = Release|Any CPU
-		{E79916FA-F69E-41D1-8376-1173ED8CB101}.ASP|Any CPU.Build.0 = Release|Any CPU
-		{E79916FA-F69E-41D1-8376-1173ED8CB101}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E79916FA-F69E-41D1-8376-1173ED8CB101}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E79916FA-F69E-41D1-8376-1173ED8CB101}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E79916FA-F69E-41D1-8376-1173ED8CB101}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
