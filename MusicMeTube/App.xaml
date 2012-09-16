@@ -11,6 +11,8 @@
     <Application.Resources>
         <clr:String x:Key="AppName">musify myTube</clr:String>
         <media:SolidColorBrush x:Key="AppNameColor">Orange</media:SolidColorBrush>
+        <FontFamily x:Key="PageNameFontFamily">/MusicMeTube;component/Library/PRISTINA.TTF#Pristina</FontFamily>
+        <FontFamily x:Key="AppTitleFont">Segoe WP Black</FontFamily>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>
