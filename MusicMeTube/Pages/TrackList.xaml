@@ -22,11 +22,11 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <controls:Pivot >
         	<controls:Pivot.Title>
-        		<TextBlock Text="{StaticResource AppName}" Foreground="{StaticResource AppNameColor}" />     	
+        		<TextBlock Text="{StaticResource AppName}" Foreground="{StaticResource AppNameColor}" FontFamily="{StaticResource AppTitleFont}"/>     	
 			</controls:Pivot.Title>
             <controls:PivotItem >
             	<controls:PivotItem.Header>
-            		<TextBlock Text="tracks" Foreground="{StaticResource PhoneAccentBrush}" />        	
+            		<TextBlock Text="tracks" Foreground="{StaticResource PhoneAccentBrush}" FontFamily="{StaticResource PageNameFontFamily}" />        	
 				</controls:PivotItem.Header>
                 <Grid x:Name="ContentPanel" Grid.Row="1" >
                     <Grid.RowDefinitions>
@@ -71,7 +71,7 @@
             </controls:PivotItem>
             <controls:PivotItem>
             	<controls:PivotItem.Header>
-            		<TextBlock Text="search" Foreground="{StaticResource PhoneAccentBrush}" />        	
+            		<TextBlock Text="search" Foreground="{StaticResource PhoneAccentBrush}" FontFamily="{StaticResource PageNameFontFamily}"/>        	
 				</controls:PivotItem.Header>
                 <Grid Name="searchgrid">
                     <Grid.RowDefinitions>

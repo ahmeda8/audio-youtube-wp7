@@ -96,7 +96,10 @@ namespace MusicMeTube
         void delvideo_worker_DoWork(object sender, DoWorkEventArgs e)
         {
             ToggleProgressBar("Deleting Video...");
-            Delete.Video(plentry.Id, (string)e.Argument);
+            string[] args = (String[])e.Argument;
+            ISOHelper.DeleteFile(plentry.Id + "\\" + args[0]+".mp3");
+            Delete.Video(plentry.Id, args[1]);
+            
             while (!Delete.Completed)
             {
                 System.Threading.Thread.Sleep(3000);
@@ -497,12 +500,13 @@ namespace MusicMeTube
             if (mr == MessageBoxResult.OK)
             {
                 Entry en = listBox1.SelectedItem as Entry;
+                string[] arguments = new string[2];
+                arguments[0] = en.Id;
+                arguments[1] = en.EntryID;
                 if(!delvideo_worker.IsBusy)
-                    delvideo_worker.RunWorkerAsync(en.EntryID);
-#if DEBUG
+                    delvideo_worker.RunWorkerAsync(arguments);
                 delete_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
                 delete_appbar.IsEnabled = false;
-#endif
             }
         }
 
@@ -510,10 +514,8 @@ namespace MusicMeTube
         {
             if (listBox1.SelectedIndex > -1)
             {
-#if DEBUG
                 delete_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
                 delete_appbar.IsEnabled = true;
-#endif
             }
         }
 

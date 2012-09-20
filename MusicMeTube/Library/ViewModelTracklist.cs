@@ -59,6 +59,8 @@ namespace MusicMeTube
                         Entry newent = new Entry();
                         newent.PlaylistID = plentry.Id;
                         newent.EntryID = (string)entry["id"]["$t"];
+                        string[] splittat = {"playlist:"};
+                        newent.EntryID = newent.EntryID.Split(splittat,StringSplitOptions.None)[1].Split(':')[1];
                         newent.Id = (string)entry["media$group"]["yt$videoid"]["$t"];
                         newent.Title = (string)entry["title"]["$t"];
                         newent.ImageSource = (string)entry["media$group"]["media$thumbnail"][0]["url"];
