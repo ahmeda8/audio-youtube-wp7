@@ -7,9 +7,9 @@ namespace Resources
     interface IDownloader
     {
         event GenericEvntHandler Completed;
+        event GenericEvntHandler Ready;
         void Start(Entry thisone);
         void Abort();
-        Entry Current {get;set;}
         BackgroundTransferRequest BTR { get;}        
     }
 }

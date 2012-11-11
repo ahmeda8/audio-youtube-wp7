@@ -30,8 +30,6 @@ namespace Resources
             Aborted = false;
         }
 
-       
-
         //event subscribers
 
         void DownloaderSingle_Completed(object sender)
@@ -52,6 +50,7 @@ namespace Resources
             if (Ready != null)
                 Ready(sender);
         }
+
         //public helper functions
 
         public void Start(List<Entry> DownloadList)
