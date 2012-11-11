@@ -9,7 +9,7 @@ namespace Resources
     public class Downloader : IDownloader
     {
         // constants
-        private BackgroundTransferRequest BTR;
+        private BackgroundTransferRequest _BTR;
         private bool Aborted = false;
         private Messaging Message;
         private MP3FileUrlFetch UrlFetcher;
@@ -17,6 +17,7 @@ namespace Resources
 
         //events
         public event GenericEvntHandler Completed;
+        public event GenericEvntHandler Ready;
 
         //Construct 
 
@@ -40,9 +41,9 @@ namespace Resources
 
         public void Abort()
         {
-            if (BackgroundTransferService.Find(BTR.RequestId) != null)
+            if (BackgroundTransferService.Find(_BTR.RequestId) != null)
             {
-                BackgroundTransferService.Remove(BTR);
+                BackgroundTransferService.Remove(_BTR);
                 Message.SetMessage("Aborted. " + Current.Title);
             }
             Aborted = true;
@@ -50,7 +51,7 @@ namespace Resources
         }
 
 
-        private Entry Current
+        public Entry Current
         {
             get
             {
@@ -62,6 +63,11 @@ namespace Resources
             }
         }
 
+        public BackgroundTransferRequest BTR
+        {
+            get { return _BTR; }
+        }
+
         // event catcher
 
         void UrlFetcher_Completed(object sender, APICompletedEventArgs e)
@@ -70,11 +76,12 @@ namespace Resources
             {
                 Uri Dest = new Uri("shared/transfers/temp" + sender.GetHashCode() + ".mp3", UriKind.Relative);
                 Uri Src = new Uri(e.Response, UriKind.Absolute);
-                BTR = new BackgroundTransferRequest(Src, Dest);
-                BTR.Tag = Current.PlaylistID + "/" + Current.Id + ".mp3";
-                BackgroundTransferService.Add(BTR);
-                BTR.TransferStatusChanged += BTR_TransferStatusChanged;
-                Message.SetMessage("Downloading. " + Current.Title);
+                _BTR = new BackgroundTransferRequest(Src, Dest);
+                _BTR.Tag = Current.PlaylistID + "/" + Current.Id + ".mp3";
+                _BTR.TransferStatusChanged += BTR_TransferStatusChanged;
+                Message.SetMessage("Ready. " + Current.Title);
+                if (Ready != null)
+                    Ready(_BTR);
             }
         }
 

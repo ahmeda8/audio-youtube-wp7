@@ -35,7 +35,35 @@
                         <RowDefinition Height="65"/>
                     </Grid.RowDefinitions>
                     <!--<toolkit:PerformanceProgressBar Name="performanceprogressbar" IsEnabled="False" IsIndeterminate="False" Background="Black"></toolkit:PerformanceProgressBar>-->
-                    <ListBox Name="listBox1"  
+                    <toolkit:MultiselectList Name="listBox1"
+                                              ItemsSource="{Binding tracklistentry}"
+                                              Grid.Row="0">
+                        <toolkit:MultiselectList.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ShowGridLines="False" 
+                                      Margin="0,0,0,10"
+                                      Background="{StaticResource ListBackgroundTexture1}"
+                                      Tap="ListItem_tapped"
+                                      >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="35"/>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="22"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding ImageSource}" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Stretch="UniformToFill"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="25" FontWeight="SemiBold" Padding="5,0,0,0"></TextBlock>
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Duration}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="15"  Padding="5,0,0,0"></TextBlock>
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Offline}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="15"  Padding="5,0,0,0" Foreground="{Binding AvailablityColor}"></TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </toolkit:MultiselectList.ItemTemplate>
+                        
+                    </toolkit:MultiselectList>
+                    <!--<ListBox Name="listBox1"  
                      ItemsSource="{Binding tracklistentry}" 
                      Grid.Row="0" 
                      Margin="12,0,0,0" 
@@ -64,7 +92,7 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
 
-                    </ListBox>
+                    </ListBox>-->
                     <!--<ads:AdControl AdUnitId="93753" ApplicationId="aaf9db87-1c01-483b-b98c-d788ea205eb2" Grid.Row="1" Width="480" Height="80" ErrorOccurred="AdControl_ErrorOccurred" VerticalAlignment="Top"/>-->
                     <!--<adduplex:AdControl AppId="20331" VerticalAlignment="Top" Grid.Row="1" x:Name="adDuplexControl"/>-->
                 </Grid>
@@ -136,14 +164,14 @@
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="0.70">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.add.rest.png" Text="add" Click="add_click" IsEnabled="False" x:Name="add_appbar"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar.delete.rest.png" Text="delete" Click="delete_click" IsEnabled="False" x:Name="delete_appbar"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar.transport.play.rest.png" Text="Play" Click="nosyncplay_click"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.delete.rest.png" Text="delete" Click="delete_click" IsEnabled="True" x:Name="delete_appbar"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.transport.play.rest.png" Text="Play" Click="play_click"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.stop.rest.png" Text="Stop" Click="stop_click"/>
             <shell:ApplicationBar.MenuItems>
                 <!--<shell:ApplicationBarMenuItem Text="Offline Use Sync" Click="OfflineSync_Click"/>-->
                 <!--<shell:ApplicationBarMenuItem Text="ClearCache ReSync" Click="Clear_and_Sync_Click"/>-->
-                <shell:ApplicationBarMenuItem Text="download selected" Click="SingleDownload_click"/>
-                <shell:ApplicationBarMenuItem Text="download all" Click="Syncplay_click"/>
+                <shell:ApplicationBarMenuItem Text="download selected" Click="Download_click"/>
+                <!--<shell:ApplicationBarMenuItem Text="download all" Click="Syncplay_click"/>-->
                 <shell:ApplicationBarMenuItem Text="download status" Click="datastat_click"/>
                 <!--<shell:ApplicationBarMenuItem Text="Manage Playlist" Click="createmodify_click"/>-->
                 <shell:ApplicationBarMenuItem Text="delete playlist" Click="delplaylist_click"/>

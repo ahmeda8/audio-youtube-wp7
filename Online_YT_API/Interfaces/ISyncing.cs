@@ -8,7 +8,6 @@ namespace Resources
    public interface ISyncing
     {
         List<Entry> SOURCES { get; set; }
-        Messaging Message;
         void Next();
         void Cancel();
         void CancellAll();

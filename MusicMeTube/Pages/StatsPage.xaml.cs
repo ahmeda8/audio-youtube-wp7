@@ -28,9 +28,9 @@ namespace MusicMeTube.Pages
             UpdateUsageData();
             if (App.GlobalOfflineSync != null)
             {
-                App.GlobalOfflineSync.Ready += new FileDownloadEvntHandler(GlobalOfflineSync_Ready);
-                App.GlobalOfflineSync.SyncProgressChange += new FileDownloadEvntHandler(GlobalOfflineSync_SyncProgressChange);
-                req = App.GlobalOfflineSync.BACKGROUND_REQUEST;//BackgroundTransferService.Requests.FirstOrDefault();
+                //App.GlobalOfflineSync.Ready += new FileDownloadEvntHandler(GlobalOfflineSync_Ready);
+                //App.GlobalOfflineSync.SyncProgressChange += new FileDownloadEvntHandler(GlobalOfflineSync_SyncProgressChange);
+                //req = App.GlobalOfflineSync.BACKGROUND_REQUEST;//BackgroundTransferService.Requests.FirstOrDefault();
                 if(req != null)
                     req.TransferProgressChanged += new EventHandler<BackgroundTransferEventArgs>(StatsPage_TransferProgressChanged);
                 progressbar.Maximum = 1;
@@ -81,8 +81,8 @@ namespace MusicMeTube.Pages
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
-            App.GlobalOfflineSync.Ready -= new FileDownloadEvntHandler(GlobalOfflineSync_Ready);
-            App.GlobalOfflineSync.SyncProgressChange -= new FileDownloadEvntHandler(GlobalOfflineSync_SyncProgressChange);
+           // App.GlobalOfflineSync.Ready -= new FileDownloadEvntHandler(GlobalOfflineSync_Ready);
+           // App.GlobalOfflineSync.SyncProgressChange -= new FileDownloadEvntHandler(GlobalOfflineSync_SyncProgressChange);
             if(req != null)
                 req.TransferProgressChanged -= new EventHandler<BackgroundTransferEventArgs>(StatsPage_TransferProgressChanged);
             base.OnNavigatedFrom(e);
@@ -97,7 +97,7 @@ namespace MusicMeTube.Pages
         {
             System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                App.GlobalOfflineSync.CancellAll();
+                App.GlobalOfflineSync.Abort();
                 progressbar.Value = 0;
             });
         }

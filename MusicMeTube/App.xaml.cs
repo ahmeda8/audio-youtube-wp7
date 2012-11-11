@@ -16,7 +16,8 @@ namespace MusicMeTube
 {
     public partial class App : Application
     {
-        public static OfflineSyncExt GlobalOfflineSync;
+        public static MultiDownloader GlobalOfflineSync;
+        public static Messaging GlobalMessaging;
         
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
@@ -58,32 +59,16 @@ namespace MusicMeTube
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
-            GlobalOfflineSync = new OfflineSyncExt();
-            GlobalOfflineSync.Ready += new FileDownloadEvntHandler(GlobalOfflineSync_Ready);
-            GlobalOfflineSync.Completed += new FileDownloadEvntHandler(GlobalOfflineSync_Completed);
-            GlobalOfflineSync.Failed += new FileDownloadEvntHandler(GlobalOfflineSync_Failed);
-
+            GlobalMessaging = new Messaging();
+            GlobalOfflineSync = new MultiDownloader(GlobalMessaging);
+            GlobalOfflineSync.Ready += GlobalOfflineSync_Ready;
             //RTSP_FileDownloader fd = new RTSP_FileDownloader();
             //fd.GetRTPSocketPort();
         }
 
-        void GlobalOfflineSync_Failed(object sender,FileDownloadEvntArgs e)
+        void GlobalOfflineSync_Ready(object sender)
         {
-            GlobalOfflineSync_Completed(sender,e);
-        }
-
-        void GlobalOfflineSync_Completed(object sender,FileDownloadEvntArgs e)
-        {
-            GlobalOfflineSync.Next();
-        }
-
-        void GlobalOfflineSync_Ready(object sender,FileDownloadEvntArgs e)
-        {
-            OfflineSyncExt sync = (OfflineSyncExt)sender;
-            if (!GlobalOfflineSync.Cancelled)
-            {
-                BackgroundTransferService.Add(sync.BACKGROUND_REQUEST);
-            }
+            BackgroundTransferService.Add((BackgroundTransferRequest)sender);
         }
 
         // Code to execute when the application is launching (eg, from Start)

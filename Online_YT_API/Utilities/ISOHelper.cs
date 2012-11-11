@@ -36,10 +36,17 @@ namespace Resources
 
         public static void MoveFileOverwrite(string FilenameSrc,string FilenameDst)
         {
+            
+            // create  a directory for the file in destination
+            string[] filename_split = FilenameDst.Split('/');
+            
             using (IsolatedStorageFile iso = IsolatedStorageFile.GetUserStoreForApplication())
             {
                 lock (iso)
                 {
+                    if (! iso.DirectoryExists(filename_split[0]))
+                        iso.CreateDirectory(filename_split[0]);
+
                     if (iso.FileExists(FilenameDst))
                         iso.DeleteFile(FilenameDst);
                     if (iso.FileExists(FilenameSrc))

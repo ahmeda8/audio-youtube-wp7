@@ -64,6 +64,7 @@
     <Compile Include="Models\Entry.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="MP3FileUrlFetch.cs" />
+    <Compile Include="MultiDownloader.cs" />
     <Compile Include="OfflineSyncExt.cs" />
     <Compile Include="ProgressReporter.cs" />
     <Compile Include="ServiceProviders\simplemp3_net.cs" />

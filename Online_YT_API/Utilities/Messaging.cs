@@ -20,7 +20,7 @@ namespace Resources
 
         public event ApiCompletedEventHandler Changed;
 
-        private virtual void RaiseChanged()
+        public virtual void RaiseChanged()
         {
             if (Changed != null)
                 Changed(this, new APICompletedEventArgs(message));
