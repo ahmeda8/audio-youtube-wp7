@@ -25,4 +25,15 @@ namespace Resources
 
     }
     public delegate void FileDownloadEvntHandler(object sender,FileDownloadEvntArgs e);
+
+    public class GenericEvntArgs : EventArgs
+    {
+        public object GenericObject;
+        public GenericEvntArgs(object obj)
+        {
+            this.GenericObject = obj;
+        }
+    }
+
+    public delegate void GenericEvntHandler(object sender);
 }

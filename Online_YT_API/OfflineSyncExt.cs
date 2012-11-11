@@ -11,6 +11,7 @@ namespace Resources
     {
         private MP3FileUrlFetch url_fetcher;
         public BackgroundTransferRequest BACKGROUND_REQUEST;
+        public Messaging Message;
         private string tag; //format dst_filename | title
         public bool Cancelled = false;
         public List<Entry> SOURCES { get; set; }
@@ -27,7 +28,8 @@ namespace Resources
         void url_fetcher_Failed(object sender, APICompletedEventArgs e)
         {
             string[] title = tag.Split('|');
-            RaiseSyncChange(new FileDownloadEvntArgs("Request Failed... "+title[1]));
+           // RaiseSyncChange(new FileDownloadEvntArgs("Request Failed... "+title[1]));
+            Message.SetMessage("Request Failed... "+title[1]);
             RaiseFailed(new FileDownloadEvntArgs(e.Response));
         }
 
@@ -38,9 +40,11 @@ namespace Resources
             RaiseReady(new FileDownloadEvntArgs(e.Response));
             string[] title = BACKGROUND_REQUEST.Tag.Split('|');
             if(SOURCES.Count > 0)
-                RaiseSyncChange(new FileDownloadEvntArgs("Downloading... "+title[1]));
+                //RaiseSyncChange(new FileDownloadEvntArgs("Downloading... "+title[1]));
+                Message.SetMessage("Downloading... "+title[1]);
             else
-                RaiseSyncChange(new FileDownloadEvntArgs("Completed"));
+                //RaiseSyncChange(new FileDownloadEvntArgs("Completed"));
+                Message.SetMessage("Completed");
         }
 
         void current_request_TransferStatusChanged(object sender, BackgroundTransferEventArgs e)
@@ -65,9 +69,11 @@ namespace Resources
                     IsolatedStorageSettings.ApplicationSettings["session_data"] = session_data;
                     IsolatedStorageSettings.ApplicationSettings.Save();
                     if(!Cancelled)
-                        RaiseCompleted(new FileDownloadEvntArgs("Completed"));
-                    if(SOURCES.Count == 0)
-                        RaiseSyncChange(new FileDownloadEvntArgs("Completed"));
+                        //RaiseCompleted(new FileDownloadEvntArgs("Completed"));
+                        Message.SetMessage("Downloading complete");
+                    if (SOURCES.Count == 0)
+                        //RaiseSyncChange(new FileDownloadEvntArgs("Completed"));
+                        Message.SetMessage("Downloading complete");
                     break;
             }
         }
@@ -79,7 +85,8 @@ namespace Resources
                 Entry current_entry = SOURCES.FirstOrDefault();
                 tag = current_entry.PlaylistID + "\\" + current_entry.Id + ".mp3" + "|" + current_entry.Title;
                 SOURCES.Remove(SOURCES.FirstOrDefault());
-                RaiseSyncChange(new FileDownloadEvntArgs("Requesting... " + current_entry.Title));
+                //RaiseSyncChange(new FileDownloadEvntArgs("Requesting... " + current_entry.Title));
+                Message.SetMessage("Requesting... " + current_entry.Title);
                 url_fetcher.StartFetch(current_entry.Source);
             }
         }
@@ -100,7 +107,8 @@ namespace Resources
                     SOURCES.Clear();
                 }
                 Cancelled = true;
-                RaiseSyncChange(new FileDownloadEvntArgs("Syncing Cancelled"));
+                //RaiseSyncChange(new FileDownloadEvntArgs("Syncing Cancelled"));
+                Message.SetMessage("Downloading cancelled.");
             }
             catch (Exception e)
             {
@@ -110,10 +118,11 @@ namespace Resources
 
         public void CancellAll()
         {
-            RaiseSyncChange(new FileDownloadEvntArgs("Syncing Cancelled"));
+            //RaiseSyncChange(new FileDownloadEvntArgs("Syncing Cancelled"));
             foreach (var t in BackgroundTransferService.Requests)
                 BackgroundTransferService.Remove(t);
             Cancelled = true;
+            Message.SetMessage("Downloading cancelled.");
         }
     }
 }

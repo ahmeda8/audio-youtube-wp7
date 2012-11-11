@@ -44,10 +44,8 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid ShowGridLines="False" 
-                              Margin="0,0,0,10">
-                                    <Grid.Background>
-                                        <ImageBrush Stretch="Fill" ImageSource="/MusicMeTube;component/Images/frtex.png"/>
-                                    </Grid.Background>
+                                      Margin="0,0,0,10"
+                                      Background="{StaticResource ListBackgroundTexture1}">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="30"/>
                                         <RowDefinition Height="22"/>
@@ -95,23 +93,21 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid ShowGridLines="False" 
-                              Margin="0,0,0,10">
-                                    <Grid.Background>
-                                        <ImageBrush Stretch="Fill" ImageSource="/MusicMeTube;component/Images/frtex.png"/>
-                                    </Grid.Background>
+                                      Margin="0,0,0,10"
+                                      Background="{StaticResource ListBackgroundTexture1}">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="35"/>
                                         <RowDefinition Height="30"/>
-                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="22"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="100"/>
                                         <ColumnDefinition Width="380"/>
                                     </Grid.ColumnDefinitions>
                                     <Image Source="{Binding ImageSource}" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"/>
-                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="25" FontWeight="SemiBold" Padding="5,0,0,0"></TextBlock>
-                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Duration}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,0,0,0"></TextBlock>
-                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Credit}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,0,0,0"></TextBlock>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20" FontWeight="SemiBold" Padding="5,0,0,0"></TextBlock>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Duration}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="16"  Padding="5,0,0,0"></TextBlock>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Credit}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="16"  Padding="5,0,0,0"></TextBlock>
                                 </Grid>
 
                             </DataTemplate>
@@ -146,6 +142,7 @@
             <shell:ApplicationBar.MenuItems>
                 <!--<shell:ApplicationBarMenuItem Text="Offline Use Sync" Click="OfflineSync_Click"/>-->
                 <!--<shell:ApplicationBarMenuItem Text="ClearCache ReSync" Click="Clear_and_Sync_Click"/>-->
+                <shell:ApplicationBarMenuItem Text="download selected" Click="SingleDownload_click"/>
                 <shell:ApplicationBarMenuItem Text="download all" Click="Syncplay_click"/>
                 <shell:ApplicationBarMenuItem Text="download status" Click="datastat_click"/>
                 <!--<shell:ApplicationBarMenuItem Text="Manage Playlist" Click="createmodify_click"/>-->

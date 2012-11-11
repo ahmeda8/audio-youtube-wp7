@@ -13,6 +13,7 @@
         <media:SolidColorBrush x:Key="AppNameColor">Orange</media:SolidColorBrush>
         <media:SolidColorBrush x:Key="CustomTextForegroundColor1">White</media:SolidColorBrush>
         <media:ImageBrush x:Key="BackgroundTexture1" ImageSource="/MusicMeTube;component/Images/tex3.jpg" Stretch="UniformToFill" />
+        <media:ImageBrush x:Key="ListBackgroundTexture1" ImageSource="/MusicMeTube;component/Images/frtex2.png" Stretch="UniformToFill" />
         <FontFamily x:Key="PageNameFontFamily">/MusicMeTube;component/Library/PRISTINA.TTF#Pristina</FontFamily>
         <FontFamily x:Key="AppTitleFont">Segoe WP Black</FontFamily>
     </Application.Resources>

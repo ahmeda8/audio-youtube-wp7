@@ -58,7 +58,7 @@
             <TextBlock Grid.Row="3" Grid.Column="1" Name="sessiondata" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource CustomTextForegroundColor1}"></TextBlock>
             
             <TextBlock Text="Sync Info" Grid.Row="4" Grid.ColumnSpan="2" Style="{StaticResource PhoneTextExtraLargeStyle}" HorizontalAlignment="Center" Foreground="{StaticResource AppNameColor}"/>
-            <TextBlock Text="Waiting..." Grid.Row="5" Grid.ColumnSpan="2" Style="{StaticResource PhoneTextNormalStyle}" Name="title" VerticalAlignment="Center" Foreground="{StaticResource CustomTextForegroundColor1}"/>
+            <TextBlock Text="" Grid.Row="5" Grid.ColumnSpan="2" Style="{StaticResource PhoneTextNormalStyle}" Name="title" VerticalAlignment="Center" Foreground="{StaticResource CustomTextForegroundColor1}"/>
             <TextBlock Text="Speed" Grid.Row="6" Grid.Column="0" Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Center" Foreground="{StaticResource CustomTextForegroundColor1}"/>
             <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource PhoneTextNormalStyle}" Name="speedtxt" VerticalAlignment="Center" Foreground="{StaticResource CustomTextForegroundColor1}"/>
             <ProgressBar Name="progressbar" IsEnabled="True" Grid.Row="7" Grid.ColumnSpan="2" IsIndeterminate="False" ></ProgressBar>

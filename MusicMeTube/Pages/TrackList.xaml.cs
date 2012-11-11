@@ -355,6 +355,13 @@ namespace MusicMeTube
             
         }
 
+        private void SingleTrackDownload(int index)
+        {
+            App.GlobalOfflineSync.SOURCES.Add(viewmodel.tracklistentry.ElementAt(index));
+            App.GlobalOfflineSync.Cancelled = false;
+            App.GlobalOfflineSync.Next();
+        }
+
         void GlobalOfflineSync_Ready(object sender,FileDownloadEvntArgs e)
         {
             OfflineSyncExt sync = (OfflineSyncExt)sender;
@@ -527,6 +534,12 @@ namespace MusicMeTube
                 if(!delplay_worker.IsBusy)
                     delplay_worker.RunWorkerAsync(plentry.Id);
             }
+        }
+
+        private void SingleDownload_click(object sender, EventArgs e)
+        {
+            if(listBox1.SelectedIndex > -1 )
+                SingleTrackDownload(listBox1.SelectedIndex);
         }
         
     }
