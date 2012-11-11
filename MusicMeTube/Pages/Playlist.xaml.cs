@@ -25,7 +25,8 @@ namespace MusicMeTube.Pages
         {
             InitializeComponent();
 #if DEBUG
-            adDuplexControl.IsTest = true;
+            //adDuplexControl.IsTest = true;
+            ApplicationTitle.Text = "DEBUG musify myTube";
 #endif
             loader_worker = new BackgroundWorker();
             progindicator = new ProgressIndicator();

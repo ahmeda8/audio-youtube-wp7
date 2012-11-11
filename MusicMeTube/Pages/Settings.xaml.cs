@@ -22,7 +22,7 @@ namespace MusicMeTube.Pages
 
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private void Save_Click(object sender, EventArgs e)
         {
            
             IsolatedStorageSettings.ApplicationSettings["use_cellular"] = checkBox1.IsChecked;
@@ -30,5 +30,6 @@ namespace MusicMeTube.Pages
             MessageBox.Show("Settings Saved");
             NavigationService.GoBack();
         }
+                
     }
 }

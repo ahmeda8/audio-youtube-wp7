@@ -65,15 +65,6 @@ namespace MusicMeTube.Pages
             UpdateUsageData();
         }
 
-        private void stopsync_click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
-                {
-                    App.GlobalOfflineSync.CancellAll();
-                    progressbar.Value = 0;
-                });
-        }
-
         private void UpdateUsageData()
         {
             long avstor = IsolatedStorageFile.GetUserStoreForApplication().AvailableFreeSpace / 1024 / 1024;
@@ -100,6 +91,15 @@ namespace MusicMeTube.Pages
         private void AdControl_ErrorOccurred(object sender, Microsoft.Advertising.AdErrorEventArgs e)
         {
             ErrorLogging.Log(this.GetType().ToString(), e.Error.Message, string.Empty, string.Empty);
+        }
+
+        private void stop_click(object sender, EventArgs e)
+        {
+            System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                App.GlobalOfflineSync.CancellAll();
+                progressbar.Value = 0;
+            });
         }
     }
 }

@@ -39,6 +39,7 @@ namespace MusicMeTube
             ToggleProgressBar("Loading...");
             string filename;
             IsolatedStorageSettings.ApplicationSettings.TryGetValue("cache_filename", out filename);
+            webBrowser1.IsScriptEnabled = true;
 
             if (Network.IsConnected())
             {

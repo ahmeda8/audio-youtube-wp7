@@ -19,7 +19,8 @@
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource BackgroundTexture1}">
+    	
         <controls:Pivot >
         	<controls:Pivot.Title>
         		<TextBlock Text="{StaticResource AppName}" Foreground="{StaticResource AppNameColor}" FontFamily="{StaticResource AppTitleFont}"/>     	
@@ -31,33 +32,35 @@
                 <Grid x:Name="ContentPanel" Grid.Row="1" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="160"/>
+                        <RowDefinition Height="65"/>
                     </Grid.RowDefinitions>
                     <!--<toolkit:PerformanceProgressBar Name="performanceprogressbar" IsEnabled="False" IsIndeterminate="False" Background="Black"></toolkit:PerformanceProgressBar>-->
                     <ListBox Name="listBox1"  
                      ItemsSource="{Binding tracklistentry}" 
                      Grid.Row="0" 
                      Margin="12,0,0,0" 
-                     Foreground="{StaticResource PhoneContrastForegroundBrush}"
+                     Foreground="Black"
                              SelectionChanged="listbox1_selected">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid ShowGridLines="False" 
-                              Background="{StaticResource PhoneContrastBackgroundBrush}"
                               Margin="0,0,0,10">
+                                    <Grid.Background>
+                                        <ImageBrush Stretch="Fill" ImageSource="/MusicMeTube;component/Images/frtex.png"/>
+                                    </Grid.Background>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="35"/>
                                         <RowDefinition Height="30"/>
-                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="22"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="90"/>
                                         <ColumnDefinition Width="380"/>
                                     </Grid.ColumnDefinitions>
-                                    <Image Source="{Binding ImageSource}" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"/>
-                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="25" FontWeight="SemiBold" Padding="5,0,0,0"></TextBlock>
-                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Duration}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,0,0,0"></TextBlock>
-                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Offline}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,0,0,0" Foreground="{Binding AvailablityColor}"></TextBlock>
+                                    <Image Source="{Binding ImageSource}" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Stretch="UniformToFill"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20" FontWeight="SemiBold" Padding="5,0,0,0"></TextBlock>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Duration}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="15"  Padding="5,0,0,0"></TextBlock>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Offline}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="15"  Padding="5,0,0,0" Foreground="{Binding AvailablityColor}"></TextBlock>
                                 </Grid>
 
                             </DataTemplate>
@@ -65,7 +68,7 @@
 
                     </ListBox>
                     <!--<ads:AdControl AdUnitId="93753" ApplicationId="aaf9db87-1c01-483b-b98c-d788ea205eb2" Grid.Row="1" Width="480" Height="80" ErrorOccurred="AdControl_ErrorOccurred" VerticalAlignment="Top"/>-->
-                    <adduplex:AdControl AppId="20331" VerticalAlignment="Top" Grid.Row="1" x:Name="adDuplexControl"/>
+                    <!--<adduplex:AdControl AppId="20331" VerticalAlignment="Top" Grid.Row="1" x:Name="adDuplexControl"/>-->
                 </Grid>
 
             </controls:PivotItem>
@@ -76,24 +79,26 @@
                 <Grid Name="searchgrid">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="100"/>
-                        <RowDefinition Height="400"/>
+                        <RowDefinition Height="435"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="300"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBox Name="txtsearch" Text="Search Video" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" GotFocus="searchbox_focus" />
-                    <Button Name="btnsearch" Content="Search" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Click="search_click"/>
+                    <TextBox Name="txtsearch" Text="Search Video" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" GotFocus="searchbox_focus" Background="Beige" Foreground="Black" />
+                    <Button Name="btnsearch" Content="Search" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Click="search_click" Background="Beige" Foreground="Black"/>
                     <ListBox Name="searchResultslist" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
                         ItemsSource="{Binding Results}" 
                         Margin="12,0,0,0"
-                        Foreground="{StaticResource PhoneContrastForegroundBrush}" SelectionChanged="searchlistbox_selected">
+                        Foreground="Black" SelectionChanged="searchlistbox_selected">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid ShowGridLines="False" 
-                              Background="{StaticResource PhoneContrastBackgroundBrush}"
                               Margin="0,0,0,10">
+                                    <Grid.Background>
+                                        <ImageBrush Stretch="Fill" ImageSource="/MusicMeTube;component/Images/frtex.png"/>
+                                    </Grid.Background>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="35"/>
                                         <RowDefinition Height="30"/>

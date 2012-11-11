@@ -13,10 +13,13 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
+	<phone:PhoneApplicationPage.Background>
+		<ImageBrush Stretch="Fill" ImageSource="/MusicMeTube;component/Images/tex2.jpg"/>
+	</phone:PhoneApplicationPage.Background>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
-        <Grid.RowDefinitions>
+    <Grid x:Name="LayoutRoot" Background="{StaticResource BackgroundTexture1}">
+    	<Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -42,8 +45,8 @@
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Name" Style="{StaticResource PhoneTextLargeStyle}" VerticalAlignment="Center"/>
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Desc" Style="{StaticResource PhoneTextLargeStyle}" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Name" Style="{StaticResource PhoneTextLargeStyle}" VerticalAlignment="Center" Foreground="{StaticResource CustomTextForegroundColor1}"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Desc" Style="{StaticResource PhoneTextLargeStyle}" VerticalAlignment="Center" Foreground="{StaticResource CustomTextForegroundColor1}"/>
             <TextBox Grid.Row="0" Grid.Column="1" Name="txtName" VerticalAlignment="Center"/>
             <TextBox Grid.Row="1" Grid.Column="1" Name="txtDesc" TextWrapping="Wrap" />
             
@@ -53,7 +56,7 @@
  
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="0.70">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.save.rest.png" Text="save" Click="save_click"/>
             <!--<shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
             <shell:ApplicationBar.MenuItems>

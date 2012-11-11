@@ -36,7 +36,7 @@ namespace MusicMeTube
         {
             InitializeComponent();
 #if DEBUG
-            adDuplexControl.IsTest = true;
+            //adDuplexControl.IsTest = true;
 #endif
             proindicator = new ProgressIndicator();
             SystemTray.SetProgressIndicator(this, proindicator);
