@@ -25,6 +25,7 @@ namespace Resources
             Message = MsgClass;
             UrlFetcher = new MP3FileUrlFetch();
             UrlFetcher.Completed += UrlFetcher_Completed;
+            UrlFetcher.Failed += UrlFetcher_Failed;
         }
 
         public void Start(Entry thisone)
@@ -45,6 +46,11 @@ namespace Resources
             BackgroundTransferService.Add(BTR);
             BTR.TransferStatusChanged += BTR_TransferStatusChanged;
             Message.SetMessage("Downloading. " + Current.Title);
+        }
+
+        void UrlFetcher_Failed(object sender, APICompletedEventArgs e)
+        {
+            Message.SetMessage("Failed. "+Current.Title);
         }
 
         void BTR_TransferStatusChanged(object sender, BackgroundTransferEventArgs e)
