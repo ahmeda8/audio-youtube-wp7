@@ -50,7 +50,7 @@ namespace Resources
 
         void UrlFetcher_Failed(object sender, APICompletedEventArgs e)
         {
-            Message.SetMessage("Failed. "+Current.Title);
+            Message.SetMessage("Conversion failed. "+Current.Title);
         }
 
         void BTR_TransferStatusChanged(object sender, BackgroundTransferEventArgs e)
