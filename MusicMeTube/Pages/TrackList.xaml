@@ -110,13 +110,13 @@
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="300"/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBox Name="txtsearch" Text="Search Video" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" GotFocus="searchbox_focus" Background="Beige" Foreground="Black" />
                     <Button Name="btnsearch" Content="Search" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Click="search_click" Background="Beige" Foreground="Black"/>
                     <ListBox Name="searchResultslist" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
                         ItemsSource="{Binding Results}" 
-                        Margin="12,0,0,0"
+                        Margin="0,0,0,0"
                         Foreground="Black" SelectionChanged="searchlistbox_selected">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
@@ -129,13 +129,13 @@
                                         <RowDefinition Height="22"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="100"/>
                                         <ColumnDefinition Width="380"/>
+                                        <ColumnDefinition Width="100"/>
                                     </Grid.ColumnDefinitions>
-                                    <Image Source="{Binding ImageSource}" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"/>
-                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20" FontWeight="SemiBold" Padding="5,0,0,0"></TextBlock>
-                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Duration}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="16"  Padding="5,0,0,0"></TextBlock>
-                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Credit}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="16"  Padding="5,0,0,0"></TextBlock>
+                                    <Image Source="{Binding ImageSource}" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20" FontWeight="SemiBold" Padding="5,0,0,0"></TextBlock>
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Duration}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="16"  Padding="5,0,0,0"></TextBlock>
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Credit}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="16"  Padding="5,0,0,0"></TextBlock>
                                 </Grid>
 
                             </DataTemplate>
@@ -175,7 +175,7 @@
                 <shell:ApplicationBarMenuItem Text="download status" Click="datastat_click"/>
                 <!--<shell:ApplicationBarMenuItem Text="Manage Playlist" Click="createmodify_click"/>-->
                 <shell:ApplicationBarMenuItem Text="delete playlist" Click="delplaylist_click"/>
-                <shell:ApplicationBarMenuItem Text="delete offline Data" Click="clearsync_click"/>
+                <!--<shell:ApplicationBarMenuItem Text="delete offline Data" Click="clearsync_click"/>-->
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
        

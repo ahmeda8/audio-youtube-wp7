@@ -79,7 +79,7 @@ namespace Resources
                 _BTR = new BackgroundTransferRequest(Src, Dest);
                 _BTR.Tag = Current.PlaylistID + "/" + Current.Id + ".mp3";
                 _BTR.TransferStatusChanged += BTR_TransferStatusChanged;
-                Message.SetMessage("Ready. " + Current.Title);
+                Message.SetMessage("Downloading - " + Current.Title);
                 if (Ready != null)
                     Ready(_BTR);
             }

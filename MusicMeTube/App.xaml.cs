@@ -62,8 +62,14 @@ namespace MusicMeTube
             GlobalMessaging = new Messaging();
             GlobalOfflineSync = new MultiDownloader(GlobalMessaging);
             GlobalOfflineSync.Ready += GlobalOfflineSync_Ready;
+            GlobalOfflineSync.Completed += GlobalOfflineSync_Completed;
             //RTSP_FileDownloader fd = new RTSP_FileDownloader();
             //fd.GetRTPSocketPort();
+        }
+
+        void GlobalOfflineSync_Completed(object sender)
+        {
+            GlobalMessaging.SetMessage("Download complete.");
         }
 
         void GlobalOfflineSync_Ready(object sender)

@@ -22,7 +22,7 @@ namespace MusicMeTube
         Entry plentry;
         ViewModelTracklist viewmodel;
         ProgressIndicator proindicator;
-        BackgroundWorker back_worker;
+        BackgroundWorker dataloading_worker;
         BackgroundWorker search;
         BackgroundWorker addvideo_worker;
         BackgroundWorker delvideo_worker;
@@ -38,22 +38,20 @@ namespace MusicMeTube
         public TrackList()
         {
             InitializeComponent();
-#if DEBUG
-            //adDuplexControl.IsTest = true;
-#endif
+
             ManipulationList = new List<Entry>();
             App.GlobalMessaging.Changed += Message_Changed;
             proindicator = new ProgressIndicator();
             SystemTray.SetProgressIndicator(this, proindicator);
 
-            back_worker = new BackgroundWorker();
+            dataloading_worker = new BackgroundWorker();
             search = new BackgroundWorker();
             addvideo_worker = new BackgroundWorker();
             delvideo_worker = new BackgroundWorker();
             delplay_worker = new BackgroundWorker();
 
-            back_worker.DoWork += new DoWorkEventHandler(back_worker_DoWork);
-            back_worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(back_worker_RunWorkerCompleted);
+            dataloading_worker.DoWork += new DoWorkEventHandler(back_worker_DoWork);
+            dataloading_worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(back_worker_RunWorkerCompleted);
             search.DoWork += new DoWorkEventHandler(search_DoWork);
             search.RunWorkerCompleted += new RunWorkerCompletedEventHandler(search_RunWorkerCompleted);
             addvideo_worker.DoWork += new DoWorkEventHandler(addvideo_worker_DoWork);
@@ -63,9 +61,10 @@ namespace MusicMeTube
             delplay_worker.DoWork += new DoWorkEventHandler(delplay_worker_DoWork);
             delplay_worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delplay_worker_RunWorkerCompleted);
             progrss_report = new ProgressReporter();
+            App.GlobalOfflineSync.Completed += GlobalOfflineSync_Completed;
         }
 
-        #endregion
+#endregion
 
 #region Background workers
 
@@ -96,8 +95,8 @@ namespace MusicMeTube
         {
             ISOHelper.DeleteFile("cache\\" + plentry.Id + ".json");
             ManipulationList.Clear(); // clear the list for delete files
-            if(!back_worker.IsBusy)
-                back_worker.RunWorkerAsync(index);
+            if(!dataloading_worker.IsBusy)
+                dataloading_worker.RunWorkerAsync(index);
         }
 
         void delvideo_worker_DoWork(object sender, DoWorkEventArgs e)
@@ -116,8 +115,8 @@ namespace MusicMeTube
         void addvideo_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             ISOHelper.DeleteFile("cache\\" + plentry.Id + ".json");
-            if(!back_worker.IsBusy)
-                back_worker.RunWorkerAsync(index);
+            if(!dataloading_worker.IsBusy)
+                dataloading_worker.RunWorkerAsync(index);
             if (Add.ErrorOccured)
             {
                 System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => {
@@ -172,13 +171,15 @@ namespace MusicMeTube
             string indexstr;
             NavigationContext.QueryString.TryGetValue("index", out indexstr);
             index = int.Parse(indexstr);
-            if(!back_worker.IsBusy)
-                back_worker.RunWorkerAsync(index);
+            if(!dataloading_worker.IsBusy)
+                dataloading_worker.RunWorkerAsync(index);
             base.OnNavigatedTo(e);
         }
 
         protected override void OnNavigatingFrom(System.Windows.Navigation.NavigatingCancelEventArgs e)
         {
+            App.GlobalOfflineSync.Completed -= GlobalOfflineSync_Completed;
+            App.GlobalMessaging.Changed -= Message_Changed;
             base.OnNavigatingFrom(e);
         }
 #endregion
@@ -192,6 +193,12 @@ namespace MusicMeTube
                     proindicator.Text = e.Response;
                     proindicator.IsVisible = true;
                 });
+        }
+
+        void GlobalOfflineSync_Completed(object sender)
+        {
+            if(!dataloading_worker.IsBusy)
+                dataloading_worker.RunWorkerAsync(index);
         }
 
 #endregion
@@ -223,9 +230,9 @@ namespace MusicMeTube
                             xdoc.Element("playlist").Add(plstart);
                         }
 
-                        foreach (Entry ent in listBox1.SelectedItems)
+                        foreach (Entry ent in viewmodel.tracklistentry)
                         {
-                            string filename = ent.PlaylistID + "\\" + ent.Id + ".mp3";
+                            string filename = ent.PlaylistID + "/" + ent.Id + ".mp3";
                             if (iso.FileExists(filename))
                             {
                                 XElement xel = new XElement("item");
@@ -274,16 +281,6 @@ namespace MusicMeTube
                 App.GlobalMessaging.SetMessage("No offline tracks.");
             else if (BackgroundAudioPlayer.Instance.PlayerState != PlayState.Playing)
                 BackgroundAudioPlayer.Instance.Play();
-        }
-
-        private void clearsync_click(object sender, EventArgs e)
-        {
-            if (BackgroundAudioPlayer.Instance.PlayerState == PlayState.Playing || BackgroundAudioPlayer.Instance.PlayerState == PlayState.Paused)
-                BackgroundAudioPlayer.Instance.Stop();
-            if (!ISOHelper.DeleteDirectory(plentry.Id))
-                MessageBox.Show("Some files were locked by audio player, or do not exist");
-            if (!back_worker.IsBusy)
-                back_worker.RunWorkerAsync(index);
         }
 
         private void search_click(object sender, RoutedEventArgs e)
