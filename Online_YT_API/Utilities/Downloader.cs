@@ -41,7 +41,7 @@ namespace Resources
 
         public void Abort()
         {
-            if (BackgroundTransferService.Find(_BTR.RequestId) != null)
+            if (_BTR != null && BackgroundTransferService.Find(_BTR.RequestId) != null)
             {
                 BackgroundTransferService.Remove(_BTR);
                 Message.SetMessage("Aborted. " + _Current.Title);
@@ -88,6 +88,7 @@ namespace Resources
                         ISOHelper.MoveFileOverwrite(e.Request.DownloadLocation.OriginalString, e.Request.Tag);
                         BackgroundTransferService.Remove(e.Request);
                         Message.SetMessage("Completed. "+_Current.Title);
+                        ISOHelper.SaveDataUsage(e.Request.BytesReceived);
                         RaiseCompleted();
                     }
                     break;

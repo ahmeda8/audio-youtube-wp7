@@ -85,7 +85,7 @@
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.refresh.rest.png" Text="Refresh" Click="RefreshButton_Click"/>
             <!--<shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>-->
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="download Status" Click="datastat_click"/>
+                <shell:ApplicationBarMenuItem Text="data usage" Click="datastat_click"/>
                 <!--<shell:ApplicationBarMenuItem Text="Manage Playlist" Click="createmodify_click"/>-->
                 <shell:ApplicationBarMenuItem Text="Settings" Click="settings_click"/>
                 <shell:ApplicationBarMenuItem Text="Instructions" Click="instr_click"/>

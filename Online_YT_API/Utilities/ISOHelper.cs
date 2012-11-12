@@ -158,5 +158,18 @@ namespace Resources
             }
             return string_data;
         }
+
+        public static void SaveDataUsage(long bytesReceived)
+        {
+            long totaldata = 0;
+            long session_data = 0;
+            IsolatedStorageSettings.ApplicationSettings.TryGetValue("total_data", out totaldata);
+            totaldata += bytesReceived / 1024 / 1024;
+            IsolatedStorageSettings.ApplicationSettings["total_data"] = totaldata;
+            IsolatedStorageSettings.ApplicationSettings.TryGetValue("session_data", out session_data);
+            session_data += bytesReceived / 1024 / 1024;
+            IsolatedStorageSettings.ApplicationSettings["session_data"] = session_data;
+            IsolatedStorageSettings.ApplicationSettings.Save();
+        }
     }
 }

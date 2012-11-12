@@ -231,6 +231,7 @@ namespace MusicMeTube
                 proindicator.IsVisible = true;
                 double val = ((double)e.Request.BytesReceived / (double)e.Request.TotalBytesToReceive);
                 proindicator.Value = val;
+
             });
         }
 
@@ -321,7 +322,10 @@ namespace MusicMeTube
             if (PreparePlaylistXML(true) <= 0)
                 App.GlobalMessaging.SetMessage("No offline tracks.");
             else if (BackgroundAudioPlayer.Instance.PlayerState != PlayState.Playing)
+            {
                 BackgroundAudioPlayer.Instance.Play();
+                BackgroundAudioPlayer.Instance.Volume = 1.0;
+            }
         }
 
         private void search_click(object sender, RoutedEventArgs e)
@@ -394,14 +398,21 @@ namespace MusicMeTube
         {
             if (listBox1.SelectedItems.Count > 0)
             {
-                App.GlobalMessaging.SetMessage("Starting Download.");
-                List<Entry> tempList = new List<Entry>();
-                tempList.Clear();
-                foreach (Entry ent in listBox1.SelectedItems)
+                if (App.GlobalOfflineSync.ManipulationList.Count == 0)
                 {
-                    tempList.Add(ent);
+                    App.GlobalMessaging.SetMessage("Starting Download.");
+                    List<Entry> tempList = new List<Entry>();
+                    tempList.Clear();
+                    foreach (Entry ent in listBox1.SelectedItems)
+                    {
+                        tempList.Add(ent);
+                    }
+                    App.GlobalOfflineSync.Start(tempList);
                 }
-                App.GlobalOfflineSync.Start(tempList);
+                else
+                {
+                    App.GlobalMessaging.SetMessage("Previous download in progress.");
+                }
             }
             else if(!listBox1.IsSelectionEnabled)
             {
