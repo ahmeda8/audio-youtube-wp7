@@ -59,13 +59,13 @@
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="80"/>
-                                <ColumnDefinition Width="80"/>
-                                <ColumnDefinition Width="300"/>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="150"/>
                             </Grid.ColumnDefinitions>
-                            <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding ImageSource}" Stretch="UniformToFill"/>
-                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="25" FontWeight="SemiBold" Padding="5,0,0,0"></TextBlock>
-                            <TextBlock Grid.Row="2" Grid.Column="1" Text=" Tracks" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,0,0,0"></TextBlock>
-                            <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Count}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,0,0,0"></TextBlock>
+                            <Image Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Source="{Binding ImageSource}" Stretch="Uniform"/>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="25" FontWeight="SemiBold" Padding="5,0,0,0"></TextBlock>
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text=" Tracks" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,0,0,0"></TextBlock>
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Count}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,0,0,0"></TextBlock>
                             <!--<TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Updated}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,2,0,2"></TextBlock>-->
                         </Grid>
                     </DataTemplate>

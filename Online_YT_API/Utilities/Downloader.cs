@@ -36,7 +36,7 @@ namespace Resources
             Aborted = false;
             _Current = thisone;
             UrlFetcher.StartFetch(_Current.Source);
-            Message.SetMessage("Converting. "+_Current.Title);
+            Message.SetMessage("Converting - "+_Current.Title);
         }
 
         public void Abort()
@@ -44,7 +44,7 @@ namespace Resources
             if (_BTR != null && BackgroundTransferService.Find(_BTR.RequestId) != null)
             {
                 BackgroundTransferService.Remove(_BTR);
-                Message.SetMessage("Aborted. " + _Current.Title);
+                Message.SetMessage("Aborted - " + _Current.Title);
             }
             Aborted = true;
             RaiseCompleted();
@@ -74,7 +74,7 @@ namespace Resources
 
         void UrlFetcher_Failed(object sender, APICompletedEventArgs e)
         {
-            Message.SetMessage("Conversion failed. "+_Current.Title);
+            Message.SetMessage("Conversion failed - "+_Current.Title);
             RaiseCompleted();
         }
 
@@ -87,7 +87,7 @@ namespace Resources
                     {
                         ISOHelper.MoveFileOverwrite(e.Request.DownloadLocation.OriginalString, e.Request.Tag);
                         BackgroundTransferService.Remove(e.Request);
-                        Message.SetMessage("Completed. "+_Current.Title);
+                        Message.SetMessage("Completed - "+_Current.Title);
                         ISOHelper.SaveDataUsage(e.Request.BytesReceived);
                         RaiseCompleted();
                     }

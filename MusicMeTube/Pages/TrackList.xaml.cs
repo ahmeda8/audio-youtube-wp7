@@ -27,12 +27,10 @@ namespace MusicMeTube
         BackgroundWorker addvideo_worker;
         BackgroundWorker delvideo_worker;
         BackgroundWorker delplay_worker;
-
-        ProgressReporter progrss_report;
         SearchResults sr;
         int index;
-
         List<Entry> ManipulationList;
+
 #region Construct
 
         public TrackList()
@@ -60,7 +58,6 @@ namespace MusicMeTube
             delvideo_worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delvideo_worker_RunWorkerCompleted);
             delplay_worker.DoWork += new DoWorkEventHandler(delplay_worker_DoWork);
             delplay_worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delplay_worker_RunWorkerCompleted);
-            progrss_report = new ProgressReporter();
             App.GlobalOfflineSync.Completed += GlobalOfflineSync_Completed;
             App.GlobalOfflineSync.Ready += GlobalOfflineSync_Ready;
         }
@@ -400,14 +397,15 @@ namespace MusicMeTube
             {
                 if (App.GlobalOfflineSync.ManipulationList.Count == 0)
                 {
-                    App.GlobalMessaging.SetMessage("Starting Download.");
                     List<Entry> tempList = new List<Entry>();
                     tempList.Clear();
                     foreach (Entry ent in listBox1.SelectedItems)
                     {
-                        tempList.Add(ent);
+                        if(!ISOHelper.FileExists(ent.PlaylistID+"/"+ent.Id+".mp3"))
+                            tempList.Add(ent);
                     }
-                    App.GlobalOfflineSync.Start(tempList);
+                    if(tempList.Count > 0)
+                        App.GlobalOfflineSync.Start(tempList);
                 }
                 else
                 {

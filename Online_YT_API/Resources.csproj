@@ -54,19 +54,15 @@
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\FileDownloader.cs" />
     <Compile Include="Events\EventHandlers.cs" />
     <Compile Include="Interfaces\IDownloader.cs" />
     <Compile Include="Interfaces\IDownloadUrlFetch.cs" />
     <Compile Include="Interfaces\IMessaging.cs" />
-    <Compile Include="Interfaces\ISyncing.cs" />
     <Compile Include="Interfaces\IOnlineServiceProviderApi.cs" />
     <Compile Include="Models\Entry.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="MP3FileUrlFetch.cs" />
     <Compile Include="MultiDownloader.cs" />
-    <Compile Include="OfflineSyncExt.cs" />
-    <Compile Include="ProgressReporter.cs" />
     <Compile Include="ServiceProviders\simplemp3_net.cs" />
     <Compile Include="Abstract\WebMethods.cs" />
     <Compile Include="Utilities\Downloader.cs" />
