@@ -62,7 +62,9 @@ namespace MusicMeTube
             delplay_worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delplay_worker_RunWorkerCompleted);
             progrss_report = new ProgressReporter();
             App.GlobalOfflineSync.Completed += GlobalOfflineSync_Completed;
+            App.GlobalOfflineSync.Ready += GlobalOfflineSync_Ready;
         }
+
 
 #endregion
 
@@ -199,6 +201,22 @@ namespace MusicMeTube
         {
             if(!dataloading_worker.IsBusy)
                 dataloading_worker.RunWorkerAsync(index);
+        }
+
+
+        void GlobalOfflineSync_Ready(object sender)
+        {
+            BackgroundTransferRequest BackgroundTransfer = (BackgroundTransferRequest)sender;
+            BackgroundTransfer.TransferProgressChanged += BackgroundTransfer_TransferProgressChanged;
+        }
+
+        void BackgroundTransfer_TransferProgressChanged(object sender, BackgroundTransferEventArgs e)
+        {
+            System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => {
+                proindicator.IsIndeterminate = false;
+                double val = ((double)e.Request.BytesReceived / (double)e.Request.TotalBytesToReceive);
+                proindicator.Value = val;
+            });
         }
 
 #endregion
@@ -350,14 +368,21 @@ namespace MusicMeTube
 
         private void Download_click(object sender, EventArgs e)
         {
-            App.GlobalMessaging.SetMessage("Starting Download.");
-            List<Entry> tempList = new List<Entry>();
-            tempList.Clear();
-            foreach (Entry ent in listBox1.SelectedItems)
+            if (listBox1.SelectedItems.Count > 0)
             {
-                tempList.Add(ent);
+                App.GlobalMessaging.SetMessage("Starting Download.");
+                List<Entry> tempList = new List<Entry>();
+                tempList.Clear();
+                foreach (Entry ent in listBox1.SelectedItems)
+                {
+                    tempList.Add(ent);
+                }
+                App.GlobalOfflineSync.Start(tempList);
             }
-            App.GlobalOfflineSync.Start(tempList);
+            else if(!listBox1.IsSelectionEnabled)
+            {
+                listBox1.IsSelectionEnabled = true;
+            }
         }
 
         private void ListItem_tapped(object sender, System.Windows.Input.GestureEventArgs e)
