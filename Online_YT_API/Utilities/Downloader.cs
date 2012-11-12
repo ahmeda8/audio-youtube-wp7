@@ -34,9 +34,9 @@ namespace Resources
         public void Start(Entry thisone)
         {
             Aborted = false;
-            Current = thisone;
-            UrlFetcher.StartFetch(Current.Source);
-            Message.SetMessage("Converting. "+Current.Title);
+            _Current = thisone;
+            UrlFetcher.StartFetch(_Current.Source);
+            Message.SetMessage("Converting. "+_Current.Title);
         }
 
         public void Abort()
@@ -44,23 +44,10 @@ namespace Resources
             if (BackgroundTransferService.Find(_BTR.RequestId) != null)
             {
                 BackgroundTransferService.Remove(_BTR);
-                Message.SetMessage("Aborted. " + Current.Title);
+                Message.SetMessage("Aborted. " + _Current.Title);
             }
             Aborted = true;
             RaiseCompleted();
-        }
-
-
-        public Entry Current
-        {
-            get
-            {
-                return _Current;
-            }
-            set
-            {
-                _Current = value;
-            }
         }
 
         public BackgroundTransferRequest BTR
@@ -77,9 +64,9 @@ namespace Resources
                 Uri Dest = new Uri("shared/transfers/temp" + sender.GetHashCode() + ".mp3", UriKind.Relative);
                 Uri Src = new Uri(e.Response, UriKind.Absolute);
                 _BTR = new BackgroundTransferRequest(Src, Dest);
-                _BTR.Tag = Current.PlaylistID + "/" + Current.Id + ".mp3";
+                _BTR.Tag = _Current.PlaylistID + "/" + _Current.Id + ".mp3";
                 _BTR.TransferStatusChanged += BTR_TransferStatusChanged;
-                Message.SetMessage("Downloading - " + Current.Title);
+                Message.SetMessage("Downloading - " + _Current.Title);
                 if (Ready != null)
                     Ready(_BTR);
             }
@@ -87,7 +74,7 @@ namespace Resources
 
         void UrlFetcher_Failed(object sender, APICompletedEventArgs e)
         {
-            Message.SetMessage("Conversion failed. "+Current.Title);
+            Message.SetMessage("Conversion failed. "+_Current.Title);
             RaiseCompleted();
         }
 
@@ -100,7 +87,7 @@ namespace Resources
                     {
                         ISOHelper.MoveFileOverwrite(e.Request.DownloadLocation.OriginalString, e.Request.Tag);
                         BackgroundTransferService.Remove(e.Request);
-                        Message.SetMessage("Completed. "+Current.Title);
+                        Message.SetMessage("Completed. "+_Current.Title);
                         RaiseCompleted();
                     }
                     break;

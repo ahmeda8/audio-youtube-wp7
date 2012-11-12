@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Phone.BackgroundTransfer;
 
 namespace Resources
 {
-    public class MultiDownloader
+    public class MultiDownloader 
     {
         //constants
 
@@ -12,7 +13,7 @@ namespace Resources
         private Downloader DownloaderSingle;
         public List<Entry> ManipulationList;
         private bool Aborted = false;
-
+        
         //events
 
         public event GenericEvntHandler Completed;
@@ -68,7 +69,13 @@ namespace Resources
             ManipulationList.Clear();
             DownloaderSingle.Abort();
         }
-       
 
+        public BackgroundTransferRequest BTR
+        {
+            get 
+            {
+                return DownloaderSingle.BTR;
+            }
+        }
     }
 }

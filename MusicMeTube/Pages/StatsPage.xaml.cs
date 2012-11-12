@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.BackgroundTransfer;
 using System.IO.IsolatedStorage;
@@ -11,58 +8,22 @@ namespace MusicMeTube.Pages
 {
     public partial class StatsPage : PhoneApplicationPage
     {
-        DateTime last_ti = DateTime.Now;
-        ProgressReporter p_reporter;
-        BackgroundTransferRequest req;
-
         public StatsPage()
         {
             InitializeComponent();
             Loaded += new System.Windows.RoutedEventHandler(StatsPage_Loaded);
-            p_reporter = new ProgressReporter();
-            req = null;
         }
 
         void StatsPage_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             UpdateUsageData();
-            if (App.GlobalOfflineSync != null)
-            {
-                //App.GlobalOfflineSync.Ready += new FileDownloadEvntHandler(GlobalOfflineSync_Ready);
-                //App.GlobalOfflineSync.SyncProgressChange += new FileDownloadEvntHandler(GlobalOfflineSync_SyncProgressChange);
-                //req = App.GlobalOfflineSync.BACKGROUND_REQUEST;//BackgroundTransferService.Requests.FirstOrDefault();
-                if(req != null)
-                    req.TransferProgressChanged += new EventHandler<BackgroundTransferEventArgs>(StatsPage_TransferProgressChanged);
-                progressbar.Maximum = 1;
-                progressbar.Minimum = 0;
-                progressbar.Value = 0;
-            }
-            else
-                title.Text = "No Syncing in Progress";
+            title.Text = App.GlobalMessaging.GetMessage();
+            App.GlobalMessaging.Changed += GlobalMessaging_Changed;
         }
 
-        void GlobalOfflineSync_SyncProgressChange(object sender,FileDownloadEvntArgs e)
+        void GlobalMessaging_Changed(object sender, APICompletedEventArgs e)
         {
-            System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
-                {
-                    title.Text = e.Message;
-                });
-        }
-
-        void GlobalOfflineSync_Ready(object sender, FileDownloadEvntArgs e)
-        {
-            OfflineSyncExt sync = (OfflineSyncExt)sender;
-            sync.BACKGROUND_REQUEST.TransferProgressChanged += new EventHandler<BackgroundTransferEventArgs>(StatsPage_TransferProgressChanged);
-        }
-
-        void StatsPage_TransferProgressChanged(object sender, BackgroundTransferEventArgs e)
-        {
-            ProgressReporter.ProgressInfo pinfo = p_reporter.GetProgressInfo(e.Request);
-            title.Text = "Downloading... "+pinfo.Title;
-            progressbar.Value = pinfo.FileProgress;
-            speedtxt.Text = pinfo.Speed + " Kb/s";
-            last_ti = DateTime.Now;
-            UpdateUsageData();
+            title.Text = e.Response;
         }
 
         private void UpdateUsageData()
@@ -81,25 +42,13 @@ namespace MusicMeTube.Pages
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
-           // App.GlobalOfflineSync.Ready -= new FileDownloadEvntHandler(GlobalOfflineSync_Ready);
-           // App.GlobalOfflineSync.SyncProgressChange -= new FileDownloadEvntHandler(GlobalOfflineSync_SyncProgressChange);
-            if(req != null)
-                req.TransferProgressChanged -= new EventHandler<BackgroundTransferEventArgs>(StatsPage_TransferProgressChanged);
+            App.GlobalMessaging.Changed -= GlobalMessaging_Changed;
             base.OnNavigatedFrom(e);
-        }
-
-        private void AdControl_ErrorOccurred(object sender, Microsoft.Advertising.AdErrorEventArgs e)
-        {
-            ErrorLogging.Log(this.GetType().ToString(), e.Error.Message, string.Empty, string.Empty);
         }
 
         private void stop_click(object sender, EventArgs e)
         {
-            System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                App.GlobalOfflineSync.Abort();
-                progressbar.Value = 0;
-            });
+            App.GlobalOfflineSync.Abort();
         }
     }
 }
