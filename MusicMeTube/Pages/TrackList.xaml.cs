@@ -72,6 +72,7 @@ namespace MusicMeTube
 
         void delplay_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            App.GlobalMessaging.SetMessage("Deleting playlist...");
             ISOHelper.DeleteFile("cache\\" + plentry.Id + ".json");
             if (BackgroundAudioPlayer.Instance.PlayerState == PlayState.Playing || BackgroundAudioPlayer.Instance.PlayerState == PlayState.Paused)
                 BackgroundAudioPlayer.Instance.Stop();
@@ -82,6 +83,7 @@ namespace MusicMeTube
                 {
                     NavigationService.GoBack();
                 });
+            DisableProgressIndicator();
         }
 
         void delplay_worker_DoWork(object sender, DoWorkEventArgs e)
@@ -95,10 +97,12 @@ namespace MusicMeTube
 
         void delvideo_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            App.GlobalMessaging.SetMessage("Deleting tracks...");
             ISOHelper.DeleteFile("cache\\" + plentry.Id + ".json");
             ManipulationList.Clear(); // clear the list for delete files
             if(!dataloading_worker.IsBusy)
                 dataloading_worker.RunWorkerAsync(index);
+            DisableProgressIndicator();
         }
 
         void delvideo_worker_DoWork(object sender, DoWorkEventArgs e)
@@ -116,6 +120,7 @@ namespace MusicMeTube
 
         void addvideo_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            App.GlobalMessaging.SetMessage("Adding...");
             ISOHelper.DeleteFile("cache\\" + plentry.Id + ".json");
             if(!dataloading_worker.IsBusy)
                 dataloading_worker.RunWorkerAsync(index);
@@ -125,6 +130,7 @@ namespace MusicMeTube
                     MessageBox.Show("Error occured while adding video to playlist");
                 });
             }
+            DisableProgressIndicator();
         }
 
         void addvideo_worker_DoWork(object sender, DoWorkEventArgs e)
@@ -139,6 +145,7 @@ namespace MusicMeTube
         void search_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             searchResultslist.DataContext = sr;
+            DisableProgressIndicator();
         }
 
         void search_DoWork(object sender, DoWorkEventArgs e)
@@ -152,17 +159,23 @@ namespace MusicMeTube
 
         void back_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            DataContext = viewmodel;
+            App.GlobalMessaging.SetMessage("");
+            System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => {
+                DataContext = viewmodel;
+            });
+            DisableProgressIndicator();
         }
 
         void back_worker_DoWork(object sender, DoWorkEventArgs e)
         {
+            App.GlobalMessaging.SetMessage("Loading Data...");
             plentry = ViewModelPlaylist.playlistentry.ElementAt((int)e.Argument);
             viewmodel = new ViewModelTracklist(plentry);
             while (!viewmodel.completed)
             {
-                System.Threading.Thread.Sleep(3000);
+                System.Threading.Thread.Sleep(1000);
             }
+            
         }
 #endregion
 
@@ -194,6 +207,7 @@ namespace MusicMeTube
                 {
                     proindicator.Text = e.Response;
                     proindicator.IsVisible = true;
+                    proindicator.IsIndeterminate = true;
                 });
         }
 
@@ -214,6 +228,7 @@ namespace MusicMeTube
         {
             System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => {
                 proindicator.IsIndeterminate = false;
+                proindicator.IsVisible = true;
                 double val = ((double)e.Request.BytesReceived / (double)e.Request.TotalBytesToReceive);
                 proindicator.Value = val;
             });
@@ -272,6 +287,14 @@ namespace MusicMeTube
            
         }
 
+        private void DisableProgressIndicator()
+        {
+            System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => {
+                proindicator.IsIndeterminate = false;
+                proindicator.IsVisible = false;
+            });
+        }
+
 #endregion
 
 #region Events trigger handlers
@@ -317,6 +340,7 @@ namespace MusicMeTube
 
         private void add_click(object sender, EventArgs e)
         {
+            App.GlobalMessaging.SetMessage("Adding...");
             add_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
             add_appbar.IsEnabled = false;
             Entry en = searchResultslist.SelectedItem as Entry;

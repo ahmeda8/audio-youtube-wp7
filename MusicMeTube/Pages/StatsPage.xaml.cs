@@ -17,13 +17,6 @@ namespace MusicMeTube.Pages
         void StatsPage_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             UpdateUsageData();
-            title.Text = App.GlobalMessaging.GetMessage();
-            App.GlobalMessaging.Changed += GlobalMessaging_Changed;
-        }
-
-        void GlobalMessaging_Changed(object sender, APICompletedEventArgs e)
-        {
-            title.Text = e.Response;
         }
 
         private void UpdateUsageData()
@@ -42,13 +35,8 @@ namespace MusicMeTube.Pages
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
-            App.GlobalMessaging.Changed -= GlobalMessaging_Changed;
             base.OnNavigatedFrom(e);
         }
 
-        private void stop_click(object sender, EventArgs e)
-        {
-            App.GlobalOfflineSync.Abort();
-        }
     }
 }

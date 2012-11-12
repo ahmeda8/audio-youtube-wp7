@@ -24,7 +24,7 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Text="{StaticResource AppName}" Style="{StaticResource PhoneTextNormalStyle}" Foreground="{StaticResource AppNameColor}" FontFamily="{StaticResource AppTitleFont}"/>
-            <TextBlock x:Name="PageTitle" Text="Data Statistics" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Foreground="{StaticResource PhoneAccentBrush}" FontFamily="{StaticResource PageNameFontFamily}"/>
+            <TextBlock x:Name="PageTitle" Text="data usage" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Foreground="{StaticResource PhoneAccentBrush}" FontFamily="{StaticResource PageNameFontFamily}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -57,11 +57,11 @@
             <TextBlock Grid.Row="2" Grid.Column="1" Name="totaldata" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource CustomTextForegroundColor1}"></TextBlock>
             <TextBlock Grid.Row="3" Grid.Column="1" Name="sessiondata" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource CustomTextForegroundColor1}"></TextBlock>
             
-            <TextBlock Text="Sync Info" Grid.Row="4" Grid.ColumnSpan="2" Style="{StaticResource PhoneTextExtraLargeStyle}" HorizontalAlignment="Center" Foreground="{StaticResource AppNameColor}"/>
+            <!--<TextBlock Text="Sync Info" Grid.Row="4" Grid.ColumnSpan="2" Style="{StaticResource PhoneTextExtraLargeStyle}" HorizontalAlignment="Center" Foreground="{StaticResource AppNameColor}"/>
             <TextBlock Text="" Grid.Row="5" Grid.ColumnSpan="2" Style="{StaticResource PhoneTextNormalStyle}" Name="title" VerticalAlignment="Center" Foreground="{StaticResource CustomTextForegroundColor1}"/>
             <TextBlock Text="Speed" Grid.Row="6" Grid.Column="0" Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Center" Foreground="{StaticResource CustomTextForegroundColor1}"/>
             <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource PhoneTextNormalStyle}" Name="speedtxt" VerticalAlignment="Center" Foreground="{StaticResource CustomTextForegroundColor1}"/>
-            <ProgressBar Name="progressbar" IsEnabled="True" Grid.Row="7" Grid.ColumnSpan="2" IsIndeterminate="False" ></ProgressBar>
+            <ProgressBar Name="progressbar" IsEnabled="True" Grid.Row="7" Grid.ColumnSpan="2" IsIndeterminate="False" ></ProgressBar>-->
             <!--<ProgressBar Name="totalprogressbar" IsEnabled="True" Grid.Row="8" Grid.ColumnSpan="2" IsIndeterminate="False" ></ProgressBar>-->
             <!--<Button Content="Force Stop Sync" Click="stopsync_click" Grid.Row="8" Grid.ColumnSpan="2" Width="250"/>-->
             <!--<ads:AdControl ApplicationId="aaf9db87-1c01-483b-b98c-d788ea205eb2" AdUnitId="93753" Grid.Row="9" Grid.ColumnSpan="2" Width="480" Height="80" ErrorOccurred="AdControl_ErrorOccurred"/>-->
@@ -69,16 +69,16 @@
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->
-    <phone:PhoneApplicationPage.ApplicationBar>
+    <!--<phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="0.70">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.stop.rest.png" Text="force stop" Click="stop_click"/>
-            <!--<shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
                 <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems> -->
+            </shell:ApplicationBar.MenuItems> 
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>-->
 
 </phone:PhoneApplicationPage>
