@@ -37,7 +37,8 @@
                     <!--<toolkit:PerformanceProgressBar Name="performanceprogressbar" IsEnabled="False" IsIndeterminate="False" Background="Black"></toolkit:PerformanceProgressBar>-->
                     <toolkit:MultiselectList Name="listBox1"
                                               ItemsSource="{Binding tracklistentry}"
-                                              Grid.Row="0">
+                                              Grid.Row="0"
+                                             Foreground="White">
                         <toolkit:MultiselectList.ItemTemplate>
                             <DataTemplate>
                                 <Grid ShowGridLines="False" 

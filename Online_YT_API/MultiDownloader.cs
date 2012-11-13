@@ -61,6 +61,7 @@ namespace Resources
             ManipulationList = DownloadList;
             DownloaderSingle.Start(ManipulationList.First());
             ManipulationList.Remove(ManipulationList.First()); // remove the element after it started
+            
         }
 
         public void Abort()

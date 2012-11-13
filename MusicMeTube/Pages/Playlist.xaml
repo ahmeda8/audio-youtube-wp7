@@ -46,7 +46,7 @@
                      SelectionChanged="listBox1_SelectionChanged" 
                      Margin="12,0,0,0" 
                      Grid.Row="0"
-                     Foreground="Black">
+                     Foreground="White">
             	<ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid ShowGridLines="False" 
