@@ -79,7 +79,6 @@
     <Compile Include="Library\Add.cs" />
     <Compile Include="Library\Authentication.cs" />
     <Compile Include="Library\Delete.cs" />
-    <Compile Include="Library\Network.cs" />
     <Compile Include="Library\ViewModelSearchResults.cs" />
     <Compile Include="Library\StringExtension.cs" />
     <Compile Include="Library\ViewModelPlaylist.cs" />

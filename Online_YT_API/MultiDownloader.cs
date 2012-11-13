@@ -59,9 +59,13 @@ namespace Resources
             Aborted = false;
             ManipulationList.Clear();
             ManipulationList = DownloadList;
-            DownloaderSingle.Start(ManipulationList.First());
-            ManipulationList.Remove(ManipulationList.First()); // remove the element after it started
-            
+            bool Started;
+            do
+            {
+                Started = DownloaderSingle.Start(ManipulationList.First());
+                ManipulationList.Remove(ManipulationList.First()); // remove the element after it started
+            }
+            while (!Started && ManipulationList.Count > 0);
         }
 
         public void Abort()

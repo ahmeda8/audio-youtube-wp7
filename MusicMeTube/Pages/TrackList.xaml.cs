@@ -80,11 +80,12 @@ namespace MusicMeTube
                 {
                     NavigationService.GoBack();
                 });
-            DisableProgressIndicator();
+            ProgressIndicatorVisible(false);
         }
 
         void delplay_worker_DoWork(object sender, DoWorkEventArgs e)
         {
+            ProgressIndicatorVisible(true);
             Delete.Playlist((string)e.Argument);
             while (!Delete.Completed)
             {
@@ -99,11 +100,12 @@ namespace MusicMeTube
             ManipulationList.Clear(); // clear the list for delete files
             if(!dataloading_worker.IsBusy)
                 dataloading_worker.RunWorkerAsync(index);
-            DisableProgressIndicator();
+            ProgressIndicatorVisible(false);
         }
 
         void delvideo_worker_DoWork(object sender, DoWorkEventArgs e)
         {
+            ProgressIndicatorVisible(true);
             foreach (Entry ent in ManipulationList)
             {
                 ISOHelper.DeleteFile(ent.PlaylistID + "\\" + ent.Id + ".mp3");
@@ -127,11 +129,12 @@ namespace MusicMeTube
                     MessageBox.Show("Error occured while adding video to playlist");
                 });
             }
-            DisableProgressIndicator();
+            ProgressIndicatorVisible(false);
         }
 
         void addvideo_worker_DoWork(object sender, DoWorkEventArgs e)
         {
+            ProgressIndicatorVisible(true);
             Add.Video(plentry.Id, (string)e.Argument);
             while (!Add.Completed)
             {
@@ -142,11 +145,12 @@ namespace MusicMeTube
         void search_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             searchResultslist.DataContext = sr;
-            DisableProgressIndicator();
+            ProgressIndicatorVisible(false);
         }
 
         void search_DoWork(object sender, DoWorkEventArgs e)
         {
+            ProgressIndicatorVisible(true);
             sr.Next();
             while (!sr.completed)
             {
@@ -160,11 +164,12 @@ namespace MusicMeTube
             System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => {
                 DataContext = viewmodel;
             });
-            DisableProgressIndicator();
+            ProgressIndicatorVisible(false);
         }
 
         void back_worker_DoWork(object sender, DoWorkEventArgs e)
         {
+            ProgressIndicatorVisible(true);
             App.GlobalMessaging.SetMessage("Loading Data...");
             plentry = ViewModelPlaylist.playlistentry.ElementAt((int)e.Argument);
             viewmodel = new ViewModelTracklist(plentry);
@@ -204,7 +209,6 @@ namespace MusicMeTube
                 {
                     proindicator.Text = e.Response;
                     proindicator.IsVisible = true;
-                    proindicator.IsIndeterminate = true;
                 });
         }
 
@@ -285,11 +289,19 @@ namespace MusicMeTube
            
         }
 
-        private void DisableProgressIndicator()
+        private void ProgressIndicatorVisible(bool Visibility)
         {
             System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => {
-                proindicator.IsIndeterminate = false;
-                proindicator.IsVisible = false;
+                if (Visibility)
+                {
+                    proindicator.IsIndeterminate = true;
+                    proindicator.IsVisible = true;
+                }
+                else
+                {
+                    proindicator.IsIndeterminate = false;
+                    proindicator.IsVisible = false;
+                }
             });
         }
 

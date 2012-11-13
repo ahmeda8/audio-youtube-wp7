@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Phone.BackgroundTransfer;
+using System.IO.IsolatedStorage;
 
 namespace Resources
 {
@@ -14,6 +15,8 @@ namespace Resources
         private Messaging Message;
         private MP3FileUrlFetch UrlFetcher;
         private Entry _Current;
+        private bool UseCellular;
+        private bool OnCellularNetwork;
 
         //events
         public event GenericEvntHandler Completed;
@@ -31,12 +34,24 @@ namespace Resources
 
         //implement interface
 
-        public void Start(Entry thisone)
+        public bool Start(Entry thisone)
         {
-            Aborted = false;
-            _Current = thisone;
-            UrlFetcher.StartFetch(_Current.Source);
-            Message.SetMessage("Converting - "+_Current.Title);
+            IsolatedStorageSettings.ApplicationSettings.TryGetValue("use_cellular", out UseCellular);
+            OnCellularNetwork = Network.IsOnCellularNetwork();
+            if (!UseCellular && OnCellularNetwork)
+            {
+                Message.SetMessage("Change setting for download on cell N/W");
+                return false;
+            }
+            else
+            {
+                Aborted = false;
+                _Current = thisone;
+                UrlFetcher.StartFetch(_Current.Source);
+                Message.SetMessage("Converting - " + _Current.Title);
+                return true;
+            }
+            
         }
 
         public void Abort()
@@ -64,6 +79,10 @@ namespace Resources
                 Uri Dest = new Uri("shared/transfers/temp" + sender.GetHashCode() + ".mp3", UriKind.Relative);
                 Uri Src = new Uri(e.Response, UriKind.Absolute);
                 _BTR = new BackgroundTransferRequest(Src, Dest);
+                if (UseCellular)
+                    _BTR.TransferPreferences = TransferPreferences.AllowCellularAndBattery;
+                else
+                    _BTR.TransferPreferences = TransferPreferences.AllowBattery;
                 _BTR.Tag = _Current.PlaylistID + "/" + _Current.Id + ".mp3";
                 _BTR.TransferStatusChanged += BTR_TransferStatusChanged;
                 Message.SetMessage("Downloading - " + _Current.Title);

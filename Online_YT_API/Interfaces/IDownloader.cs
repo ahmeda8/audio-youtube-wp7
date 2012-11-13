@@ -8,7 +8,7 @@ namespace Resources
     {
         event GenericEvntHandler Completed;
         event GenericEvntHandler Ready;
-        void Start(Entry thisone);
+        bool Start(Entry thisone);
         void Abort();
         BackgroundTransferRequest BTR { get;}        
     }
