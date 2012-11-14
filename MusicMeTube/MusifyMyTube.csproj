@@ -98,9 +98,6 @@
     <Compile Include="Pages\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\StatsPage.xaml.cs">
-      <DependentUpon>StatsPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\TrackList.xaml.cs">
       <DependentUpon>TrackList.xaml</DependentUpon>
     </Compile>
@@ -128,10 +125,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Settings.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\StatsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

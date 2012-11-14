@@ -24,8 +24,22 @@ namespace MusicMeTube.Pages
             IsolatedStorageSettings.ApplicationSettings.TryGetValue("use_cellular",out usecellular);
             checkBox1.IsChecked = usecellular;
             App.GlobalMessaging.Changed += GlobalMessaging_Changed;
+            UpdateUsageData();
 
+        }
 
+        private void UpdateUsageData()
+        {
+            long avstor = IsolatedStorageFile.GetUserStoreForApplication().AvailableFreeSpace / 1024 / 1024;
+            long totald = 0;
+            long sessiond = 0;
+            IsolatedStorageSettings.ApplicationSettings.TryGetValue("total_data", out totald);
+            IsolatedStorageSettings.ApplicationSettings.TryGetValue("session_data", out sessiond);
+            totald = totald + (long)0.3 * totald;
+            sessiond = sessiond + (long)0.3 * sessiond;
+            avstorage.Text = avstor.ToString();
+            totaldata.Text = totald.ToString();
+            sessiondata.Text = sessiond.ToString();
         }
 
         void GlobalMessaging_Changed(object sender, Resources.APICompletedEventArgs e)

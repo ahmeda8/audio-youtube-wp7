@@ -3,4 +3,6 @@
   <LargeAppTile>Background.png</LargeAppTile>
   <PCAppTile>Background200.png</PCAppTile>
   <ScreenShots>1.png;;;;;;;;</ScreenShots>
+  <ScreenShotsWXGA>;;;;;;;;</ScreenShotsWXGA>
+  <ScreenShots720P>;;;;;;;;</ScreenShots720P>
 </MarketplaceDetails>

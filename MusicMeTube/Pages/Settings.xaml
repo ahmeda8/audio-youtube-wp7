@@ -6,6 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -15,32 +16,62 @@
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="{StaticResource BackgroundTexture1}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="{StaticResource AppName}" Style="{StaticResource PhoneTextNormalStyle}" Foreground="{StaticResource AppNameColor}" FontFamily="{StaticResource AppTitleFont}"/>
-            <TextBlock x:Name="PageTitle" Text="Settings" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Foreground="{StaticResource PhoneAccentBrush}" FontFamily="{StaticResource PageNameFontFamily}"/>
-        </StackPanel>
+        <controls:Pivot>
+            <controls:Pivot.Title>
+                <TextBlock Text="{StaticResource AppName}" Foreground="{StaticResource AppNameColor}" FontFamily="{StaticResource AppTitleFont}"/>
+            </controls:Pivot.Title>
+            <controls:PivotItem>
+                <controls:PivotItem.Header>
+                    <TextBlock Text="settings" Foreground="{StaticResource PhoneAccentBrush}" FontFamily="{StaticResource PageNameFontFamily}" />
+                </controls:PivotItem.Header>
+                <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="75" />
+                        <RowDefinition Height="75" />
+                        <RowDefinition Height="75" />
+                        <RowDefinition Height="75" />
+                        <RowDefinition Height="75" />
+                        <RowDefinition Height="75" />
+                    </Grid.RowDefinitions>
+                    <CheckBox Grid.Row="0" Content="Use cellular data for download" Height="72" HorizontalAlignment="Left" Margin="12,29,0,0" Name="checkBox1" VerticalAlignment="Top" />
+                </Grid>
+            </controls:PivotItem>
+            <controls:PivotItem>
+                <controls:PivotItem.Header>
+                    <TextBlock Text="data usage" Foreground="{StaticResource PhoneAccentBrush}" FontFamily="{StaticResource PageNameFontFamily}" />
+                </controls:PivotItem.Header>
+                <Grid x:Name="ContentPanel1" Grid.Row="1" Margin="12,0,12,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition  Width="300"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="80"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Data Usage (Estimated)" FontSize="25" Foreground="{StaticResource AppNameColor}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Mbytes" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource AppNameColor}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Available storage" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource CustomTextForegroundColor1}"></TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Total data downloaded" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource CustomTextForegroundColor1}"></TextBlock>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Data used session" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource CustomTextForegroundColor1}"></TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Name="avstorage" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource CustomTextForegroundColor1}"></TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Name="totaldata" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource CustomTextForegroundColor1}"></TextBlock>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Name="sessiondata" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource CustomTextForegroundColor1}"></TextBlock>
+                </Grid>
+            </controls:PivotItem>
+        </controls:Pivot>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="75" />
-                <RowDefinition Height="75" />
-                <RowDefinition Height="75" />
-                <RowDefinition Height="75" />
-                <RowDefinition Height="75" />
-                <RowDefinition Height="75" />
-            </Grid.RowDefinitions>
-            <CheckBox Grid.Row="0" Content="Use cellular data for download" Height="72" HorizontalAlignment="Left" Margin="12,29,0,0" Name="checkBox1" VerticalAlignment="Top" />
-            
-            <!--<Button Name="Save" Content="Save" Grid.Row="6" Click="Save_Click"/>-->
-        </Grid>
+        
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->

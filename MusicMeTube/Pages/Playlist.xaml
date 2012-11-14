@@ -66,14 +66,10 @@
                             <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="25" FontWeight="SemiBold" Padding="5,0,0,0"></TextBlock>
                             <TextBlock Grid.Row="2" Grid.Column="0" Text=" Tracks" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,0,0,0"></TextBlock>
                             <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Count}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,0,0,0"></TextBlock>
-                            <!--<TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Updated}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,2,0,2"></TextBlock>-->
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <!--<ads:AdControl AdUnitId="93753" ApplicationId="aaf9db87-1c01-483b-b98c-d788ea205eb2" Grid.Row="1" Height="80" Width="480" ErrorOccurred="AdControl_ErrorOccurred" VerticalAlignment="Top"/>-->
-            <!--<adduplex:AdControl AppId="20331" VerticalAlignment="Top" Grid.Row="1" x:Name="adDuplexControl" d:IsHidden="True"/>-->
-
         </Grid>
     </Grid>
  
@@ -85,9 +81,9 @@
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.refresh.rest.png" Text="Refresh" Click="RefreshButton_Click"/>
             <!--<shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>-->
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="data usage" Click="datastat_click"/>
+                <!--<shell:ApplicationBarMenuItem Text="data usage" Click="datastat_click"/>-->
                 <!--<shell:ApplicationBarMenuItem Text="Manage Playlist" Click="createmodify_click"/>-->
-                <shell:ApplicationBarMenuItem Text="Settings" Click="settings_click"/>
+                <shell:ApplicationBarMenuItem Text="settings &amp; info" Click="settings_click"/>
                 <shell:ApplicationBarMenuItem Text="Instructions" Click="instr_click"/>
                 <!--<shell:ApplicationBarMenuItem Text="MenuItem 2"/>-->
             </shell:ApplicationBar.MenuItems>

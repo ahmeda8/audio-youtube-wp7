@@ -105,17 +105,20 @@ namespace MusicMeTube
             if (e.Uri.Host.Equals("localhost"))
             {
                 e.Cancel = true;
+                
                 string code = e.Uri.Query;
                 string[] split_response_query = e.Uri.Query.Split('=');
                 if (split_response_query[0] == "?code")
                 {
+                    webBrowser1.Visibility = System.Windows.Visibility.Collapsed;
                     auth.AuthCode = split_response_query[1];
                     auth.GetAccessTokenFromGoogle();
                 }
                 else
                 {
-                    MessageBox.Show("Access Denied, please select login from menu to try again.");
+                    MessageBox.Show("Access Denied, please try again, select login from menu.");
                     loginbtn.IsEnabled = true;
+                    
                 }
             }
         }
