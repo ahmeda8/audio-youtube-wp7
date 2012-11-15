@@ -7,7 +7,7 @@ using System.IO.IsolatedStorage;
 using System.Xml.Linq;
 using System.Xml;
 using System.Windows;
-using Resources;
+using ResourceLibrary;
 using Microsoft.Phone.BackgroundTransfer;
 using Microsoft.Phone.Tasks;
 using Microsoft.Phone.Shell;
@@ -38,7 +38,7 @@ namespace MusicMeTube
             InitializeComponent();
 
             ManipulationList = new List<Entry>();
-            App.GlobalMessaging.Changed += Message_Changed;
+            Messaging.GetInstance().Changed += Message_Changed;
             proindicator = new ProgressIndicator();
             SystemTray.SetProgressIndicator(this, proindicator);
 
@@ -58,8 +58,8 @@ namespace MusicMeTube
             delvideo_worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delvideo_worker_RunWorkerCompleted);
             delplay_worker.DoWork += new DoWorkEventHandler(delplay_worker_DoWork);
             delplay_worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delplay_worker_RunWorkerCompleted);
-            App.GlobalOfflineSync.Completed += GlobalOfflineSync_Completed;
-            App.GlobalOfflineSync.Ready += GlobalOfflineSync_Ready;
+            DownloadQueuing.GetInstance(Messaging.GetInstance()).Completed += GlobalOfflineSync_Completed;
+            DownloadQueuing.GetInstance(Messaging.GetInstance()).Ready += GlobalOfflineSync_Ready;
         }
 
 
@@ -69,7 +69,7 @@ namespace MusicMeTube
 
         void delplay_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            App.GlobalMessaging.SetMessage("Deleting playlist...");
+            Messaging.GetInstance().SetMessage("Deleting playlist...");
             ISOHelper.DeleteFile("cache\\" + plentry.Id + ".json");
             if (BackgroundAudioPlayer.Instance.PlayerState == PlayState.Playing || BackgroundAudioPlayer.Instance.PlayerState == PlayState.Paused)
                 BackgroundAudioPlayer.Instance.Stop();
@@ -95,7 +95,7 @@ namespace MusicMeTube
 
         void delvideo_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            App.GlobalMessaging.SetMessage("Deleting tracks...");
+            Messaging.GetInstance().SetMessage("Deleting tracks...");
             ISOHelper.DeleteFile("cache\\" + plentry.Id + ".json");
             ManipulationList.Clear(); // clear the list for delete files
             if(!dataloading_worker.IsBusy)
@@ -119,7 +119,7 @@ namespace MusicMeTube
 
         void addvideo_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            App.GlobalMessaging.SetMessage("Adding...");
+            Messaging.GetInstance().SetMessage("Adding...");
             ISOHelper.DeleteFile("cache\\" + plentry.Id + ".json");
             if(!dataloading_worker.IsBusy)
                 dataloading_worker.RunWorkerAsync(index);
@@ -160,7 +160,7 @@ namespace MusicMeTube
 
         void back_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            App.GlobalMessaging.SetMessage("");
+            Messaging.GetInstance().SetMessage("");
             System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => {
                 DataContext = viewmodel;
             });
@@ -170,7 +170,7 @@ namespace MusicMeTube
         void back_worker_DoWork(object sender, DoWorkEventArgs e)
         {
             ProgressIndicatorVisible(true);
-            App.GlobalMessaging.SetMessage("Loading Data...");
+            Messaging.GetInstance().SetMessage("Loading Data...");
             plentry = ViewModelPlaylist.playlistentry.ElementAt((int)e.Argument);
             viewmodel = new ViewModelTracklist(plentry);
             while (!viewmodel.completed)
@@ -195,8 +195,8 @@ namespace MusicMeTube
 
         protected override void OnNavigatingFrom(System.Windows.Navigation.NavigatingCancelEventArgs e)
         {
-            App.GlobalOfflineSync.Completed -= GlobalOfflineSync_Completed;
-            App.GlobalMessaging.Changed -= Message_Changed;
+            DownloadQueuing.GetInstance(Messaging.GetInstance()).Completed -= GlobalOfflineSync_Completed;
+            Messaging.GetInstance().Changed -= Message_Changed;
             base.OnNavigatingFrom(e);
         }
 #endregion
@@ -315,10 +315,9 @@ namespace MusicMeTube
             {
                 BackgroundAudioPlayer.Instance.Stop();
             }
-            if (App.GlobalOfflineSync != null)
-            {
-                App.GlobalOfflineSync.Abort();
-            }
+            
+            DownloadQueuing.GetInstance(Messaging.GetInstance()).Abort();
+            
         }
 
         private void datastat_click(object sender, EventArgs e)
@@ -329,7 +328,7 @@ namespace MusicMeTube
         private void play_click(object sender, EventArgs e)
         {
             if (PreparePlaylistXML(true) <= 0)
-                App.GlobalMessaging.SetMessage("No offline tracks.");
+                Messaging.GetInstance().SetMessage("No offline tracks.");
             else if (BackgroundAudioPlayer.Instance.PlayerState != PlayState.Playing)
             {
                 BackgroundAudioPlayer.Instance.Play();
@@ -341,7 +340,7 @@ namespace MusicMeTube
         {
             string query = txtsearch.Text;
             sr = new SearchResults(query);
-            App.GlobalMessaging.SetMessage("Searching...");
+            Messaging.GetInstance().SetMessage("Searching...");
             if (!search.IsBusy)
                 search.RunWorkerAsync();
         }
@@ -353,7 +352,7 @@ namespace MusicMeTube
 
         private void add_click(object sender, EventArgs e)
         {
-            App.GlobalMessaging.SetMessage("Adding...");
+            Messaging.GetInstance().SetMessage("Adding...");
             add_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
             add_appbar.IsEnabled = false;
             Entry en = searchResultslist.SelectedItem as Entry;
@@ -397,7 +396,7 @@ namespace MusicMeTube
             MessageBoxResult mr = MessageBox.Show("Are you sure to delete this playlist?", "delete playlist", MessageBoxButton.OKCancel);
             if (mr == MessageBoxResult.OK)
             {
-                App.GlobalMessaging.SetMessage("Deleting selected videos.");
+                Messaging.GetInstance().SetMessage("Deleting selected videos.");
                 if (!delplay_worker.IsBusy)
                     delplay_worker.RunWorkerAsync(plentry.Id);
             }
@@ -407,22 +406,16 @@ namespace MusicMeTube
         {
             if (listBox1.SelectedItems.Count > 0)
             {
-                if (App.GlobalOfflineSync.ManipulationList.Count == 0)
+                List<Entry> tempList = new List<Entry>();
+                tempList.Clear();
+                foreach (Entry ent in listBox1.SelectedItems)
                 {
-                    List<Entry> tempList = new List<Entry>();
-                    tempList.Clear();
-                    foreach (Entry ent in listBox1.SelectedItems)
-                    {
-                        if(!ISOHelper.FileExists(ent.PlaylistID+"/"+ent.Id+".mp3"))
-                            tempList.Add(ent);
-                    }
-                    if(tempList.Count > 0)
-                        App.GlobalOfflineSync.Start(tempList);
+                    if(!ISOHelper.FileExists(ent.PlaylistID+"/"+ent.Id+".mp3"))
+                        tempList.Add(ent);
                 }
-                else
-                {
-                    App.GlobalMessaging.SetMessage("Previous download in progress.");
-                }
+                if (tempList.Count > 0)
+                    if (!DownloadQueuing.GetInstance(Messaging.GetInstance()).Start(tempList))
+                        Messaging.GetInstance().SetMessage("Could not add to download queue.");
             }
             else if(!listBox1.IsSelectionEnabled)
             {

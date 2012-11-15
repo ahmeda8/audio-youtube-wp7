@@ -3,7 +3,7 @@ using System.Windows;
 using Microsoft.Phone.Controls;
 using MusicMeTube.Library;
 using System.IO.IsolatedStorage;
-using Resources;
+using ResourceLibrary;
 using Microsoft.Phone.Shell;
 
 namespace MusicMeTube

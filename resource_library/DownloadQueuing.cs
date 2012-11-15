@@ -76,7 +76,7 @@ namespace ResourceLibrary
         public bool Start(List<Entry> DownloadList)
         {
             Aborted = false;
-            if (YoutubeSourceList.Count == 0)
+            if (YoutubeSourceList.Count > 0)
                 return false;
             YoutubeSourceList.AddRange(DownloadList);
             bool SingleDownloadStarted = false;

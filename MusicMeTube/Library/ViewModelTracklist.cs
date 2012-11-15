@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Media;
 using System.IO;
-using Resources;
+using ResourceLibrary;
 
 namespace MusicMeTube
 {

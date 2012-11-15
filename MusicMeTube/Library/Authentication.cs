@@ -6,7 +6,7 @@ using System.Text;
 using Newtonsoft.Json.Linq;
 using System.Threading;
 using System.IO.IsolatedStorage;
-using Resources;
+using ResourceLibrary;
 
 namespace MusicMeTube.Library
 {
@@ -93,7 +93,7 @@ namespace MusicMeTube.Library
             }
             catch (Exception e)
             {
-                Resources.ErrorLogging.Log(this.GetType().ToString(), e.Message, "Authentication", string.Empty);
+                ResourceLibrary.ErrorLogging.Log(this.GetType().ToString(), e.Message, "Authentication", string.Empty);
                 System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => {
                     MessageBox.Show("Authentication Error");
                 });

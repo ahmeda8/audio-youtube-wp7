@@ -9,15 +9,14 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using MusicMeTube.Library;
 using Microsoft.Phone.BackgroundTransfer;
-using Resources;
+using ResourceLibrary;
 
 
 namespace MusicMeTube
 {
     public partial class App : Application
     {
-        public static MultiDownloader GlobalOfflineSync;
-        public static Messaging GlobalMessaging;
+        private DownloadQueuing GlobalOfflineSync;
         
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
@@ -59,8 +58,8 @@ namespace MusicMeTube
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
-            GlobalMessaging = new Messaging();
-            GlobalOfflineSync = new MultiDownloader(GlobalMessaging);
+
+            GlobalOfflineSync = DownloadQueuing.GetInstance(Messaging.GetInstance());
             GlobalOfflineSync.Ready += GlobalOfflineSync_Ready;
             GlobalOfflineSync.Completed += GlobalOfflineSync_Completed;
             //RTSP_FileDownloader fd = new RTSP_FileDownloader();
@@ -69,12 +68,13 @@ namespace MusicMeTube
 
         void GlobalOfflineSync_Completed(object sender)
         {
-            GlobalMessaging.SetMessage("Download complete.");
+            Messaging.GetInstance().SetMessage("Download complete.");
         }
 
         void GlobalOfflineSync_Ready(object sender)
         {
             BackgroundTransferService.Add((BackgroundTransferRequest)sender);
+            GlobalOfflineSync.AddCurrentBTR((BackgroundTransferRequest)sender);
         }
 
         // Code to execute when the application is launching (eg, from Start)

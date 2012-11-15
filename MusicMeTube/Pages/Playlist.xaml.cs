@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using MusicMeTube;
 using Microsoft.Phone.Tasks;
-using Resources;
+using ResourceLibrary;
 using System.ComponentModel;
 using System.IO.IsolatedStorage;
 using Microsoft.Phone.Shell;

@@ -48,7 +48,7 @@ namespace MusicMeTube
                     {
                         Completed = true;
                         ErrorOccured = true;
-                        Resources.ErrorLogging.Log("MusifyMyTube.Add", ext.Message, "Add video", message);
+                        ResourceLibrary.ErrorLogging.Log("MusifyMyTube.Add", ext.Message, "Add video", message);
                     }
 
                 }, wr);
@@ -95,7 +95,7 @@ namespace MusicMeTube
                     {
                         Completed = true;
                         ErrorOccured = true;
-                        Resources.ErrorLogging.Log("MusifyMyTube.Add", ext.Message, "Add playlist", message);
+                        ResourceLibrary.ErrorLogging.Log("MusifyMyTube.Add", ext.Message, "Add playlist", message);
                     }
                 }, wr);
                 

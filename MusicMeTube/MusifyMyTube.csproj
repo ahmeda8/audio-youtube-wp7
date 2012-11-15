@@ -176,9 +176,9 @@
       <Project>{9F39484D-E1E2-42D2-850A-4FDD053F0B30}</Project>
       <Name>AudioPlaybackAgent</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Online_YT_API\Resources.csproj">
+    <ProjectReference Include="..\resource_library\ResourceLibrary.csproj">
       <Project>{197BA2CE-B213-4475-8D2F-FF91C726DBA3}</Project>
-      <Name>Resources</Name>
+      <Name>ResourceLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

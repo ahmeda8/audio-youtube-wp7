@@ -7,7 +7,7 @@ using System.Xml.Linq;
 using System.Net;
 using System.IO;
 using System.Threading;
-using Resources;
+using ResourceLibrary;
 
 namespace AudioPlaybackAgent
 {

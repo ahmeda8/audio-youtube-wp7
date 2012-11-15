@@ -3,7 +3,7 @@ using System.Net;
 using System.Collections.ObjectModel;
 using System.IO;
 using Newtonsoft.Json.Linq;
-using Resources;
+using ResourceLibrary;
 
 namespace MusicMeTube
 {

@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using MusicMeTube.Library;
 using System.Globalization;
-using Resources;
+using ResourceLibrary;
 using System.IO;
 
 namespace MusicMeTube
@@ -67,7 +67,7 @@ namespace MusicMeTube
                         }
                         catch (Exception e)
                         {
-                            Resources.ErrorLogging.Log(this.GetType().ToString(), e.Message, "PlaylistViewmodel", string.Empty);
+                            ResourceLibrary.ErrorLogging.Log(this.GetType().ToString(), e.Message, "PlaylistViewmodel", string.Empty);
                             if(newent.Id != null && newent.Title != null && newent.Source != null)
                                 playlistentry.Add(newent);
                         }
@@ -76,7 +76,7 @@ namespace MusicMeTube
                 }
                 catch (Exception ex)
                 {
-                    Resources.ErrorLogging.Log(this.GetType().ToString(),ex.Message, "PlaylistViewmodel",string.Empty);//ErrorLogging.Log(ex.Message + " response: " + e.API.Response);
+                    ResourceLibrary.ErrorLogging.Log(this.GetType().ToString(),ex.Message, "PlaylistViewmodel",string.Empty);//ErrorLogging.Log(ex.Message + " response: " + e.API.Response);
                 }
             });
             Completed = true;
@@ -103,7 +103,7 @@ namespace MusicMeTube
             }
             catch (Exception ex)
             {
-                Resources.ErrorLogging.Log(this.GetType().ToString(), ex.Message, "PlaylistViewmodel", string.Empty);
+                ResourceLibrary.ErrorLogging.Log(this.GetType().ToString(), ex.Message, "PlaylistViewmodel", string.Empty);
                
             }
             PopulateCollection(apijson);

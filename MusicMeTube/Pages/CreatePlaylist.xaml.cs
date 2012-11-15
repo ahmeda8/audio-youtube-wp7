@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Phone.Controls;
 using System.ComponentModel;
-using Resources;
+using ResourceLibrary;
 using Microsoft.Phone.Shell;
 
 namespace MusicMeTube.Pages

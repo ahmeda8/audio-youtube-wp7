@@ -3,6 +3,7 @@ using System.Windows;
 using Microsoft.Phone.Shell;
 using Microsoft.Phone.Controls;
 using System.IO.IsolatedStorage;
+using ResourceLibrary;
 
 namespace MusicMeTube.Pages
 {
@@ -23,7 +24,7 @@ namespace MusicMeTube.Pages
             bool usecellular = false;
             IsolatedStorageSettings.ApplicationSettings.TryGetValue("use_cellular",out usecellular);
             checkBox1.IsChecked = usecellular;
-            App.GlobalMessaging.Changed += GlobalMessaging_Changed;
+            Messaging.GetInstance().Changed += GlobalMessaging_Changed;
             UpdateUsageData();
 
         }
@@ -42,7 +43,7 @@ namespace MusicMeTube.Pages
             sessiondata.Text = sessiond.ToString();
         }
 
-        void GlobalMessaging_Changed(object sender, Resources.APICompletedEventArgs e)
+        void GlobalMessaging_Changed(object sender, ResourceLibrary.APICompletedEventArgs e)
         {
             System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => {
                 progindicator.Text = e.Response;
@@ -55,7 +56,7 @@ namespace MusicMeTube.Pages
            
             IsolatedStorageSettings.ApplicationSettings["use_cellular"] = checkBox1.IsChecked;
             IsolatedStorageSettings.ApplicationSettings.Save();
-            App.GlobalMessaging.SetMessage("Settings saved.");
+            Messaging.GetInstance().SetMessage("Settings saved.");
             NavigationService.GoBack();
         }
                 

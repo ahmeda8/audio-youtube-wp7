@@ -31,7 +31,7 @@ namespace MusicMeTube
                 catch (Exception e)
                 {
                     Completed = true;
-                    Resources.ErrorLogging.Log("MusifyMyTube.Delete", e.Message, "Delete video", wr.RequestUri.OriginalString);
+                    ResourceLibrary.ErrorLogging.Log("MusifyMyTube.Delete", e.Message, "Delete video", wr.RequestUri.OriginalString);
                 }
             },wr);
         }
@@ -58,7 +58,7 @@ namespace MusicMeTube
                 catch (Exception e)
                 {
                     Completed = true;
-                    Resources.ErrorLogging.Log("MusifyMyTube.Delete", e.Message, "Delete Playlist",wr.RequestUri.OriginalString);
+                    ResourceLibrary.ErrorLogging.Log("MusifyMyTube.Delete", e.Message, "Delete Playlist",wr.RequestUri.OriginalString);
                 }
             }, wr);
  
