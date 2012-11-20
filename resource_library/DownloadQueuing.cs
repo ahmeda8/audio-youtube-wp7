@@ -44,6 +44,8 @@ namespace ResourceLibrary
             Message = MsgClass;
             DownloaderSingle = new Downloader(Message);
             YoutubeSourceList = new List<Entry>();
+            ReadyList = new List<BackgroundTransferRequest>();
+            CurrentList = new List<BackgroundTransferRequest>();
             DownloaderSingle.Completed += DownloaderSingle_Completed;
             DownloaderSingle.Ready += DownloaderSingle_Ready;
             Aborted = false;

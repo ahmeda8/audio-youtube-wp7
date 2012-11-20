@@ -82,12 +82,12 @@ namespace MusicMeTube
                         id = newent.Id;
                         string filename = plentry.Id + "\\" + id + ".mp3";
                         string offline = "Not Synced";
-                        SolidColorBrush col = new SolidColorBrush(Colors.Red);
+                        SolidColorBrush col = new SolidColorBrush(Colors.Orange);
 
                         if (ISOHelper.FileExists(filename))
                         {
                             offline = "Available offline";
-                            col.Color = Colors.Green;
+                            col.Color = Colors.LightGray;
                         }
                         newent.AvailablityColor = col;
                         newent.Offline = offline;
