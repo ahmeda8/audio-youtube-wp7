@@ -16,10 +16,11 @@ namespace MusicMeTube.Pages
             string about = "This application will access your youtube playlists and convert them to audio for you to listen offline. This App is a great tool "+
                 "when you can't access zune to sync your mp3 files. This app will cache all your youtube songs for offline play."+Environment.NewLine;
 
-            string instr = "1. login using your youtube account." + Environment.NewLine +
-                "2. you will now be taken to playlists page , if you have any playlist they will show up. if u do not have any playlist select"
-                + " manage playlists from menu, this will take you to youtube website, create a playlist and add songs to it." + Environment.NewLine +
-                "3. Select the playlist, App will take you to tracks page , select sync n play , and the tracks will be cached offline, and then played" + Environment.NewLine;
+            string instr = "1. Login using your youtube account." + Environment.NewLine
+                +"2. If you have any playlists in youtube they will show up. If u do not have any then add a playlist."+ Environment.NewLine
+                +"3. Selecting the playlist, will take you to tracks page , select tracks you want to download by clicking checkbox next to the track"+Environment.NewLine
+                +"4. You can search and add new racks from the tracks page." + Environment.NewLine
+                +"5. Tracks downloaded will be cached offline and can be played anytime." + Environment.NewLine;
 
             instuctiontxt.Text = instr;
             abttxt.Text = about;

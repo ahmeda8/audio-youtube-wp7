@@ -38,7 +38,7 @@
                     <toolkit:MultiselectList Name="listBox1"
                                               ItemsSource="{Binding tracklistentry}"
                                               Grid.Row="0"
-                                             Foreground="White">
+                                             Foreground="Wheat">
                         <toolkit:MultiselectList.ItemTemplate>
                             <DataTemplate>
                                 <Grid ShowGridLines="False" 
@@ -118,7 +118,7 @@
                     <ListBox Name="searchResultslist" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
                         ItemsSource="{Binding Results}" 
                         Margin="0,0,0,0"
-                        Foreground="Black" SelectionChanged="searchlistbox_selected">
+                        Foreground="Wheat" SelectionChanged="searchlistbox_selected">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid ShowGridLines="False" 
