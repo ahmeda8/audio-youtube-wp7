@@ -8,7 +8,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-    xmlns:ads="clr-namespace:Microsoft.Advertising.Mobile.UI;assembly=Microsoft.Advertising.Mobile.UI"
     xmlns:adduplex="clr-namespace:AdDuplex;assembly=AdDuplex.AdControl.Silverlight"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -19,15 +18,15 @@
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="{StaticResource BackgroundTexture1}">
+    <Grid x:Name="LayoutRoot" >
     	
         <controls:Pivot >
         	<controls:Pivot.Title>
-        		<TextBlock Text="{StaticResource AppName}" Foreground="{StaticResource AppNameColor}" FontFamily="{StaticResource AppTitleFont}"/>     	
+        		<TextBlock Text="{StaticResource AppName}" Foreground="Gray" />     	
 			</controls:Pivot.Title>
             <controls:PivotItem >
             	<controls:PivotItem.Header>
-            		<TextBlock Text="tracks" Foreground="{StaticResource PhoneAccentBrush}" FontFamily="{StaticResource PageNameFontFamily}" />        	
+            		<TextBlock Text="tracks" Foreground="{StaticResource PhoneAccentBrush}"  />        	
 				</controls:PivotItem.Header>
                 <Grid x:Name="ContentPanel" Grid.Row="1" >
                     <Grid.RowDefinitions>
@@ -37,15 +36,13 @@
                     <!--<toolkit:PerformanceProgressBar Name="performanceprogressbar" IsEnabled="False" IsIndeterminate="False" Background="Black"></toolkit:PerformanceProgressBar>-->
                     <toolkit:MultiselectList Name="listBox1"
                                               ItemsSource="{Binding tracklistentry}"
-                                              Grid.Row="0"
-                                             Foreground="Wheat">
+                                              Grid.Row="0">
                         <toolkit:MultiselectList.ItemTemplate>
                             <DataTemplate>
+                                <Border BorderBrush="Gray" BorderThickness="0,0,0,4">
                                 <Grid ShowGridLines="False" 
                                       Margin="0,0,0,10"
-                                      Background="{StaticResource ListBackgroundTexture1}"
-                                      Tap="ListItem_tapped"
-                                      >
+                                      Tap="ListItem_tapped">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="35"/>
                                         <RowDefinition Height="22"/>
@@ -56,10 +53,11 @@
                                         <ColumnDefinition Width="100"/>
                                     </Grid.ColumnDefinitions>
                                     <Image Source="{Binding ImageSource}" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Stretch="UniformToFill"/>
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="25" FontWeight="SemiBold" Padding="5,0,0,0"></TextBlock>
-                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Duration}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="15"  Padding="5,0,0,0"></TextBlock>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="25" FontWeight="SemiBold" Padding="5,0,0,0" Foreground="#A6750F"></TextBlock>
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Duration}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="15"  Padding="5,0,0,0" Foreground="#9F804A"></TextBlock>
                                     <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Offline}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="15"  Padding="5,0,0,0" Foreground="{Binding AvailablityColor}"></TextBlock>
                                 </Grid>
+                                </Border>
                             </DataTemplate>
                         </toolkit:MultiselectList.ItemTemplate>
                         
@@ -101,7 +99,7 @@
             </controls:PivotItem>
             <controls:PivotItem>
             	<controls:PivotItem.Header>
-            		<TextBlock Text="search" Foreground="{StaticResource PhoneAccentBrush}" FontFamily="{StaticResource PageNameFontFamily}"/>        	
+            		<TextBlock Text="search" Foreground="{StaticResource PhoneAccentBrush}" />        	
 				</controls:PivotItem.Header>
                 <Grid Name="searchgrid">
                     <Grid.RowDefinitions>
@@ -113,17 +111,17 @@
                         <ColumnDefinition Width="300"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox Name="txtsearch" Text="Search Video" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" GotFocus="searchbox_focus" Background="Beige" Foreground="Black" />
-                    <Button Name="btnsearch" Content="Search" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Click="search_click" Background="Beige" Foreground="Black"/>
-                    <ListBox Name="searchResultslist" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                    <TextBox Name="txtsearch" Text="Search Video" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" GotFocus="searchbox_focus" />
+                    <Button Name="btnsearch" Content="Search" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Click="search_click" />
+                    <toolkit:MultiselectList Name="searchResultslist" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
                         ItemsSource="{Binding Results}" 
                         Margin="0,0,0,0"
                         Foreground="Wheat" SelectionChanged="searchlistbox_selected">
-                        <ListBox.ItemTemplate>
+                        <toolkit:MultiselectList.ItemTemplate>
                             <DataTemplate>
+                                <Border BorderBrush="Gray" BorderThickness="0,0,0,4">
                                 <Grid ShowGridLines="False" 
-                                      Margin="0,0,0,10"
-                                      Background="{StaticResource ListBackgroundTexture1}">
+                                      Margin="0,0,0,10">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="30"/>
                                         <RowDefinition Height="22"/>
@@ -134,15 +132,15 @@
                                         <ColumnDefinition Width="100"/>
                                     </Grid.ColumnDefinitions>
                                     <Image Source="{Binding ImageSource}" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"/>
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20" FontWeight="SemiBold" Padding="5,0,0,0"></TextBlock>
-                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Duration}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="16"  Padding="5,0,0,0"></TextBlock>
-                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Credit}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="16"  Padding="5,0,0,0"></TextBlock>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20" FontWeight="SemiBold" Padding="5,0,0,0" Foreground="#A6750F"></TextBlock>
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Duration}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="16"  Padding="5,0,0,0" Foreground="#9F804A"></TextBlock>
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Credit}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="16"  Padding="5,0,0,0" Foreground="#9F804A"></TextBlock>
                                 </Grid>
-
+                                </Border>
                             </DataTemplate>
-                        </ListBox.ItemTemplate>
+                        </toolkit:MultiselectList.ItemTemplate>
 
-                    </ListBox>
+                    </toolkit:MultiselectList>
                     
                 </Grid>
 

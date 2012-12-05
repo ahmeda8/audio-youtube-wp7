@@ -135,10 +135,14 @@ namespace MusicMeTube
         void addvideo_worker_DoWork(object sender, DoWorkEventArgs e)
         {
             ProgressIndicatorVisible(true);
-            Add.Video(plentry.Id, (string)e.Argument);
-            while (!Add.Completed)
+
+            foreach (Entry en in (List<Entry>)e.Argument)
             {
-                System.Threading.Thread.Sleep(3000);
+                Add.Video(plentry.Id, en.Id);
+                while (!Add.Completed)
+                {
+                    System.Threading.Thread.Sleep(1000);
+                }
             }
         }
 
@@ -355,9 +359,14 @@ namespace MusicMeTube
             Messaging.GetInstance().SetMessage("Adding...");
             add_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
             add_appbar.IsEnabled = false;
-            Entry en = searchResultslist.SelectedItem as Entry;
+            //Entry en = searchResultslist.SelectedItem as Entry;
+            List<Entry> add_list = new List<Entry>();
+            foreach (Entry en in searchResultslist.SelectedItems)
+            {
+                add_list.Add(en);
+            }
             if (!addvideo_worker.IsBusy)
-                addvideo_worker.RunWorkerAsync(en.Id);
+                addvideo_worker.RunWorkerAsync(add_list);
             else
                 MessageBox.Show("Please wait before adding another video.");
 
@@ -365,10 +374,15 @@ namespace MusicMeTube
 
         private void searchlistbox_selected(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (searchResultslist.SelectedIndex > -1)
+            if (searchResultslist.SelectedItems.Count > 0)
             {
                 add_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
                 add_appbar.IsEnabled = true;
+            }
+            else
+            {
+                add_appbar = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
+                add_appbar.IsEnabled = false;
             }
         }
 

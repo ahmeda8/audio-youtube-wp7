@@ -123,10 +123,10 @@ namespace MusicMeTube.Pages
             NavigationService.Navigate(new Uri("/Pages/Instructions.xaml", UriKind.Relative));
         }
 
-        private void AdControl_ErrorOccurred(object sender, Microsoft.Advertising.AdErrorEventArgs e)
-        {
-            ErrorLogging.Log(this.GetType().ToString(),e.Error.Message,string.Empty,string.Empty);
-        }
+        //private void AdControl_ErrorOccurred(object sender, Microsoft.Advertising.AdErrorEventArgs e)
+        //{
+        //    ErrorLogging.Log(this.GetType().ToString(),e.Error.Message,string.Empty,string.Empty);
+        //}
 
         private void RefreshButton_Click(object sender, EventArgs e)
         {

@@ -7,7 +7,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-    xmlns:ads="clr-namespace:Microsoft.Advertising.Mobile.UI;assembly=Microsoft.Advertising.Mobile.UI"
     xmlns:adduplex="clr-namespace:AdDuplex;assembly=AdDuplex.AdControl.Silverlight"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -16,12 +15,9 @@
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     toolkit:TiltEffect.IsTiltEnabled="True"
     shell:SystemTray.IsVisible="True">
-	<phone:PhoneApplicationPage.Background>
-		<ImageBrush Stretch="Fill" ImageSource="/MusicMeTube;component/Images/Backtexture.jpg"/>
-	</phone:PhoneApplicationPage.Background>
-
+	
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" ShowGridLines="False" FlowDirection="LeftToRight" Background="{StaticResource BackgroundTexture1}">
+    <Grid x:Name="LayoutRoot" ShowGridLines="False" FlowDirection="LeftToRight">
     	<Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -29,8 +25,8 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="{StaticResource AppName}" Style="{StaticResource PhoneTextNormalStyle}" Foreground="{StaticResource AppNameColor}" FontFamily="{StaticResource AppTitleFont}"/>
-            <TextBlock x:Name="PageTitle" Text="my Playlists" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Foreground="{StaticResource PhoneAccentBrush}" FontFamily="{StaticResource PageNameFontFamily}"/>
+            <TextBlock x:Name="ApplicationTitle" Text="{StaticResource AppName}" Style="{StaticResource PhoneTextNormalStyle}" Foreground="{StaticResource AppNameColor}"/>
+            <TextBlock x:Name="PageTitle" Text="playlists" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Foreground="{StaticResource PhoneAccentBrush}" />
             <toolkit:PerformanceProgressBar Name="performanceprogressbar" Visibility="Visible" Background="Black"></toolkit:PerformanceProgressBar>
         </StackPanel>
 
@@ -45,28 +41,28 @@
                      ItemsSource="{Binding playlistentry}" 
                      SelectionChanged="listBox1_SelectionChanged" 
                      Margin="12,0,0,0" 
-                     Grid.Row="0"
-                     Foreground="White">
+                     Grid.Row="0">
             	<ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid ShowGridLines="False" 
-                              Margin="0,0,0,10"
-                              Background="{StaticResource ListBackgroundTexture1}">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="40"/>
-                                <RowDefinition Height="30"/>
-                                <!--<RowDefinition/>-->
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="80"/>
-                                <ColumnDefinition Width="250"/>
-                                <ColumnDefinition Width="150"/>
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Source="{Binding ImageSource}" Stretch="Uniform"/>
-                            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="25" FontWeight="SemiBold" Padding="5,0,0,0"></TextBlock>
-                            <TextBlock Grid.Row="2" Grid.Column="0" Text=" Tracks" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,0,0,0"></TextBlock>
-                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Count}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,0,0,0"></TextBlock>
-                        </Grid>
+                        <Border BorderThickness="0,0,0,4" BorderBrush="Gray">
+                            <Grid ShowGridLines="False" 
+                              Margin="0,0,0,10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="30"/>
+                                    <!--<RowDefinition/>-->
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="150"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Source="{Binding ImageSource}" Stretch="Uniform"/>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="25" FontWeight="SemiBold" Padding="5,0,0,0" Foreground="#A6750F"></TextBlock>
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text=" Tracks" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,0,0,0" Foreground="#9F804A"></TextBlock>
+                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Count}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,0,0,0" Foreground="#9F804A"></TextBlock>
+                            </Grid>
+                        </Border>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

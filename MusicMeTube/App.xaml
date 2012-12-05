@@ -10,8 +10,9 @@
     <!--Application Resources-->
     <Application.Resources>
         <clr:String x:Key="AppName">musify myTube</clr:String>
-        <media:SolidColorBrush x:Key="AppNameColor">Orange</media:SolidColorBrush>
+        <media:SolidColorBrush x:Key="AppNameColor">Gray</media:SolidColorBrush>
         <media:SolidColorBrush x:Key="CustomTextForegroundColor1">White</media:SolidColorBrush>
+        <media:SolidColorBrush x:Key="BackgroundBlack">Black</media:SolidColorBrush>
         <media:ImageBrush x:Key="BackgroundTexture1" ImageSource="/MusicMeTube;component/Images/tex3.jpg" Stretch="UniformToFill" />
         <media:ImageBrush x:Key="ListBackgroundTexture1" ImageSource="/MusicMeTube;component/Images/frtex2.png" Stretch="UniformToFill" />
         <FontFamily x:Key="PageNameFontFamily">/MusicMeTube;component/Library/PRISTINA.TTF#Pristina</FontFamily>
