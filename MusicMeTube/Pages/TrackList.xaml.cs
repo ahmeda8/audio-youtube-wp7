@@ -123,6 +123,8 @@ namespace MusicMeTube
             ISOHelper.DeleteFile("cache\\" + plentry.Id + ".json");
             if(!dataloading_worker.IsBusy)
                 dataloading_worker.RunWorkerAsync(index);
+            searchResultslist.SelectedItems.Clear();
+            searchResultslist.IsSelectionEnabled = false;
             if (Add.ErrorOccured)
             {
                 System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => {
@@ -313,6 +315,15 @@ namespace MusicMeTube
 
 #region Events trigger handlers
 
+        private void searchResultgrid_tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            if (searchResultslist.SelectedItems.Count < 1)
+            {
+                searchResultslist.IsSelectionEnabled = true;
+            }
+        }
+
+
         private void stop_click(object sender, EventArgs e)
         {
             if (BackgroundAudioPlayer.Instance.PlayerState == PlayState.Playing || BackgroundAudioPlayer.Instance.PlayerState == PlayState.Paused)
@@ -445,6 +456,7 @@ namespace MusicMeTube
                 listBox1.IsSelectionEnabled = false;
         }
 #endregion
+
 
     }
 }

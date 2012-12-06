@@ -15,14 +15,14 @@
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="{StaticResource BackgroundTexture1}">
+    <Grid x:Name="LayoutRoot">
         <controls:Pivot>
             <controls:Pivot.Title>
-                <TextBlock Text="{StaticResource AppName}" Foreground="{StaticResource AppNameColor}" FontFamily="{StaticResource AppTitleFont}"/>
+                <TextBlock Text="{StaticResource AppName}" Foreground="Gray"/>
             </controls:Pivot.Title>
             <controls:PivotItem>
                 <controls:PivotItem.Header>
-                    <TextBlock Text="settings" Foreground="{StaticResource PhoneAccentBrush}" FontFamily="{StaticResource PageNameFontFamily}" />
+                    <TextBlock Text="settings" Foreground="{StaticResource PhoneAccentBrush}" />
                 </controls:PivotItem.Header>
                 <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
                     <Grid.RowDefinitions>
@@ -39,7 +39,7 @@
             </controls:PivotItem>
             <controls:PivotItem>
                 <controls:PivotItem.Header>
-                    <TextBlock Text="data usage" Foreground="{StaticResource PhoneAccentBrush}" FontFamily="{StaticResource PageNameFontFamily}" />
+                    <TextBlock Text="data usage" Foreground="{StaticResource PhoneAccentBrush}" />
                 </controls:PivotItem.Header>
                 <Grid x:Name="ContentPanel1" Grid.Row="1" Margin="12,0,12,0">
                     <Grid.ColumnDefinitions>
@@ -58,14 +58,14 @@
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="80"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Data Usage (Estimated)" FontSize="25" Foreground="{StaticResource AppNameColor}" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Data Usage (Estimated)" FontSize="25" Foreground="Gray" />
                     <TextBlock Grid.Row="0" Grid.Column="1" Text="Mbytes" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource AppNameColor}"/>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Available storage" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource CustomTextForegroundColor1}"></TextBlock>
-                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Total data downloaded" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource CustomTextForegroundColor1}"></TextBlock>
-                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Data used session" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource CustomTextForegroundColor1}"></TextBlock>
-                    <TextBlock Grid.Row="1" Grid.Column="1" Name="avstorage" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource CustomTextForegroundColor1}"></TextBlock>
-                    <TextBlock Grid.Row="2" Grid.Column="1" Name="totaldata" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource CustomTextForegroundColor1}"></TextBlock>
-                    <TextBlock Grid.Row="3" Grid.Column="1" Name="sessiondata" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource CustomTextForegroundColor1}"></TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Available storage" Style="{StaticResource PhoneTextLargeStyle}" Foreground="Gray"></TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Total data downloaded" Style="{StaticResource PhoneTextLargeStyle}" Foreground="Gray"></TextBlock>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Data used session" Style="{StaticResource PhoneTextLargeStyle}" Foreground="Gray"></TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Name="avstorage" Style="{StaticResource PhoneTextLargeStyle}" Foreground="Gray"></TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Name="totaldata" Style="{StaticResource PhoneTextLargeStyle}" Foreground="Gray"></TextBlock>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Name="sessiondata" Style="{StaticResource PhoneTextLargeStyle}" Foreground="Gray"></TextBlock>
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>

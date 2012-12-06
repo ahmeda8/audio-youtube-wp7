@@ -46,7 +46,7 @@
                     <DataTemplate>
                         <Border BorderThickness="0,0,0,4" BorderBrush="Gray">
                             <Grid ShowGridLines="False" 
-                              Margin="0,0,0,10">
+                              Margin="0,0,0,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="40"/>
                                     <RowDefinition Height="30"/>
@@ -54,13 +54,13 @@
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="80"/>
-                                    <ColumnDefinition Width="250"/>
-                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="280"/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Image Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Source="{Binding ImageSource}" Stretch="Uniform"/>
-                                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="25" FontWeight="SemiBold" Padding="5,0,0,0" Foreground="#A6750F"></TextBlock>
-                                <TextBlock Grid.Row="2" Grid.Column="0" Text=" Tracks" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,0,0,0" Foreground="#9F804A"></TextBlock>
-                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Count}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="5,0,0,0" Foreground="#9F804A"></TextBlock>
+                                <Image Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Source="{Binding ImageSource}" Stretch="Uniform" Margin="5,5,5,5" VerticalAlignment="Stretch"/>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="25" FontWeight="SemiBold" Padding="0,0,0,0" Foreground="#A6750F"></TextBlock>
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text=" Tracks" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="0,0,0,0" Foreground="#9F804A"></TextBlock>
+                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Count}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="0,0,0,0" Foreground="#9F804A"></TextBlock>
                             </Grid>
                         </Border>
                     </DataTemplate>

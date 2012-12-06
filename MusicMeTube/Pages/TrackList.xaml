@@ -41,7 +41,7 @@
                             <DataTemplate>
                                 <Border BorderBrush="Gray" BorderThickness="0,0,0,4">
                                 <Grid ShowGridLines="False" 
-                                      Margin="0,0,0,10"
+                                      Margin="0,0,0,0"
                                       Tap="ListItem_tapped">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="35"/>
@@ -49,10 +49,10 @@
                                         <RowDefinition Height="22"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="345"/>
                                         <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="100"/>
                                     </Grid.ColumnDefinitions>
-                                    <Image Source="{Binding ImageSource}" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Stretch="UniformToFill"/>
+                                    <Image Source="{Binding ImageSource}" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Stretch="UniformToFill" Margin="3,3,3,3" VerticalAlignment="Stretch"/>
                                     <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="25" FontWeight="SemiBold" Padding="5,0,0,0" Foreground="#A6750F"></TextBlock>
                                     <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Duration}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="15"  Padding="5,0,0,0" Foreground="#9F804A"></TextBlock>
                                     <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Offline}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="15"  Padding="5,0,0,0" Foreground="{Binding AvailablityColor}"></TextBlock>
@@ -108,30 +108,30 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="300"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="150"/>
                     </Grid.ColumnDefinitions>
                     <TextBox Name="txtsearch" Text="Search Video" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" GotFocus="searchbox_focus" />
                     <Button Name="btnsearch" Content="Search" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Click="search_click" />
                     <toolkit:MultiselectList Name="searchResultslist" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
                         ItemsSource="{Binding Results}" 
-                        Margin="0,0,0,0"
-                        Foreground="Wheat" SelectionChanged="searchlistbox_selected">
+                        SelectionChanged="searchlistbox_selected">
                         <toolkit:MultiselectList.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderBrush="Gray" BorderThickness="0,0,0,4">
                                 <Grid ShowGridLines="False" 
-                                      Margin="0,0,0,10">
+                                      Margin="0,0,0,10"
+                                      Tap="searchResultgrid_tap">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="30"/>
                                         <RowDefinition Height="22"/>
                                         <RowDefinition Height="22"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="380"/>
-                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="345"/>
+                                        <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Image Source="{Binding ImageSource}" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"/>
+                                    <Image Source="{Binding ImageSource}" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Stretch"/>
                                     <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20" FontWeight="SemiBold" Padding="5,0,0,0" Foreground="#A6750F"></TextBlock>
                                     <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Duration}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="16"  Padding="5,0,0,0" Foreground="#9F804A"></TextBlock>
                                     <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Credit}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="16"  Padding="5,0,0,0" Foreground="#9F804A"></TextBlock>

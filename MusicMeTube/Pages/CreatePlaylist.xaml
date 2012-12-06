@@ -13,12 +13,9 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
-	<phone:PhoneApplicationPage.Background>
-		<ImageBrush Stretch="Fill" ImageSource="/MusicMeTube;component/Images/tex2.jpg"/>
-	</phone:PhoneApplicationPage.Background>
-
+	
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="{StaticResource BackgroundTexture1}">
+    <Grid x:Name="LayoutRoot" >
     	<Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -26,8 +23,8 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="{StaticResource AppName}" Style="{StaticResource PhoneTextNormalStyle}" Foreground="{StaticResource AppNameColor}" FontFamily="{StaticResource AppTitleFont}"/>
-            <TextBlock x:Name="PageTitle" Text="create playlist" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Foreground="{StaticResource PhoneAccentBrush}" FontFamily="{StaticResource PageNameFontFamily}"/>
+            <TextBlock x:Name="ApplicationTitle" Text="{StaticResource AppName}" Style="{StaticResource PhoneTextNormalStyle}" Foreground="Gray"/>
+            <TextBlock x:Name="PageTitle" Text="create playlist" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Foreground="{StaticResource PhoneAccentBrush}"/>
             <toolkit:PerformanceProgressBar Name="progressbar" Grid.Row="1"/>
         </StackPanel>
 
