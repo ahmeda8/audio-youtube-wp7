@@ -54,6 +54,13 @@ namespace ResourceLibrary
             set { _imgSrc = value; NotifyPropertyChanged("ImageSource", this); }
         }
 
+        private string _imgSrclow;
+        public string ImageSourceLow
+        {
+            get { return _imgSrclow; }
+            set { _imgSrclow = value; NotifyPropertyChanged("ImageSourceLow", this); }
+        }
+
         private int _count;
         public int Count
         {

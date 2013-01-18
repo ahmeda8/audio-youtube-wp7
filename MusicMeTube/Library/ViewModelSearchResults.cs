@@ -83,7 +83,8 @@ namespace MusicMeTube
                         Entry newent = new Entry();
                         newent.Id = (string)entry["media$group"]["yt$videoid"]["$t"];
                         newent.Title = (string)entry["title"]["$t"];
-                        newent.ImageSource = (string)entry["media$group"]["media$thumbnail"][0]["url"];
+                        newent.ImageSourceLow = (string)entry["media$group"]["media$thumbnail"][0]["url"];
+                        newent.ImageSource = (string)entry["media$group"]["media$thumbnail"][1]["url"];
                         string dura = (string)entry["media$group"]["yt$duration"]["seconds"];
                         newent.Duration = TimeSpan.FromSeconds(double.Parse(dura));
                         newent.Credit = (string)entry["media$group"]["media$credit"][0]["yt$display"];

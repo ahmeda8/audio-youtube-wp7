@@ -60,7 +60,8 @@ namespace MusicMeTube
                             newent.Title = (string)entry["title"]["$t"];
                             newent.Source = (string)entry["content"]["src"];
                             newent.Title = StringExtension.TitleCase(newent.Title);
-                            newent.ImageSource = (string)entry["media$group"]["media$thumbnail"][0]["url"];
+                            newent.ImageSourceLow = (string)entry["media$group"]["media$thumbnail"][0]["url"];
+                            newent.ImageSource = (string)entry["media$group"]["media$thumbnail"][1]["url"];
                             newent.Count = (int)entry["yt$countHint"]["$t"];
                             newent.Updated = (DateTime)entry["updated"]["$t"];
                             playlistentry.Add(newent);
