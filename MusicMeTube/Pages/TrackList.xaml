@@ -53,7 +53,7 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Image Source="{Binding ImageSourceLow}" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Stretch="UniformToFill" Margin="3,3,3,3" VerticalAlignment="Stretch"/>
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="25" FontWeight="SemiBold" Padding="5,0,0,0" Foreground="#A6750F"></TextBlock>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="25" FontWeight="SemiBold" Padding="5,0,0,0" Foreground="#3BA3D0"></TextBlock>
                                     <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Duration}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="15"  Padding="5,0,0,0" Foreground="#9F804A"></TextBlock>
                                     <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Offline}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="15"  Padding="5,0,0,0" Foreground="{Binding AvailablityColor}"></TextBlock>
                                 </Grid>

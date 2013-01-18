@@ -60,9 +60,9 @@
                                 </Grid.ColumnDefinitions>
                                 <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="3" Source="{Binding ImageSource}" Stretch="Fill" Margin="5,5,5,5" />
                                 <Rectangle Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3" Fill="Black" Opacity="0.75"/>
-                                <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="25" FontWeight="SemiBold" Padding="0,0,0,0" Foreground="{StaticResource PhoneAccentBrush}"></TextBlock>
-                                <TextBlock Grid.Row="2" Grid.Column="0" Text=" Tracks" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="0,0,0,0" Foreground="{StaticResource PhoneAccentBrush}"></TextBlock>
-                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Count}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="0,0,0,0" Foreground="{StaticResource PhoneAccentBrush}"></TextBlock>
+                                <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="25" FontWeight="SemiBold" Padding="0,0,0,0" Foreground="#3BA3D0"></TextBlock>
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text=" Tracks" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="0,0,0,0" Foreground="#3BA3D0}"></TextBlock>
+                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Count}" TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"  Padding="0,0,0,0" Foreground="#3BA3D0"></TextBlock>
                             </Grid>
                         </Border>
                     </DataTemplate>
